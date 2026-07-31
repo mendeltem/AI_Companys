@@ -4,7 +4,9 @@ Bewertung und Quartalszahlen von 17 börsennotierten Firmen entlang Nvidias
 Lieferkette und Kundschaft. Eine einzelne HTML-Datei, kein Server, kein Build,
 keine Abhängigkeiten. Dreisprachig: Deutsch, English, Монгол.
 
-**➜ [Zur interaktiven Seite](https://mendeltem.github.io/AI_Companys/)**
+**➜ [Zur interaktiven Seite](https://mendeltem.github.io/AI_Companys/nvidia-oekosystem.html)**
+
+
 
 Stand der Daten: 31. Juli 2026. 293 Quartale von 2021-06 bis 2026-06,
 12.336 Tagesschlusskurse über drei Jahre.
