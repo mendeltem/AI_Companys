@@ -352,6 +352,42 @@ for(const firma of Object.values(SEG)){
 const F = D.firmen, K = D.kurse;
 const SCHLUESSEL = Object.keys(F);
 
+/* Der berichtete Nettogewinn enthaelt auch, was nicht aus dem Geschaeft kommt:
+   Beteiligungsbewertungen, Waehrungseffekte, Einmalertraege. Ein KGV auf dieser
+   Basis setzt einen Kurs ins Verhaeltnis zu einem anderen Kurs. Dieselbe
+   Rechnung steht deshalb zusaetzlich auf dem operativen Ergebnis. */
+for(const k of SCHLUESSEL){
+  const e=F[k], q0=(e.quartale||[])[0];
+  e.op_q = q0 ? (q0.operativ ?? null) : null;
+  e.kgv_q4x_op = (e.op_q>0 && e.marktkap) ? e.marktkap/(e.op_q*4) : null;
+  e.q0_abweichung = (q0 && q0.netto!=null && q0.operativ!=null && Math.abs(q0.operativ)>0)
+    ? Math.abs(q0.netto-q0.operativ)/Math.abs(q0.operativ) : null;
+  e.q0_verzerrt = e.q0_abweichung!=null && e.q0_abweichung>0.5;
+}
+
+Object.assign(TX.t, {
+  kz_kgv_q4x_op:{de:"KGV Quartal \u00d7 4 operativ",en:"P/E quarter \u00d7 4, operating",mn:"P/E \u0443\u043b\u0438\u0440\u0430\u043b \u00d7 4, \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b"},
+  kz_op_q:{de:"Operatives Ergebnis",en:"Operating profit",mn:"\u04ae\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b \u0430\u0448\u0438\u0433"},
+  s_kgv_q4x_op:{de:"KGV Q\u00d74 op.",en:"P/E Q\u00d74 op.",mn:"P/E \u04234 \u04af\u0439\u043b."},
+  bin_verzerrt:{de:"Nettogewinn ueberwiegend betriebsfremd",en:"net profit mostly non-operating",mn:"\u0446\u044d\u0432\u044d\u0440 \u0430\u0448\u0438\u0433 \u0433\u043e\u043b\u0434\u0443\u0443 \u04af\u043d\u0434\u0441\u044d\u043d \u0431\u0443\u0441"},
+  w_verzerrt:{de:"Das KGV Quartal \u00d7 4 misst hier nicht das Geschaeft.",en:"The P/E quarter \u00d7 4 does not measure the business here.",mn:"\u042d\u043d\u0434 P/E \u0443\u043b\u0438\u0440\u0430\u043b \u00d7 4 \u043d\u044c \u0431\u0438\u0437\u043d\u0435\u0441\u0438\u0439\u0433 \u0445\u044d\u043c\u0436\u0438\u0445\u0433\u04af\u0439 \u0431\u0430\u0439\u043d\u0430."},
+  w_verzerrt_t:{
+    de:"Der Nettogewinn des letzten Quartals weicht um {p} % vom operativen Ergebnis ab, betriebsfremde Posten bestimmen also den Nenner. Auf das operative Ergebnis gerechnet ergibt dieselbe Methode {b} statt {a}.",
+    en:"Last quarter's net profit deviates from operating profit by {p} %, so non-operating items drive the denominator. Applied to operating profit, the same method gives {b} instead of {a}.",
+    mn:"\u0421\u04af\u04af\u043b\u0438\u0439\u043d \u0443\u043b\u0438\u0440\u043b\u044b\u043d \u0446\u044d\u0432\u044d\u0440 \u0430\u0448\u0438\u0433 \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b \u0430\u0448\u0433\u0430\u0430\u0441 {p} % \u0437\u04e9\u0440\u0436 \u0431\u0430\u0439\u0433\u0430\u0430 \u0442\u0443\u043b \u0445\u0443\u0432\u0430\u0430\u0440\u0438\u0439\u0433 \u04af\u043d\u0434\u0441\u044d\u043d \u0431\u0443\u0441 \u0437\u04af\u0439\u043b\u0441 \u0442\u043e\u0434\u043e\u0440\u0445\u043e\u0439\u043b\u0436 \u0431\u0430\u0439\u043d\u0430. \u04ae\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b \u0430\u0448\u0433\u0430\u0430\u0440 \u0442\u043e\u043e\u0446\u0432\u043e\u043b \u0438\u0436\u0438\u043b \u0430\u0440\u0433\u0430 {a}-\u044b\u043d \u043e\u0440\u043e\u043d\u0434 {b} \u0433\u0430\u0440\u0433\u0430\u043d\u0430."},
+  kgvop_frage:{de:"Wie viele Jahresgewinne kostet die Firma, wenn nur das laufende Geschaeft zaehlt?",en:"How many years of profit does the company cost if only the operating business counts?",mn:"\u0417\u04e9\u0432\u0445\u04e9\u043d \u04af\u043d\u0434\u0441\u044d\u043d \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u0433 \u0442\u043e\u043e\u0446\u0432\u043e\u043b \u043a\u043e\u043c\u043f\u0430\u043d\u0438 \u0445\u044d\u0434\u044d\u043d \u0436\u0438\u043b\u0438\u0439\u043d \u0430\u0448\u0433\u0438\u0439\u043d \u04af\u043d\u044d\u0442\u044d\u0439 \u0432\u044d?"},
+  kgvop_s2:{de:"Das operative Ergebnis des letzten Quartals mal vier. Ohne Beteiligungen, Zinsen, Waehrungseffekte und Einmalertraege.",en:"The latest quarter's operating profit times four. Without investments, interest, currency effects and one-offs.",mn:"\u0421\u04af\u04af\u043b\u0438\u0439\u043d \u0443\u043b\u0438\u0440\u043b\u044b\u043d \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b \u0430\u0448\u0433\u0438\u0439\u0433 \u0434\u04e9\u0440\u04e9\u0432 \u0434\u0430\u0445\u0438\u043d \u0430\u0432\u043d\u0430. \u0425\u04e9\u0440\u04e9\u043d\u0433\u04e9 \u043e\u0440\u0443\u0443\u043b\u0430\u043b\u0442, \u0445\u04af\u04af, \u0445\u0430\u043d\u0448\u0438\u0439\u043d \u0437\u04e9\u0440\u04af\u04af, \u043d\u044d\u0433 \u0443\u0434\u0430\u0430\u0433\u0438\u0439\u043d \u043e\u0440\u043b\u043e\u0433\u044b\u0433 \u043e\u0440\u0443\u0443\u043b\u0430\u0445\u0433\u04af\u0439."},
+  kgvop_s3:{de:"Marktkapitalisierung geteilt durch diesen Jahreswert.",en:"Market capitalisation divided by that yearly figure.",mn:"\u0417\u0430\u0445 \u0437\u044d\u044d\u043b\u0438\u0439\u043d \u04af\u043d\u044d\u043b\u0433\u044d\u044d\u0433 \u044d\u043d\u044d \u0436\u0438\u043b\u0438\u0439\u043d \u0434\u04af\u043d\u0434 \u0445\u0443\u0432\u0430\u0430\u043d\u0430."},
+  kgvop_bedeutet:{
+    de:"Der Markt zahlt das {a}-fache dessen, was das laufende Geschaeft im Tempo des letzten Quartals in einem Jahr erwirtschaftet. Nach dem berichteten Nettogewinn waeren es {b}. Die Differenz zwischen beiden Zahlen ist genau der Teil des Gewinns, der nicht aus dem Geschaeft kommt.",
+    en:"The market pays {a} times what the operating business earns in a year at last quarter's pace. On reported net profit it would be {b}. The gap between the two is exactly the part of the profit that does not come from the business.",
+    mn:"\u0417\u0430\u0445 \u0437\u044d\u044d\u043b \u043d\u044c \u0441\u04af\u04af\u043b\u0438\u0439\u043d \u0443\u043b\u0438\u0440\u043b\u044b\u043d \u0445\u0443\u0440\u0434\u0430\u0430\u0440 \u04af\u043d\u0434\u0441\u044d\u043d \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430 \u043d\u044d\u0433 \u0436\u0438\u043b\u0434 \u043e\u043b\u043e\u0445 \u0430\u0448\u0433\u0430\u0430\u0441 {a} \u0434\u0430\u0445\u0438\u043d \u0438\u0445 \u04af\u043d\u044d \u0442\u04e9\u043b\u0436 \u0431\u0430\u0439\u043d\u0430. \u0422\u0430\u0439\u043b\u0430\u0433\u043d\u0430\u0441\u0430\u043d \u0446\u044d\u0432\u044d\u0440 \u0430\u0448\u0433\u0430\u0430\u0440 \u0431\u043e\u043b {b}. \u0425\u043e\u0451\u0440 \u0442\u043e\u043e\u043d\u044b \u0437\u04e9\u0440\u04af\u04af \u043d\u044c \u044f\u0433 \u04af\u043d\u0434\u0441\u044d\u043d \u04af\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u0430\u0430\u0441 \u0433\u0430\u0440\u0430\u0430\u0433\u04af\u0439 \u0430\u0448\u0433\u0438\u0439\u043d \u0445\u044d\u0441\u044d\u0433 \u044e\u043c."},
+  kgvop_nicht:{
+    de:"Was nach Steuern uebrig bleibt. Das operative Ergebnis ist eine Vorsteuergroesse, der Vergleich mit einem Netto-KGV faellt deshalb zu guenstig aus. Und ob das letzte Quartal wiederholbar ist, sagt die Zahl so wenig wie das gewoehnliche KGV.",
+    en:"What is left after tax. Operating profit is a pre-tax figure, so the comparison with a net P/E comes out too favourable. And whether the latest quarter is repeatable, this number says as little as the ordinary P/E.",
+    mn:"\u0422\u0430\u0442\u0432\u0430\u0440\u044b\u043d \u0434\u0430\u0440\u0430\u0430 \u044e\u0443 \u04af\u043b\u0434\u044d\u0445\u0438\u0439\u0433. \u04ae\u0439\u043b \u0430\u0436\u0438\u043b\u043b\u0430\u0433\u0430\u0430\u043d\u044b \u0430\u0448\u0438\u0433 \u0431\u043e\u043b \u0442\u0430\u0442\u0432\u0430\u0440\u044b\u043d \u04e9\u043c\u043d\u04e9\u0445 \u04af\u0437\u04af\u04af\u043b\u044d\u043b\u0442 \u0442\u0443\u043b \u0446\u044d\u0432\u044d\u0440 P/E-\u0442\u044d\u0439 \u0445\u0430\u0440\u044c\u0446\u0443\u0443\u043b\u0430\u0445\u0430\u0434 \u0445\u044d\u0442 \u0442\u0430\u0430\u0442\u0430\u0439 \u0433\u0430\u0440\u043d\u0430. \u041c\u04e9\u043d \u0441\u04af\u04af\u043b\u0438\u0439\u043d \u0443\u043b\u0438\u0440\u0430\u043b \u0434\u0430\u0432\u0442\u0430\u0433\u0434\u0430\u0445 \u044d\u0441\u044d\u0445\u0438\u0439\u0433 \u044d\u043d\u0433\u0438\u0439\u043d P/E \u0448\u0438\u0433 \u043b \u0445\u044d\u043b\u0436 \u0447\u0430\u0434\u0430\u0445\u0433\u04af\u0439."}
+});
+
 /* ---------- Sprache ---------- */
 let L = 'de';
 const T = (k)=> (TX.t[k] && TX.t[k][L]) || (TX.t[k] && TX.t[k].de) || k;
@@ -547,6 +583,8 @@ function uebersicht(){
   let leg='';
   binname().forEach((n,i)=>{leg+=`<span><i style="background:${BINFARBE[i]}"></i>${n}</span>`});
   leg+=`<span><i style="background:var(--neutral)"></i>${T('bin_verlust')}</span>`;
+  if(SCHLUESSEL.some(k=>F[k].q0_verzerrt))
+    leg+=`<span><b style="color:var(--akzent)">&#9679;</b> ${T('bin_verzerrt')}</span>`;
 
   // Kacheln nach Schichten der Wertschoepfungskette gruppieren. Die Reihenfolge
   // folgt dem Materialfluss, nicht der Groesse: erst wer den Chip entwirft,
@@ -562,10 +600,12 @@ function uebersicht(){
     let dies='';
     for(const k of ks){
       const e=F[k], kgv=e.kgv_q4x;
+      const marke = e.q0_verzerrt
+        ? ' <span style="font-size:12px;vertical-align:top;color:var(--akzent)">&#9679;</span>' : '';
       dies+=`<a class="die" href="#/${L}/${k}">
         <i class="die-bin" style="background:${binfarbe(kgv)}"></i>
         <div class="die-tick">${k}</div>
-        <div class="die-wert">${kgv==null?'–':nf(kgv,0)}</div>
+        <div class="die-wert">${kgv==null?'–':nf(kgv,0)}${marke}</div>
         <div class="die-sub">KGV Q&times;4</div>
         <div class="die-kap"><i style="width:${((e.marktkap_usd||0)/maxKap*100).toFixed(1)}%"></i></div>
       </a>`;
@@ -636,6 +676,7 @@ const spalten = ()=>[
   ['marktkap_usd', T('s_marktkap'), e=>gross(e.marktkap_usd,'USD'),           e=>e.marktkap_usd],
   ['kgv_ttm', T('s_kgv_ttm'), e=>nf(e.kgv_ttm,1),                             e=>e.kgv_ttm],
   ['kgv_q4x', T('s_kgv_q4x'), e=>`<b style="color:${binfarbe(e.kgv_q4x)}">${nf(e.kgv_q4x,1)}</b>`, e=>e.kgv_q4x],
+  ['kgv_q4x_op', T('s_kgv_q4x_op'), e=>nf(e.kgv_q4x_op,1), e=>e.kgv_q4x_op],
   ['kuv', T('s_kuv'),      e=>nf(e.kuv,1),                                     e=>e.kuv],
   ['umsatz_ttm_usd', T('s_umsatz_ttm'), e=>gross(e.umsatz_ttm_usd,'USD'),     e=>e.umsatz_ttm_usd],
   ['umsatz_yoy', T('s_umsatz_yoy'), e=>`<span class="${e.umsatz_yoy>0?'gut':'schlecht'}">${pf(e.umsatz_yoy)}</span>`, e=>e.umsatz_yoy],
@@ -1015,6 +1056,7 @@ function firmenseite(k){
     [T('kz_marktkap'), gross(e.marktkap_usd,'USD'), gross(e.marktkap,w), 'marktkap'],
     [T('kz_kgv_ttm'), nf(e.kgv_ttm,1), T('kz_eps')+' '+nf(e.eps_ttm,2)+' '+w, 'kgv_ttm'],
     [T('kz_kgv_q4x'), nf(e.kgv_q4x,1), T('kz_letztes_q')+' '+nf(e.eps_q,2)+' '+w, 'kgv_q4x'],
+    [T('kz_kgv_q4x_op'), nf(e.kgv_q4x_op,1), T('kz_op_q')+' '+gross(e.op_q,w), 'kgv_q4x_op'],
     [T('kz_kuv'), nf(e.kuv,1), T('kz_umsatz')+' '+gross(e.umsatz_ttm_usd,'USD'), 'kuv'],
     [T('kz_umsatz_yoy'), pf(e.umsatz_yoy), T('kz_letztes_q'), null],
     [T('kz_kurs3j'), pf(e.rendite_3j,0), T('kz_kurs1j')+' '+pf(e.rendite_1j,0), null],
@@ -1029,6 +1071,11 @@ function firmenseite(k){
   }
 
   let warn='';
+  if(e.q0_verzerrt && e.kgv_q4x!=null && e.kgv_q4x_op!=null)
+    warn+=`<div class="warnung"><b>${T('w_verzerrt')}</b> ${T('w_verzerrt_t')
+      .split('{p}').join(nf(e.q0_abweichung*100,0))
+      .split('{a}').join(nf(e.kgv_q4x,1))
+      .split('{b}').join(nf(e.kgv_q4x_op,1))}</div>`;
   if(e.n_quartale<8) warn+=`<div class="warnung"><b>${T('w_wenige_q').replace('{n}', e.n_quartale)}</b>
     ${k==='CRWV' ? T('w_crwv') : T('w_kein_xbrl')}</div>`;
   if(e.kgv_ttm==null && e.kgv_q4x!=null)
@@ -1352,6 +1399,23 @@ function erklaerung(art, k){
     ergebnis=z(e.kuv,1);
     bedeutet=T('kuv_bedeutet');
     nicht=T('kuv_nicht');
+  }
+  else if(art==='kgv_q4x_op'){
+    if(e.kgv_q4x_op==null) return null;
+    const letzte=q[0];
+    titel=T('kz_kgv_q4x_op'); frage=T('kgvop_frage');
+    schritte=[
+      {text:T('mk_s3'),
+       rechnung:`${z(e.kurs)}  \u00d7  ${nf(e.aktien_zahl/1e6,0)} Mio  =  ${gross(e.marktkap,w)}`},
+      {text:T('kgvop_s2'),
+       rechnung:`${gross(letzte.operativ,w)}  \u00d7  4  =  ${gross(letzte.operativ*4,w)}`,
+       zusatz:letzte.ende},
+      {text:T('kgvop_s3'),
+       rechnung:`${gross(e.marktkap,w)}  \u00f7  ${gross(letzte.operativ*4,w)}  =  ${z(e.kgv_q4x_op,1)}`}];
+    ergebnis=z(e.kgv_q4x_op,1);
+    bedeutet=T('kgvop_bedeutet').split('{a}').join(z(e.kgv_q4x_op,1))
+             .split('{b}').join(e.kgv_q4x!=null?z(e.kgv_q4x,1):'\u2013');
+    nicht=T('kgvop_nicht');
   }
   else return null;
 
