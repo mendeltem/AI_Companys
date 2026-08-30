@@ -21,62 +21,101 @@ import wert as W                                                # noqa: E402
 
 MARKE = "/* wertung: eingetragen */"
 
-# Die Umstellung auf Dollar. Sie stand zuerst als Einmalskript daneben - ein
-# Fehler: Die erzeugende Pipeline schreibt nvidia-oekosystem.html vollstaendig
-# neu, jeder Upload haette sie stillschweigend entfernt. Deshalb gehoert sie
-# hierher, zu allem anderen, was nach einem Upload wieder drueberlaufen muss.
-USD_MARKE = "const IN_USD"
-USD_ANKER = "const F = D.firmen, K = D.kurse;\nconst SCHLUESSEL = Object.keys(F);\n"
-USD_BLOCK = """
-/* ---------- Alles in Dollar ----------
-   Zehn der 66 Firmen bilanzieren nicht in Dollar. Bis hierher stehen ihre
-   Kurse und Quartalszahlen in der Heimatwaehrung, weil Kurs und Gewinn je
-   Aktie dieselbe Einheit brauchen; sonst wird das KGV falsch. Ab hier wird
-   beides mit demselben Faktor umgerechnet, und genau deshalb bleibt das KGV
-   richtig.
+GRUPPEN_ALT = '  const kz=[\n    [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, null],\n    [T(\'kz_marktkap\'), gross(e.marktkap_usd,\'USD\'), gross(e.marktkap,w), \'marktkap\'],\n    [T(\'kz_kgv_ttm\'), nf(e.kgv_ttm,1), T(\'kz_eps\')+\' \'+nf(inUsd(e.eps_ttm,w),2)+\' USD\', \'kgv_ttm\'],\n    [T(\'kz_kgv_q4x\'), nf(e.kgv_q4x,1), T(\'kz_letztes_q\')+\' \'+nf(inUsd(e.eps_q,w),2)+\' USD\', \'kgv_q4x\'],\n    [T(\'kz_kgv_q4x_op\'), nf(e.kgv_q4x_op,1), T(\'kz_op_q\')+\' \'+gross(e.op_q,w), \'kgv_q4x_op\'],\n    [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    [T(\'kz_kurs3j\'), pf(e.rendite_3j,0), T(\'kz_kurs1j\')+\' \'+pf(e.rendite_1j,0), null],\n  ];\n  let kzh=\'\';\n  for(const [t,v,s,art] of kz){\n    const geht = art && erklaerung(art, k);\n    kzh += geht\n      ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n           title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n      : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n  }\n'
 
-   Ein fester Kurs vom Datenstand, kein historischer je Tag: Verhaeltniszahlen
-   sind gegen einen konstanten Faktor immun, und die Kurskurven behalten ihre
-   Form. Nicht umgerechnet wird, was keine Waehrung traegt - Aktienzahlen,
-   Margen, Steuerquoten, Wachstumsraten. Wer die Heimatwaehrung sehen will,
-   setzt IN_USD auf false. */
-const IN_USD = true;
-if(IN_USD) for(const k of SCHLUESSEL){
-  const e = F[k], fx = e.fx_usd;
-  if(e.waehrung === 'USD' || !fx || !isFinite(fx)) continue;
-  const um = v => (typeof v === 'number' && isFinite(v)) ? v*fx : v;
-  const tief = o => { for(const n in o){
-    const v = o[n];
-    if(typeof v === 'number') o[n] = isFinite(v) ? v*fx : v;
-    else if(v && typeof v === 'object') tief(v);
-  }};
-  for(const f of ['kurs','eps_ttm','eps_q','umsatz_ttm','marktkap','marktkap_yf'])
-    e[f] = um(e[f]);
-  for(const q of (e.quartale||[]))
-    for(const f of ['umsatz','brutto','operativ','netto','eps']) q[f] = um(q[f]);
-  if(K[k] && K[k].close) K[k].close = K[k].close.map(um);
-  if(typeof SEG !== 'undefined' && SEG[k]) tief(SEG[k]);
-  if(typeof CF !== 'undefined' && CF[k]) tief(CF[k]);
-  e.waehrung_heim = e.waehrung;
-  e.waehrung = 'USD';
-}
-"""
+GRUPPEN_NEU = '  /* kennzahl-gruppen */\n  // Drei Gruppen statt einer Reihe. Rendite und KGV stehen in derselben\n  // Kachel, weil sie dieselbe Zahl sind - einmal als Prozentsatz im Jahr,\n  // einmal als Zahl der Jahre bis zur Amortisation. Der Kursverlauf ist keine\n  // eigene Kennzahl mehr, sondern liegt hinter dem Klick auf den Kurs.\n  const wv = WERT[k];\n  const ekWert = (wv && wv.wert!=null) ? wv.unternehmenswert - wv.nettoschulden : null;\n  const kgvText = (v)=> v==null ? \'\' : \' \\u00b7 \' + T(\'kz_kgv_kurz\') + \' \' + nf(v,1);\n  const opQ = opJeAktie(e,false), opV = opJeAktie(e,true);\n  const kgvOpV = (opV!=null && e.kurs) ? e.kurs/opV : null;\n\n  const kzGruppen=[\n    {titel:T(\'gr_preis\'), text:T(\'gr_preis_t\'), kacheln:[\n      [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, \'kurs\'],\n      [T(\'kz_marktkap\'), gross(e.marktkap,w),\n       ekWert!=null\n         ? T(\'kz_wert\')+\' \'+gross(ekWert, wv.waehrung||w)+\' \\u00b7 \'+T(\'kz_wert_verh\')+\' \'+nf(e.marktkap_usd/inUsd(ekWert, wv.waehrung||w),2)\n         : (wv ? (wv.grund||\'\').split(\' - \')[0] : \'\'),\n       ekWert!=null ? \'wert\' : \'marktkap\'],\n      [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    ]},\n    {titel:T(\'gr_ertrag\'), text:T(\'gr_ertrag_t\'), kacheln:[\n      [T(\'kz_rendite_q\'),\n       e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : \'\\u2013\',\n       (e.eps_q!=null ? nf(inUsd(e.eps_q,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x), \'kgv_q4x\'],\n      [T(\'kz_rendite_ttm\'),\n       e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : \'\\u2013\',\n       (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_ttm), \'kgv_ttm\'],\n      [T(\'kz_rendite_op_q\'),\n       opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : \'\\u2013\',\n       (opQ!=null ? nf(inUsd(opQ,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x_op), \'kgv_q4x_op\'],\n      [T(\'kz_rendite_op_ttm\'),\n       opV!=null ? pf(rendite(opV, e.kurs),1) : \'\\u2013\',\n       (opV!=null ? nf(inUsd(opV,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(kgvOpV), null],\n    ]},\n    {titel:T(\'gr_wachstum\'), text:T(\'gr_wachstum_t\'), kacheln:[\n      [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    ]},\n  ];\n\n  let kzh=\'\';\n  for(const g of kzGruppen){\n    let innen=\'\';\n    for(const [t,v,s,art] of g.kacheln){\n      const geht = art && erklaerung(art, k);\n      innen += geht\n        ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n             title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n        : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n    }\n    kzh += `<section class="kzgruppe"><h4>${g.titel}</h4><p>${g.text}</p>\n            <div class="kennzahlen">${innen}</div></section>`;\n  }\n  /* ende kennzahl-gruppen */\n'
 
-# Der Firmenkopf soll die Bilanzwaehrung nennen, nicht die Anzeigewaehrung.
-# Nach der Umrechnung steht in e.waehrung ueberall USD; die Herkunft haelt
-# e.waehrung_heim fest. Ohne diesen Griff meldet die Zeile bei SK hynix
-# "Bilanz in USD, Anzeige in USD" - beides richtig geschrieben und trotzdem
-# falsch. Zwei Fassungen des Ankers, weil die erzeugende Pipeline die Zeile
-# zwischendurch geaendert hat.
-KOPF_VARIANTEN = [
-    "       &middot; ${T('bilanz_in')} ${w}, ${T('anzeige_usd')}${e.cik?` &middot; SEC-CIK ${e.cik}`:''}</p>",
-    "       &middot; ${T('bilanz_in')} ${w}${e.cik?` &middot; SEC-CIK ${e.cik}`:''}</p>",
-]
-KOPF_NEU = ("       &middot; ${T('bilanz_in')} ${e.waehrung_heim || w}"
-            "${e.waehrung_heim?`, ${T('anzeige_usd')}`:''}"
-            "${e.cik?` &middot; SEC-CIK ${e.cik}`:''}</p>")
+RAHMEN_ALT = '  <div class="abschnitt"><div class="kennzahlen">${kzh}</div>'
+RAHMEN_NEU = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</div>'
+
+CSS_MARKE = '/* kzgruppen */'
+CSS = '\n/* kzgruppen */\n.kzgruppen{display:flex;flex-direction:column;gap:22px}\n.kzgruppe h4{font-family:var(--disp);font-size:15px;font-weight:600;letter-spacing:.01em;\n             margin:0 0 3px;color:var(--tinte)}\n.kzgruppe > p{margin:0 0 9px;font-size:12.5px;line-height:1.5;color:var(--gedaempft);\n              max-width:78ch}\n'
+
 
 TEXTE = {
+    "gr_preis": {
+        "de": "Preis und Wert",
+        "en": "Price and value",
+        "mn": "Үнэ ба үнэ цэнэ",
+    },
+    "gr_preis_t": {
+        "de": "Was der Markt fuer die Firma verlangt \u2014 und was dieselbe Firma wert ist, "
+              "wenn man sie aus Cashflow und Investitionen rechnet statt aus dem Kurs.",
+        "en": "What the market charges for the company \u2014 and what the same company is "
+              "worth when calculated from cash flow and capital expenditure rather than "
+              "from the share price.",
+        "mn": "Зах зээл компанид ямар үнэ тавьж байгаа, мөн мөнгөн урсгалаас тооцвол "
+              "ямар үнэ цэнэтэй болох.",
+    },
+    "gr_ertrag": {
+        "de": "Was die Firma verdient",
+        "en": "What the company earns",
+        "mn": "Компани юу олж байна",
+    },
+    "gr_ertrag_t": {
+        "de": "Als Rendite auf den Kaufpreis gelesen, unabhaengig von der Stueckzahl: "
+              "bei einer Aktie dieselbe Zahl wie bei hundert. Daneben dieselbe Aussage als "
+              "KGV, also die Zahl der Jahre. Netto enthaelt Beteiligungen, Waehrungseffekte "
+              "und Einmaliges; operativ nur das Geschaeft selbst.",
+        "en": "Read as a yield on the purchase price, independent of the number of shares: "
+              "the same figure for one share as for a hundred. Beside it the same statement "
+              "as a P/E, that is the number of years. Net includes investments, currency "
+              "effects and one-offs; operating only the business itself.",
+        "mn": "Худалдан авсан үнэ дээрх өгөөж болгон уншина. Хажууд нь ижил утгыг P/E "
+              "буюу жилийн тоогоор. Цэвэр нь нэг удаагийн зүйлсийг агуулна, үйл "
+              "ажиллагааны нь зөвхөн бизнесийг.",
+    },
+    "gr_wachstum": {
+        "de": "Wie schnell es waechst",
+        "en": "How fast it grows",
+        "mn": "Хэр хурдан өсч байна",
+    },
+    "gr_wachstum_t": {
+        "de": "Der Umsatz des letzten Quartals gegen das gleiche Quartal des Vorjahres. "
+              "Er entscheidet, ob die Rendite oben in einem Jahr hoeher oder niedriger steht.",
+        "en": "Revenue of the latest quarter against the same quarter a year earlier. It "
+              "decides whether the yield above will be higher or lower a year from now.",
+        "mn": "Сүүлийн улирлын орлого өмнөх оны мөн үетэй харьцуулбал.",
+    },
+    "kz_kgv_kurz": {
+        "de": "KGV",
+        "en": "P/E",
+        "mn": "P/E",
+    },
+    "kurs_frage": {
+        "de": "Was hat die Aktie gekostet, und wie hat sie sich bewegt?",
+        "en": "What does the share cost, and how has it moved?",
+        "mn": "Хувьцаа хэдэн төгрөг байсан, хэрхэн хөдөлсөн бэ?",
+    },
+    "kurs_s1": {
+        "de": "Schlusskurs am Datenstand, von der Heimatboerse",
+        "en": "Closing price at the data date, from the home exchange",
+        "mn": "Өгөгдлийн огнооны хаалтын ханш",
+    },
+    "kurs_s2": {
+        "de": "Veraenderung ueber ein Jahr",
+        "en": "Change over one year",
+        "mn": "Нэг жилийн өөрчлөлт",
+    },
+    "kurs_s3": {
+        "de": "Veraenderung ueber drei Jahre",
+        "en": "Change over three years",
+        "mn": "Гурван жилийн өөрчлөлт",
+    },
+    "kurs_bedeutet": {
+        "de": "Der Kurs sagt, was andere zuletzt gezahlt haben, nicht was die Firma wert "
+              "ist. Die beiden Zahlen daneben sind Vergangenheit und keine Fortschreibung.",
+        "en": "The price says what others last paid, not what the company is worth. The two "
+              "figures beside it are the past, not a projection.",
+        "mn": "Ханш нь бусад хүмүүс сүүлд хэд төлснийг хэлнэ, компанийн үнэ цэнийг биш.",
+    },
+    "kurs_nicht": {
+        "de": "Kein Einstiegssignal. Ein Kurs, der drei Jahre gestiegen ist, sagt nichts "
+              "darueber, was er im vierten tut.",
+        "en": "Not an entry signal. A price that has risen for three years says nothing "
+              "about what it does in the fourth.",
+        "mn": "Худалдан авах дохио биш.",
+    },
     "kz_wert": {
         "de": "Innerer Wert",
         "en": "Intrinsic value",
@@ -265,7 +304,19 @@ KACHEL_NEU = ("    [T('kz_wert'),\n"
               "     WERT[k] && WERT[k].wert!=null ? 'wert' : null],\n")
 
 # --- 2. Rechenweg hinter dem Klick -----------------------------------------
-ERKL = """  else if(art==='wert'){
+ERKL = """  else if(art==='kurs'){
+    // Der Kursverlauf war eine eigene Kachel und hat dort Platz beansprucht,
+    // ohne eine Kennzahl zu sein. Er gehoert zum Kurs, also hierher.
+    titel=T('kz_kurs'); frage=T('kurs_frage');
+    schritte=[
+      {text:T('kurs_s1'), rechnung:kursF(e.kurs,w), zusatz:e.kursdatum+' \\u00b7 '+e.symbol+' \\u00b7 '+e.boerse},
+      {text:T('kurs_s2'), rechnung:pf(e.rendite_1j,0)},
+      {text:T('kurs_s3'), rechnung:pf(e.rendite_3j,0)}];
+    ergebnis=kursF(e.kurs,w);
+    bedeutet=T('kurs_bedeutet');
+    nicht=T('kurs_nicht');
+  }
+  else if(art==='wert'){
     const v=WERT[k];
     if(!v || v.wert==null) return null;
     const wv=v.waehrung||w;
@@ -332,23 +383,6 @@ def eintragen(pruefen=False):
                       "const WERT = JSON.parse(document.getElementById('wertung').textContent);", 1)
         schritte.append("WERT verdrahtet")
 
-    # Dollar-Umstellung: muss vor allem anderen stehen, weil die Kacheln und die
-    # Wertrechnung die umgerechneten Felder lesen.
-    if USD_MARKE not in s:
-        if USD_ANKER not in s:
-            sys.exit("Ankerstelle fuer die Dollar-Umstellung nicht gefunden.")
-        s = s.replace(USD_ANKER, USD_ANKER + USD_BLOCK, 1)
-        schritte.append("Dollar-Umstellung eingefuegt")
-    if "e.waehrung_heim || w" not in s:
-        for variante in KOPF_VARIANTEN:
-            if variante in s:
-                s = s.replace(variante, KOPF_NEU, 1)
-                schritte.append("Firmenkopf nennt die Bilanzwaehrung")
-                break
-        else:
-            print("   ! Firmenkopf nicht gefunden - die Zeile hat sich geaendert, "
-                  "sie meldet jetzt womoeglich USD als Bilanzwaehrung")
-
     if "const rendite" not in s:
         s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
                       "const WERT = JSON.parse(document.getElementById('wertung').textContent);"
@@ -359,10 +393,27 @@ def eintragen(pruefen=False):
     # ersetzt, nicht nur beim ersten. Sonst bleibt eine einmal eingetragene
     # Fassung fuer immer stehen, waehrend die Texte daneben schon die neuen
     # sind - dann steht ein Platzhalter auf der Seite statt einer Zahl.
-    s, meldung = _block(s, "wertkachel", KACHEL_ALT, KACHEL_NEU)
-    schritte.append("Wertkachel " + meldung)
-    s, meldung = _block(s, "gewinnrendite", UMSATZ_ALT, UMSATZ_NEU)
-    schritte.append("Renditekacheln " + meldung)
+    # Kennzahlen als Gruppen statt als flache Reihe. Ersetzt Liste und
+    # Ausgabeschleife der erzeugten Seite in einem Stueck; wiederholbar, weil
+    # der eingesetzte Block seine eigenen Marken traegt.
+    if "/* kennzahl-gruppen */" in s:
+        s = re.sub(r"  /\* kennzahl-gruppen \*/.*?  /\* ende kennzahl-gruppen \*/\n",
+                   lambda _: GRUPPEN_NEU, s, count=1, flags=re.S)
+        schritte.append("Kennzahl-Gruppen ersetzt")
+    elif GRUPPEN_ALT in s:
+        s = s.replace(GRUPPEN_ALT, GRUPPEN_NEU, 1)
+        schritte.append("Kennzahl-Gruppen eingefuegt")
+    else:
+        sys.exit("Kennzahlliste nicht gefunden - die erzeugte Seite hat sich geaendert.")
+
+    if RAHMEN_ALT in s:
+        s = s.replace(RAHMEN_ALT, RAHMEN_NEU, 1)
+        schritte.append("Rahmen umgestellt")
+
+    if CSS_MARKE not in s:
+        s = s.replace(".kz{background:var(--flaeche);padding:12px 13px}",
+                      ".kz{background:var(--flaeche);padding:12px 13px}" + CSS, 1)
+        schritte.append("Gruppen-CSS eingefuegt")
 
     # Der Rechenweg wird bei jedem Lauf ersetzt, nicht nur beim ersten - sonst
     # kommt eine Korrektur an der Darstellung nie auf der Seite an. Deshalb
