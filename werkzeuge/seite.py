@@ -159,24 +159,44 @@ TEXTE = {
         "mn": "Цэвэр өр: бэлэн мөнгөнөөс их тул хасна",
     },
     "kz_rendite_q": {
-        "de": "Gewinnrendite, letztes Quartal",
-        "en": "Earnings yield, latest quarter",
-        "mn": "Ашгийн өгөөж, сүүлийн улирал",
+        "de": "Gewinnrendite netto, letztes Quartal",
+        "en": "Earnings yield, net, latest quarter",
+        "mn": "Цэвэр ашгийн өгөөж, сүүлийн улирал",
     },
     "kz_rendite_ttm": {
-        "de": "Gewinnrendite, vier Quartale",
-        "en": "Earnings yield, four quarters",
-        "mn": "Ашгийн өгөөж, дөрвөн улирал",
+        "de": "Gewinnrendite netto, vier Quartale",
+        "en": "Earnings yield, net, four quarters",
+        "mn": "Цэвэр ашгийн өгөөж, дөрвөн улирал",
+    },
+    "kz_rendite_op_q": {
+        "de": "Gewinnrendite operativ, letztes Quartal",
+        "en": "Earnings yield, operating, latest quarter",
+        "mn": "Үйл ажиллагааны өгөөж, сүүлийн улирал",
+    },
+    "kz_rendite_op_ttm": {
+        "de": "Gewinnrendite operativ, vier Quartale",
+        "en": "Earnings yield, operating, four quarters",
+        "mn": "Үйл ажиллагааны өгөөж, дөрвөн улирал",
     },
     "kz_rendite_q_sub": {
-        "de": "letztes Quartal mal vier, geteilt durch den Kurs",
-        "en": "latest quarter times four, divided by the price",
-        "mn": "сүүлийн улирлыг дөрөв дахин, ханшид хуваасан",
+        "de": "Nettogewinn je Aktie {x} × 4, geteilt durch den Kurs",
+        "en": "net profit per share {x} × 4, divided by the price",
+        "mn": "нэгж хувьцааны цэвэр ашиг {x} × 4, ханшид хуваасан",
     },
     "kz_rendite_ttm_sub": {
-        "de": "vier Quartale geteilt durch den Kurs",
-        "en": "four quarters divided by the price",
-        "mn": "дөрвөн улирлыг ханшид хуваасан",
+        "de": "Nettogewinn je Aktie {x}, geteilt durch den Kurs",
+        "en": "net profit per share {x}, divided by the price",
+        "mn": "нэгж хувьцааны цэвэр ашиг {x}, ханшид хуваасан",
+    },
+    "kz_rendite_op_q_sub": {
+        "de": "operatives Ergebnis je Aktie {x} × 4, geteilt durch den Kurs",
+        "en": "operating profit per share {x} × 4, divided by the price",
+        "mn": "нэгж хувьцааны үйл ажиллагааны ашиг {x} × 4, ханшид хуваасан",
+    },
+    "kz_rendite_op_ttm_sub": {
+        "de": "operatives Ergebnis je Aktie {x}, geteilt durch den Kurs",
+        "en": "operating profit per share {x}, divided by the price",
+        "mn": "нэгж хувьцааны үйл ажиллагааны ашиг {x}, ханшид хуваасан",
     },
     "kz_rendite_verlust": {
         "de": "Verlust, keine Rendite",
@@ -198,24 +218,46 @@ TEXTE = {
 # wird gezeigt, nicht versteckt, denn sie ist eine richtige Aussage.
 HILFEN = """
 const rendite = (eps, kurs)=> (eps==null || !kurs) ? null : eps/kurs*100;
+// Operatives Ergebnis je Aktie. Der Nettogewinn traegt Beteiligungs-
+// bewertungen, Waehrungseffekte und Einmaliges mit; das operative Ergebnis
+// ist das, was das Geschaeft selbst abwirft. Beide Renditen nebeneinander
+// zeigen, wie viel davon aus dem laufenden Betrieb kommt.
+const opJeAktie = (e, vier)=>{
+  const q=e.quartale, n=e.aktien_zahl;
+  if(!n || !q || !q.length) return null;
+  if(!vier) return q[0].operativ==null ? null : q[0].operativ/n;
+  if(q.length<4) return null;
+  let s=0;
+  for(const z of q.slice(0,4)){ if(z.operativ==null) return null; s+=z.operativ; }
+  return s/n;
+};
 """
 
 # --- 1. Kennzahlkachel ------------------------------------------------------
 UMSATZ_ALT = "    [T('kz_umsatz_yoy'), pf(e.umsatz_yoy), T('kz_letztes_q'), null],\n"
-UMSATZ_NEU = (UMSATZ_ALT +
-              "    /* gewinnrendite */\n"
-              "    [T('kz_rendite_q'),\n"
-              "     rendite(e.eps_q!=null ? e.eps_q*4 : null, e.kurs)!=null\n"
-              "       ? pf(rendite(e.eps_q*4, e.kurs),1) : '\\u2013',\n"
-              "     e.eps_q!=null ? T('kz_rendite_q_sub') : T('kz_rendite_verlust'), null],\n"
+UMSATZ_NEU = ("    [T('kz_rendite_q'),\n"
+              "     e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : '\\u2013',\n"
+              "     e.eps_q!=null\n"
+              "       ? T('kz_rendite_q_sub').split('{x}').join(nf(e.eps_q,2)+' '+w)\n"
+              "       : T('kz_rendite_verlust'), null],\n"
               "    [T('kz_rendite_ttm'),\n"
-              "     rendite(e.eps_ttm, e.kurs)!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : '\\u2013',\n"
-              "     e.eps_ttm!=null ? T('kz_rendite_ttm_sub') : T('kz_rendite_verlust'), null],\n")
+              "     e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : '\\u2013',\n"
+              "     e.eps_ttm!=null\n"
+              "       ? T('kz_rendite_ttm_sub').split('{x}').join(nf(e.eps_ttm,2)+' '+w)\n"
+              "       : T('kz_rendite_verlust'), null],\n"
+              "    [T('kz_rendite_op_q'),\n"
+              "     opJeAktie(e,false)!=null ? pf(rendite(opJeAktie(e,false)*4, e.kurs),1) : '\\u2013',\n"
+              "     opJeAktie(e,false)!=null\n"
+              "       ? T('kz_rendite_op_q_sub').split('{x}').join(nf(opJeAktie(e,false),2)+' '+w)\n"
+              "       : T('kz_rendite_verlust'), null],\n"
+              "    [T('kz_rendite_op_ttm'),\n"
+              "     opJeAktie(e,true)!=null ? pf(rendite(opJeAktie(e,true), e.kurs),1) : '\\u2013',\n"
+              "     opJeAktie(e,true)!=null\n"
+              "       ? T('kz_rendite_op_ttm_sub').split('{x}').join(nf(opJeAktie(e,true),2)+' '+w)\n"
+              "       : T('kz_rendite_verlust'), null],\n")
 
 KACHEL_ALT = "    [T('kz_kurs'), kursF(e.kurs,w), e.kursdatum, null],\n"
-KACHEL_NEU = ("    [T('kz_kurs'), kursF(e.kurs,w), e.kursdatum, null],\n"
-              "    " + MARKE + "\n"
-              "    [T('kz_wert'),\n"
+KACHEL_NEU = ("    [T('kz_wert'),\n"
               "     WERT[k] && WERT[k].wert!=null ? kursF(WERT[k].wert, WERT[k].waehrung||w) : '\\u2013',\n"
               "     WERT[k] && WERT[k].wert!=null\n"
               "       ? T('kz_wert_verh')+' '+nf(e.kurs/WERT[k].wert,2)\n"
@@ -245,6 +287,24 @@ ERKL = """  else if(art==='wert'){
     nicht=T('wert_nicht');
   }
 """
+
+
+def _block(s, name, anker, inhalt):
+    """Einen Abschnitt zwischen zwei Marken setzen oder ersetzen.
+
+    Beim ersten Lauf wird er hinter den Anker gesetzt, bei jedem weiteren
+    ersetzt. Ohne das Ersetzen bleibt eine alte Fassung stehen, sobald sie
+    einmal im Repository liegt - genau der Fall, in dem auf der Seite ein
+    Platzhalter statt einer Zahl erscheint.
+    """
+    auf, zu = "    /* %s */\n" % name, "    /* ende %s */\n" % name
+    neu = auf + inhalt + zu
+    if auf in s:
+        return re.sub(re.escape(auf) + ".*?" + re.escape(zu), lambda _: neu, s,
+                      count=1, flags=re.S), "ersetzt"
+    if anker not in s:
+        sys.exit("Ankerstelle fuer %s nicht gefunden - die Seite hat sich geaendert." % name)
+    return s.replace(anker, anker + neu, 1), "eingefuegt"
 
 
 def eintragen(pruefen=False):
@@ -295,17 +355,14 @@ def eintragen(pruefen=False):
                       + HILFEN, 1)
         schritte.append("Renditehilfe eingefuegt")
 
-    if MARKE not in s:
-        if KACHEL_ALT not in s:
-            sys.exit("Kennzahlliste nicht gefunden - die Seite hat sich geaendert.")
-        s = s.replace(KACHEL_ALT, KACHEL_NEU, 1)
-        schritte.append("Wertkachel eingefuegt")
-
-    if "/* gewinnrendite */" not in s:
-        if UMSATZ_ALT not in s:
-            sys.exit("Umsatzzeile nicht gefunden - die Seite hat sich geaendert.")
-        s = s.replace(UMSATZ_ALT, UMSATZ_NEU, 1)
-        schritte.append("Renditekacheln eingefuegt")
+    # Beide Kachelbloecke stehen zwischen Marken und werden bei jedem Lauf
+    # ersetzt, nicht nur beim ersten. Sonst bleibt eine einmal eingetragene
+    # Fassung fuer immer stehen, waehrend die Texte daneben schon die neuen
+    # sind - dann steht ein Platzhalter auf der Seite statt einer Zahl.
+    s, meldung = _block(s, "wertkachel", KACHEL_ALT, KACHEL_NEU)
+    schritte.append("Wertkachel " + meldung)
+    s, meldung = _block(s, "gewinnrendite", UMSATZ_ALT, UMSATZ_NEU)
+    schritte.append("Renditekacheln " + meldung)
 
     # Der Rechenweg wird bei jedem Lauf ersetzt, nicht nur beim ersten - sonst
     # kommt eine Korrektur an der Darstellung nie auf der Seite an. Deshalb
