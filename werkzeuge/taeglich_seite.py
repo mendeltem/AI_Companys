@@ -130,12 +130,17 @@ def main():
         _protokoll(zeilen)
         return 0
 
-    if not _git(BAUM, "status", "--porcelain"):
+    # Erst hinzufuegen, dann pruefen. Umgekehrt geht es schief: git meldet die
+    # Datei im Arbeitsverzeichnis als geaendert, weil sich die Zeilenenden
+    # unterscheiden, normalisiert sie beim Hinzufuegen und hat danach nichts
+    # mehr zu committen. Der Lauf waere an jedem Tag gescheitert, an dem sich
+    # inhaltlich nichts aendert - also an den meisten.
+    _git(BAUM, "add", "-A")
+    if not _git(BAUM, "diff", "--cached", "--name-only"):
         sag("Seite unveraendert - kein Commit.")
         _protokoll(zeilen)
         return 0
 
-    _git(BAUM, "add", "-A")
     _git(BAUM, "commit", "-m",
          "Kennzahlen nachgetragen %s\n\nMaschinell: innerer Wert, Renditekacheln und Gruppen "
          "nach dem taeglichen Upload wieder aufgetragen.\n\nCo-Authored-By: Claude Opus 5 "
@@ -165,11 +170,11 @@ def main():
             try:
                 _baum_bereit()
                 code, aus = _lauf("seite.py")
-                if code != 0 or not _git(BAUM, "status", "--porcelain"):
+                _git(BAUM, "add", "-A")
+                if code != 0 or not _git(BAUM, "diff", "--cached", "--name-only"):
                     sag("Nach dem Neuholen nichts zu tun.")
                     _protokoll(zeilen)
                     return 0
-                _git(BAUM, "add", "-A")
                 _git(BAUM, "commit", "-m", "Kennzahlen nachgetragen %s\n\nCo-Authored-By: "
                      "Claude Opus 5 <noreply@anthropic.com>" % date.today().isoformat())
             except Exception as f2:
