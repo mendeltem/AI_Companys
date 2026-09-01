@@ -52,7 +52,12 @@ def _baum_bereit():
     """Arbeitsbaum auf dem Stand des Fernzweigs, notfalls neu angelegt."""
     if not os.path.exists(os.path.join(BAUM, ".git")):
         os.makedirs(os.path.dirname(BAUM), exist_ok=True)
-        _git(b.WURZEL, "worktree", "add", BAUM, ZWEIG)
+        # Losgeloest, nicht auf dem Zweig: git laesst einen Zweig nur an einer
+        # Stelle gleichzeitig auschecken, und dieser Platz gehoert dem
+        # Arbeitsverzeichnis, in dem tatsaechlich jemand arbeitet. Der Automat
+        # braucht den Namen nicht - er setzt sich auf den Fernstand und schiebt
+        # am Ende HEAD dorthin zurueck.
+        _git(b.WURZEL, "worktree", "add", "--detach", BAUM, "origin/" + ZWEIG)
     _git(BAUM, "fetch", "origin", ZWEIG)
     # Hart auf den Fernstand: In diesem Verzeichnis arbeitet niemand von Hand,
     # es gibt hier also nichts zu retten - und alles andere waere ein Merge,
@@ -158,7 +163,7 @@ def main():
     # nichts, dafuer ist der Verlust zu gross.
     for versuch in (1, 2):
         try:
-            _git(BAUM, "push", "origin", ZWEIG)
+            _git(BAUM, "push", "origin", "HEAD:refs/heads/" + ZWEIG)
             sag("Gepusht nach origin/%s" % ZWEIG)
             _protokoll(zeilen)
             return 0
