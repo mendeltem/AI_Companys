@@ -23,7 +23,7 @@ MARKE = "/* wertung: eingetragen */"
 
 GRUPPEN_ALT = '  const kz=[\n    [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, null],\n    [T(\'kz_marktkap\'), gross(e.marktkap_usd,\'USD\'), gross(e.marktkap,w), \'marktkap\'],\n    [T(\'kz_kgv_ttm\'), nf(e.kgv_ttm,1), T(\'kz_eps\')+\' \'+nf(inUsd(e.eps_ttm,w),2)+\' USD\', \'kgv_ttm\'],\n    [T(\'kz_kgv_q4x\'), nf(e.kgv_q4x,1), T(\'kz_letztes_q\')+\' \'+nf(inUsd(e.eps_q,w),2)+\' USD\', \'kgv_q4x\'],\n    [T(\'kz_kgv_q4x_op\'), nf(e.kgv_q4x_op,1), T(\'kz_op_q\')+\' \'+gross(e.op_q,w), \'kgv_q4x_op\'],\n    [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    [T(\'kz_kurs3j\'), pf(e.rendite_3j,0), T(\'kz_kurs1j\')+\' \'+pf(e.rendite_1j,0), null],\n  ];\n  let kzh=\'\';\n  for(const [t,v,s,art] of kz){\n    const geht = art && erklaerung(art, k);\n    kzh += geht\n      ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n           title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n      : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n  }\n'
 
-GRUPPEN_NEU = '  /* kennzahl-gruppen */\n  // Drei Gruppen statt einer Reihe. Rendite und KGV stehen in derselben\n  // Kachel, weil sie dieselbe Zahl sind - einmal als Prozentsatz im Jahr,\n  // einmal als Zahl der Jahre bis zur Amortisation. Der Kursverlauf ist keine\n  // eigene Kennzahl mehr, sondern liegt hinter dem Klick auf den Kurs.\n  const wv = WERT[k];\n  const ekWert = (wv && wv.wert!=null) ? wv.unternehmenswert - wv.nettoschulden : null;\n  const kgvText = (v)=> v==null ? \'\' : \' \\u00b7 \' + T(\'kz_kgv_kurz\') + \' \' + nf(v,1);\n  const opQ = opJeAktie(e,false), opV = opJeAktie(e,true);\n  const kgvOpV = (opV!=null && e.kurs) ? e.kurs/opV : null;\n\n  const kzGruppen=[\n    {titel:T(\'gr_preis\'), text:T(\'gr_preis_t\'), kacheln:[\n      [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, \'kurs\'],\n      [T(\'kz_marktkap\'), gross(e.marktkap,w),\n       ekWert!=null\n         ? T(\'kz_wert\')+\' \'+gross(ekWert, wv.waehrung||w)+\' \\u00b7 \'+T(\'kz_wert_verh\')+\' \'+nf(e.marktkap_usd/inUsd(ekWert, wv.waehrung||w),2)\n         : (wv ? (wv.grund||\'\').split(\' - \')[0] : \'\'),\n       ekWert!=null ? \'wert\' : \'marktkap\'],\n      [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    ]},\n    {titel:T(\'gr_ertrag\'), text:T(\'gr_ertrag_t\'), kacheln:[\n      [T(\'kz_rendite_q\'),\n       e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : \'\\u2013\',\n       (e.eps_q!=null ? nf(inUsd(e.eps_q,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x), \'kgv_q4x\'],\n      [T(\'kz_rendite_ttm\'),\n       e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : \'\\u2013\',\n       (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_ttm), \'kgv_ttm\'],\n      [T(\'kz_rendite_op_q\'),\n       opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : \'\\u2013\',\n       (opQ!=null ? nf(inUsd(opQ,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x_op), \'kgv_q4x_op\'],\n      [T(\'kz_rendite_op_ttm\'),\n       opV!=null ? pf(rendite(opV, e.kurs),1) : \'\\u2013\',\n       (opV!=null ? nf(inUsd(opV,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(kgvOpV), null],\n    ]},\n    {titel:T(\'gr_wachstum\'), text:T(\'gr_wachstum_t\'), kacheln:[\n      [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    ]},\n  ];\n\n  let kzh=\'\';\n  for(const g of kzGruppen){\n    let innen=\'\';\n    for(const [t,v,s,art] of g.kacheln){\n      const geht = art && erklaerung(art, k);\n      innen += geht\n        ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n             title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n        : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n    }\n    kzh += `<section class="kzgruppe"><h4>${g.titel}</h4><p>${g.text}</p>\n            <div class="kennzahlen">${innen}</div></section>`;\n  }\n  /* ende kennzahl-gruppen */\n'
+GRUPPEN_NEU = '  /* kennzahl-gruppen */\n  // Drei Gruppen statt einer Reihe. Rendite und KGV stehen in derselben\n  // Kachel, weil sie dieselbe Zahl sind - einmal als Prozentsatz im Jahr,\n  // einmal als Zahl der Jahre bis zur Amortisation. Der Kursverlauf ist keine\n  // eigene Kennzahl mehr, sondern liegt hinter dem Klick auf den Kurs.\n  const wv = WERT[k];\n  const ekWert = (wv && wv.wert!=null) ? wv.unternehmenswert - wv.nettoschulden : null;\n  const kgvText = (v)=> v==null ? \'\' : \' \\u00b7 \' + T(\'kz_kgv_kurz\') + \' \' + nf(v,1);\n  const opQ = opJeAktie(e,false), opV = opJeAktie(e,true);\n  const kgvOpV = (opV!=null && e.kurs) ? e.kurs/opV : null;\n\n  const kzGruppen=[\n    {titel:T(\'gr_preis\'), text:T(\'gr_preis_t\'), kacheln:[\n      [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, \'kurs\'],\n      [T(\'kz_marktkap\'), gross(e.marktkap,w),\n       ekWert!=null\n         ? T(\'kz_wert\')+\' \'+gross(ekWert, wv.waehrung||w)+\' \\u00b7 \'+T(\'kz_wert_verh\')+\' \'+nf(e.marktkap_usd/inUsd(ekWert, wv.waehrung||w),2)\n         : (wv ? (wv.grund||\'\').split(\' - \')[0] : \'\'),\n       ekWert!=null ? \'wert\' : \'marktkap\'],\n      [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    ]},\n    {titel:T(\'gr_ertrag\'), text:T(\'gr_ertrag_t\'), kacheln:[\n      [T(\'kz_rendite_q\'),\n       e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : \'\\u2013\',\n       (e.eps_q!=null ? nf(inUsd(e.eps_q,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x), \'kgv_q4x\'],\n      [T(\'kz_rendite_ttm\'),\n       e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : \'\\u2013\',\n       (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_ttm), \'kgv_ttm\'],\n      [T(\'kz_rendite_op_q\'),\n       opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : \'\\u2013\',\n       (opQ!=null ? nf(inUsd(opQ,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x_op), \'kgv_q4x_op\'],\n      [T(\'kz_rendite_op_ttm\'),\n       opV!=null ? pf(rendite(opV, e.kurs),1) : \'\\u2013\',\n       (opV!=null ? nf(inUsd(opV,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(kgvOpV), null],\n    ]},\n    {titel:T(\'gr_wachstum\'), text:T(\'gr_wachstum_t\'), kacheln:[\n      [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    ]},\n  ];\n\n  let kzh=\'\';\n  for(const g of kzGruppen){\n    let innen=\'\';\n    for(const [t,v,s,art] of g.kacheln){\n      const geht = art && erklaerung(art, k);\n      innen += geht\n        ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n             title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n        : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n    }\n    kzh += `<section class="kzgruppe">\n      <details><summary><span class="gr-titel">${g.titel}</span><span class="mehr">${T(\'mehr\')}</span></summary>\n      <p>${g.text}</p></details>\n      <div class="kennzahlen">${innen}</div></section>`;\n  }\n  /* ende kennzahl-gruppen */\n'
 
 RAHMEN_ALT = '  <div class="abschnitt"><div class="kennzahlen">${kzh}</div>'
 RAHMEN_NEU = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</div>'
@@ -43,19 +43,19 @@ const analyseBlock = (k)=>{
   const a = ANALYSEN[k];
   if(!a) return '';
   return `<section class="abschnitt analyse">
-    <h3>${T('an_titel')}</h3>
+    <details><summary><span class="an-titel">${T('an_titel')}</span><span class="mehr">${T('mehr')}</span></summary>
     <p class="analyse-text">${a.text}</p>
     ${a.achten ? `<p class="analyse-achten"><b>${T('an_achten')}</b> ${a.achten}</p>` : ''}
-    <p class="analyse-fuss">${T('an_fuss')}</p>
+    <p class="analyse-fuss">${T('an_fuss')}</p></details>
   </section>`;
 };
 const gesamtBlock = ()=>{
   const g = ANALYSEN._gesamt;
   if(!g) return '';
   return `<section class="abschnitt analyse analyse-gesamt">
-    <h3>${g.titel}</h3>
+    <details><summary><span class="an-titel">${g.titel}</span><span class="mehr">${T('mehr')}</span></summary>
     ${g.text.split('\\n\\n').map(t=>`<p class="analyse-text">${t}</p>`).join('')}
-    <p class="analyse-fuss">${T('an_fuss')}</p>
+    <p class="analyse-fuss">${T('an_fuss')}</p></details>
   </section>`;
 };
 """
@@ -69,6 +69,20 @@ ANALYSE_CSS = """
   padding:10px 13px;background:var(--flaeche2);border-left:2px solid var(--akzent)}
 .analyse .analyse-fuss{font-size:11.5px;color:var(--schwach);font-family:var(--mono);margin:0}
 .analyse-gesamt .analyse-text{max-width:78ch}
+
+/* zuklappen */
+.kzgruppe details, .analyse details{margin:0}
+.kzgruppe summary, .analyse summary{list-style:none;cursor:pointer;display:flex;
+  align-items:baseline;gap:9px;padding:2px 0;margin-bottom:6px}
+.kzgruppe summary::-webkit-details-marker, .analyse summary::-webkit-details-marker{display:none}
+.gr-titel{font-family:var(--disp);font-size:15px;font-weight:600;color:var(--tinte)}
+.an-titel{font-family:var(--disp);font-size:17px;font-weight:600;color:var(--tinte)}
+.mehr{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--schwach);border-bottom:1px solid var(--linie-stark);line-height:1.3}
+summary:hover .mehr{color:var(--akzent);border-color:var(--akzent)}
+summary:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:2px}
+details[open] .mehr{visibility:hidden}
+details[open] summary{margin-bottom:8px}
 """
 
 # Auf der Firmenseite hinter die Kennzahlen, auf der Uebersicht hinter das Intro.
@@ -76,6 +90,11 @@ ANALYSE_ANKER_FIRMA = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</d
 ANALYSE_ANKER_UEBER = "    <p>${T('intro')}</p>"
 
 TEXTE = {
+    "mehr": {
+        "de": "mehr",
+        "en": "more",
+        "mn": "дэлгэрэнгүй",
+    },
     "an_titel": {
         "de": "Einordnung",
         "en": "Assessment",
@@ -468,8 +487,28 @@ def eintragen(pruefen=False):
             s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
                           "const WERT = JSON.parse(document.getElementById('wertung').textContent);\n"
                           "const ANALYSEN = JSON.parse(document.getElementById('analysen').textContent);", 1)
-        if "const analyseBlock" not in s:
-            s = s.replace("const rendite = ", ANALYSE_HILFE.strip() + "\nconst rendite = ", 1)
+        # Zwischen Marken und bei jedem Lauf ersetzt. Nur einfuegen hiesse,
+        # dass eine einmal veroeffentlichte Fassung nie wieder korrigiert wird -
+        # derselbe Fehler wie zuvor bei den Kacheln.
+        h_auf, h_zu = "/* analyse-hilfe */\n", "/* ende analyse-hilfe */\n"
+        neu_hilfe = h_auf + ANALYSE_HILFE.strip() + "\n" + h_zu
+        if h_auf in s:
+            s = re.sub(re.escape(h_auf) + ".*?" + re.escape(h_zu),
+                       lambda _: neu_hilfe, s, count=1, flags=re.S)
+            schritte.append("Analysehilfe ersetzt")
+        else:
+            # Eine aeltere, noch unmarkierte Fassung zuerst entfernen. Bleibt sie
+            # stehen, ist analyseBlock zweimal deklariert - und Javascript bricht
+            # bei einer doppelten Deklaration die ganze Datei ab, die Seite bleibt
+            # leer. Ein Fehler, den man nur im Browser sieht, nicht im Diff.
+            vorher = s
+            s = re.sub(r"const analyseBlock = \(k\)=>\{.*?\n\};\n"
+                       r"const gesamtBlock = \(\)=>\{.*?\n\};\n",
+                       "", s, count=1, flags=re.S)
+            if s != vorher:
+                schritte.append("alte Analysehilfe entfernt")
+            s = s.replace("const rendite = ", neu_hilfe + "const rendite = ", 1)
+            schritte.append("Analysehilfe eingefuegt")
         if "${analyseBlock(k)}" not in s and ANALYSE_ANKER_FIRMA in s:
             s = s.replace(ANALYSE_ANKER_FIRMA, ANALYSE_ANKER_FIRMA + "${analyseBlock(k)}", 1)
             schritte.append("Analyse auf der Firmenseite verdrahtet")
