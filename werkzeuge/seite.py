@@ -32,7 +32,68 @@ CSS_MARKE = '/* kzgruppen */'
 CSS = '\n/* kzgruppen */\n.kzgruppen{display:flex;flex-direction:column;gap:22px}\n.kzgruppe h4{font-family:var(--disp);font-size:15px;font-weight:600;letter-spacing:.01em;\n             margin:0 0 3px;color:var(--tinte)}\n.kzgruppe > p{margin:0 0 9px;font-size:12.5px;line-height:1.5;color:var(--gedaempft);\n              max-width:78ch}\n'
 
 
+
+# --- Analysetexte -----------------------------------------------------------
+# Je Firma ein Absatz und ein Satz "worauf zu achten ist", dazu ein Text ueber
+# alle 66. Sie liegen als eigener Datenblock neben den Zahlen, damit ein Upload
+# der erzeugenden Pipeline sie nicht mitnimmt und der Tageslauf sie ersetzen
+# kann, ohne die Seite selbst anzufassen.
+ANALYSE_HILFE = """
+const analyseBlock = (k)=>{
+  const a = ANALYSEN[k];
+  if(!a) return '';
+  return `<section class="abschnitt analyse">
+    <h3>${T('an_titel')}</h3>
+    <p class="analyse-text">${a.text}</p>
+    ${a.achten ? `<p class="analyse-achten"><b>${T('an_achten')}</b> ${a.achten}</p>` : ''}
+    <p class="analyse-fuss">${T('an_fuss')}</p>
+  </section>`;
+};
+const gesamtBlock = ()=>{
+  const g = ANALYSEN._gesamt;
+  if(!g) return '';
+  return `<section class="abschnitt analyse analyse-gesamt">
+    <h3>${g.titel}</h3>
+    ${g.text.split('\\n\\n').map(t=>`<p class="analyse-text">${t}</p>`).join('')}
+    <p class="analyse-fuss">${T('an_fuss')}</p>
+  </section>`;
+};
+"""
+
+ANALYSE_CSS_MARKE = "/* analyse */"
+ANALYSE_CSS = """
+/* analyse */
+.analyse h3{font-family:var(--disp);font-size:17px;font-weight:600;margin:0 0 8px}
+.analyse .analyse-text{font-size:15px;line-height:1.62;margin:0 0 10px;max-width:74ch}
+.analyse .analyse-achten{font-size:14px;line-height:1.55;margin:0 0 10px;max-width:74ch;
+  padding:10px 13px;background:var(--flaeche2);border-left:2px solid var(--akzent)}
+.analyse .analyse-fuss{font-size:11.5px;color:var(--schwach);font-family:var(--mono);margin:0}
+.analyse-gesamt .analyse-text{max-width:78ch}
+"""
+
+# Auf der Firmenseite hinter die Kennzahlen, auf der Uebersicht hinter das Intro.
+ANALYSE_ANKER_FIRMA = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</div>'
+ANALYSE_ANKER_UEBER = "    <p>${T('intro')}</p>"
+
 TEXTE = {
+    "an_titel": {
+        "de": "Einordnung",
+        "en": "Assessment",
+        "mn": "Дүгнэлт",
+    },
+    "an_achten": {
+        "de": "Worauf zu achten ist:",
+        "en": "What to watch:",
+        "mn": "Юуг анхаарах вэ:",
+    },
+    "an_fuss": {
+        "de": "Maschinell erzeugt aus den Quartalszahlen, den rechnerisch gefundenen "
+              "Auffaelligkeiten und der Bewertungsrechnung dieser Seite. Keine Anlageberatung.",
+        "en": "Generated from the quarterly figures, the computed anomalies and the "
+              "valuation calculation on this page. Not investment advice.",
+        "mn": "Улирлын тоо, тооцоолсон онцлох зүйлс дээр үндэслэн машинаар үүсгэсэн. "
+              "Хөрөнгө оруулалтын зөвлөгөө биш.",
+    },
     "gr_preis": {
         "de": "Preis und Wert",
         "en": "Price and value",
@@ -382,6 +443,43 @@ def eintragen(pruefen=False):
                       "const OP = JSON.parse(document.getElementById('operativ').textContent);\n"
                       "const WERT = JSON.parse(document.getElementById('wertung').textContent);", 1)
         schritte.append("WERT verdrahtet")
+
+    # Analysetexte als eigener Datenblock, bei jedem Lauf ersetzt.
+    import io
+    # Erst im Repository nachsehen, dann im Datenordner. Die Texte sind
+    # geschriebene Arbeit und sollen nicht verloren gehen, wenn der
+    # Datenordner geleert wird.
+    pfad_an = os.path.join(b.WURZEL, "analysen.json")
+    if not os.path.exists(pfad_an):
+        pfad_an = b._pfad("analysen.json")
+    if os.path.exists(pfad_an):
+        an = json.load(open(pfad_an, encoding="utf-8"))
+        block_an = ('<script id="analysen" type="application/json">%s</script>'
+                    % json.dumps(an, ensure_ascii=False, separators=(",", ":")))
+        if 'id="analysen"' in s:
+            s = re.sub(r'<script id="analysen" type="application/json">.*?</script>',
+                       lambda _: block_an, s, count=1, flags=re.S)
+            schritte.append("Analyseblock ersetzt (%d Firmen)" % (len(an) - 1))
+        else:
+            m2 = re.search(r'(<script id="wertung" type="application/json">.*?</script>\n?)', s, re.S)
+            s = s[:m2.end()] + block_an + "\n" + s[m2.end():]
+            schritte.append("Analyseblock eingefuegt (%d Firmen)" % (len(an) - 1))
+        if "const ANALYSEN" not in s:
+            s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
+                          "const WERT = JSON.parse(document.getElementById('wertung').textContent);\n"
+                          "const ANALYSEN = JSON.parse(document.getElementById('analysen').textContent);", 1)
+        if "const analyseBlock" not in s:
+            s = s.replace("const rendite = ", ANALYSE_HILFE.strip() + "\nconst rendite = ", 1)
+        if "${analyseBlock(k)}" not in s and ANALYSE_ANKER_FIRMA in s:
+            s = s.replace(ANALYSE_ANKER_FIRMA, ANALYSE_ANKER_FIRMA + "${analyseBlock(k)}", 1)
+            schritte.append("Analyse auf der Firmenseite verdrahtet")
+        if "${gesamtBlock()}" not in s and ANALYSE_ANKER_UEBER in s:
+            s = s.replace(ANALYSE_ANKER_UEBER, ANALYSE_ANKER_UEBER + "\n    ${gesamtBlock()}", 1)
+            schritte.append("Gesamttext auf der Uebersicht verdrahtet")
+        if ANALYSE_CSS_MARKE not in s:
+            s = s.replace(".kz{background:var(--flaeche);padding:12px 13px}",
+                          ".kz{background:var(--flaeche);padding:12px 13px}" + ANALYSE_CSS, 1)
+            schritte.append("Analyse-CSS eingefuegt")
 
     if "const rendite" not in s:
         s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",

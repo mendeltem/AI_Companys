@@ -1,0 +1,270 @@
+{
+ "NVDA": {
+  "text": "Das Wachstum beschleunigt sich noch: 106 Prozent nach 85 im Vorquartal, 21 Punkte mehr statt der erwarteten Abflachung. Bei 66 Prozent operativer Marge und 303 Mrd Umsatz auf Jahressicht ist das die groesste Gewinnmaschine der Kette. Die Bewertung mit KGV 21 wirkt dagegen zahm - der Markt preist ein, dass diese Marge nicht bleibt. Der innere Wert von 124 Dollar gegen 210 sagt dasselbe von der anderen Seite: Man zahlt das 1,7-fache dessen, was die heutigen Zahlungsstroeme hergeben, und kauft damit die naechsten Jahre mit.",
+  "achten": "Ob die operative Marge haelt. Sie ist der Hebel, an dem alles haengt - ein Rueckgang um zehn Punkte kostet mehr Gewinn, als die meisten Wettbewerber ueberhaupt erwirtschaften."
+ },
+ "AVGO": {
+  "text": "48 Prozent Wachstum nach 29, ebenfalls beschleunigend, bei 49 Prozent operativer Marge. Das Kunden-ASIC-Geschaeft ist die zweite Fahrspur neben Nvidia, und sie fuellt sich schneller als die erste. Mit KGV 46 und einer Gewinnrendite von 2,1 Prozent ist Broadcom allerdings dreimal so teuer bewertet wie Nvidia - fuer ein Geschaeft mit deutlich niedrigerer Marge. Der innere Wert von 131 gegen 418 Dollar ist der groesste Abstand unter den grossen Entwuerfen.",
+  "achten": "Wie viel des Wachstums aus Software stammt und wie viel aus Custom Silicon. Beide werden im selben Topf berichtet, haben aber voellig verschiedene Margen und Laufzeiten."
+ },
+ "AMD": {
+  "text": "50 Prozent Wachstum nach 38, und trotzdem nur 17 Prozent operative Marge - ein Sechstel dessen, was Nvidia erreicht. Genau darin steckt die Geschichte: AMD verkauft in denselben Markt, aber nicht zu denselben Preisen. Die Gewinnrendite von 1,1 Prozent und ein KGV von 87 setzen voraus, dass sich das aendert. Der innere Wert von 59 gegen 482 Dollar ist der achtfache Abstand; keine andere grosse Firma der Liste braucht so viel Zukunft, um ihren Kurs zu rechtfertigen.",
+  "achten": "Die operative Marge, nicht der Umsatz. Wachstum hat AMD; was fehlt, ist der Preis, zu dem es sich lohnt."
+ },
+ "ARM": {
+  "text": "Hier stimmt die Zahl nicht mit dem Geschaeft ueberein: Das Nettoergebnis liegt 197 Prozent ueber dem operativen, betriebsfremde Posten bestimmen also den Gewinn. Ein KGV von 251 und 0,4 Prozent Gewinnrendite sind auf dieser Grundlage keine Aussage. Bei 7 Prozent operativer Marge und 22 Prozent Wachstum ist Arm operativ die schwaechste Zahl unter den grossen Entwuerfen - obwohl es strukturell der Gewinner einer Verlagerung auf Endgeraete waere, weil dort jeder Chip seine Architektur traegt.",
+  "achten": "Das operative Ergebnis statt des Nettogewinns, und die Lizenzquote gegen die Stueckgebuehr. Nur die zweite waechst mit der Verbreitung."
+ },
+ "MRVL": {
+  "text": "Ein KGV von 1532 ist kein Bewertungsurteil, sondern ein Hinweis auf ein verzerrtes Quartal: Das Nettoergebnis liegt 90 Prozent unter dem operativen. Nutzbar ist hier nur die operative Linie - 14 Prozent Marge bei 28 Prozent Wachstum. Damit steht Marvell zwischen den Stuehlen: zu klein fuer Nvidias Skalen, zu breit fuer die Spezialisierung von Astera oder Credo. Der innere Wert von 48 gegen 211 Dollar ist entsprechend deutlich.",
+  "achten": "Ob das Custom-Silicon-Geschaeft die Auftraege haelt. Es ist das einzige Segment mit strukturellem Rueckenwind."
+ },
+ "TSM": {
+  "text": "Die operative Marge springt um 10,7 Punkte auf 60,3 Prozent - fuer eine Auftragsfertigung ein aussergewoehnlicher Wert, der zeigt, wer in dieser Kette die Preise setzt. 36 Prozent Wachstum bei 140 Mrd Umsatz, und mit KGV 22 und 4,5 Prozent Gewinnrendite die guenstigste Bewertung unter den unverzichtbaren Gliedern. Einen inneren Wert weist die Seite nicht aus: TSMC reicht keine Quartalszahlen bei der SEC ein, es fehlt die Datengrundlage - nicht die Qualitaet.",
+  "achten": "Die CoWoS-Kapazitaet, nicht der Umsatz. Sie ist der Engpass der gesamten Kette und bestimmt, wie viele Beschleuniger es ueberhaupt geben kann."
+ },
+ "INTC": {
+  "text": "25 Prozent Wachstum nach 7 - die groesste Trendwende der Liste nach Vorzeichen, wenn auch von niedrigem Niveau. Bei 11 Prozent operativer Marge und einer negativen Gewinnrendite von -9,8 Prozent verdient Intel derzeit nichts fuer seine Eigentuemer. Kein KGV, kein innerer Wert: Der freie Cashflow ist ueber den Zeitraum negativ, weil der Fabrikausbau alles verbraucht, was hereinkommt. Das ist eine Wette auf die Fertigung, keine Bewertungsfrage.",
+  "achten": "Ob externe Kunden fuer die Foundry unterschreiben. Ohne sie traegt der Ausbau seine Kosten nicht."
+ },
+ "UMC": {
+  "text": "17 Prozent Wachstum bei 22 Prozent operativer Marge, KGV 8,8 und eine Gewinnrendite von 11,4 Prozent - eine der hoechsten der Liste. Das Nettoergebnis liegt allerdings 184 Prozent ueber dem operativen, betriebsfremde Posten bestimmen also die Zahl; die operative Linie ist die belastbare. UMC fertigt in aelteren Knoten und faehrt damit im Windschatten des Booms: kein KI-Chip, aber jede Stromversorgung und jeder Sensor daneben.",
+  "achten": "Die Auslastung der reifen Knoten. Dort entscheidet sich die Marge, nicht an der Spitzentechnik."
+ },
+ "GFS": {
+  "text": "3 Prozent Wachstum ist der schwaechste Wert unter den Fertigern und zeigt, dass der Boom nicht alle traegt. 11 Prozent operative Marge, KGV 63, Gewinnrendite 1,6 Prozent - teuer fuer ein Geschaeft ohne Wachstum. Das Nettoergebnis liegt 43 Prozent unter dem operativen. GlobalFoundries fertigt bewusst nicht an der Spitze und verpasst damit genau den Teil des Marktes, der gerade waechst.",
+  "achten": "Die Auftragslage aus Automobil und Industrie. Von KI kommt hier kein Rueckenwind."
+ },
+ "ASML": {
+  "text": "21 Prozent Wachstum bei 37 Prozent operativer Marge - solide, aber deutlich unter dem, was die Kunden gerade verdienen. Als einziger Anbieter der EUV-Lithografie ist ASML das engste Nadeloehr der Kette und trotzdem mit KGV 58 bewertet, also teurer als TSMC bei geringerem Wachstum. Einen inneren Wert weist die Seite nicht aus, und zwar aus einem lehrreichen Grund: ASMLs Zahlen stehen in Euro, der Kurs in Dollar. Ohne Umrechnungskurs waere der Vergleich keiner.",
+  "achten": "Der Auftragseingang, nicht der Bestand. Maschinen werden Jahre im Voraus bestellt; der Eingang dreht zuerst."
+ },
+ "AMAT": {
+  "text": "11 Prozent Wachstum nach minus 2 - die Wende ist da, aber verhalten. 32 Prozent operative Marge, KGV 34, Gewinnrendite 2,9 Prozent, innerer Wert 118 gegen 534 Dollar. Applied Materials liefert die Anlagen fuer alles ausser Lithografie und haengt damit am Investitionszyklus der Speicherhersteller - und die verdienen gerade so viel wie nie.",
+  "achten": "Ob die Speicherhersteller ihre angekuendigten Investitionen tatsaechlich ausloesen. Der Zyklus dreht hier mit Verzoegerung."
+ },
+ "LRCX": {
+  "text": "Vorsicht bei den Zahlen: Im juengsten Quartal fehlt die Umsatzzeile, es liegt nur ein EPS-Wert vor. Wachstum und Marge lassen sich daraus nicht bilden, KGV 43 und Gewinnrendite 2,3 Prozent stehen auf einem Bein. Der innere Wert von 58 gegen 307 Dollar stammt dagegen aus den vollstaendigen Jahresabschluessen und ist belastbar. Lam Research liefert die Aetz- und Abscheideanlagen, die im Speicherausbau zuerst gebraucht werden.",
+  "achten": "Die naechste vollstaendige Quartalsmeldung. Bis dahin ist die Ertragsseite hier nicht sauber messbar."
+ },
+ "KLAC": {
+  "text": "Dieselbe Luecke wie bei Lam: Dem juengsten Quartal fehlt der Umsatz. KGV 44 und 2,3 Prozent Gewinnrendite sind daher mit Vorbehalt zu lesen; der innere Wert von 47 gegen 193 Dollar kommt aus den Jahreszahlen. KLA prueft Wafer auf Fehler - ein Geschaeft, das mit der Komplexitaet der Chips waechst, nicht mit ihrer Stueckzahl, und deshalb im HBM-Ausbau ueberproportional profitiert.",
+  "achten": "Ob Kurs und Gewinn je Aktie auf derselben Basis stehen. Die Kennzahlen deuten auf einen nicht bereinigten Aktiensplit hin."
+ },
+ "SKHYNIX": {
+  "text": "Die aussergewoehnlichste Zahlenreihe der ganzen Liste: 257 Prozent Umsatzwachstum, beschleunigt um 59 Punkte, bei 76 Prozent operativer Marge. Solche Margen kennt die Speicherindustrie aus keinem frueheren Zyklus. Der Markt glaubt nicht daran, dass sie bleiben - KGV 3,3 und eine Gewinnrendite von 30,6 Prozent im letzten Quartal sind die Bewertung eines Unternehmens, dem man den Absturz bereits unterstellt. Ueber vier Quartale sind es nur 13,2 Prozent; die Differenz ist der Aufschwung selbst.",
+  "achten": "Die HBM-Vertragslaufzeiten. Solange die Kapazitaet auf Jahre verkauft ist, ist dies kein gewoehnlicher Zyklus - und die Bewertung falsch."
+ },
+ "SAMSUNG": {
+  "text": "130 Prozent Wachstum nach 69, bei 52 Prozent operativer Marge und 351 Mrd Umsatz. KGV 5,4 und 18,7 Prozent Gewinnrendite - dieselbe Skepsis wie bei SK hynix, etwas gemildert, weil der Konzernumsatz das Speichergeschaeft hinter Handys und Anzeigen versteckt. Genau diese Vermischung macht Samsung schwerer zu lesen als die reinen Speicherhersteller, und die Segmenttabelle fehlt, weil sie in den Praesentationen nur als Grafik vorliegt.",
+  "achten": "Der Speicheranteil am Konzernergebnis. Ohne ihn misst man ein Mischunternehmen und nennt es einen Speicherwert."
+ },
+ "MU": {
+  "text": "346 Prozent Umsatzwachstum, beschleunigt um 149 Punkte, bei 80 Prozent operativer Marge - der hoechste Wert der gesamten Liste. Micron verdient in diesem Quartal mehr je Umsatzdollar als jedes andere der 66 Unternehmen. KGV 9,5 bei 10,5 Prozent Gewinnrendite. Einen inneren Wert weist die Seite bewusst nicht aus: Ueber den Zeitraum 2021 bis 2025 betrug der freie Cashflow nur 0,3 Prozent des Umsatzes, weil alles in neue Fabriken ging. Die Rechnung haenge sonst allein am Basisjahr.",
+  "achten": "Der freie Cashflow, nicht der Gewinn. Bei Micron entscheidet sich am Investitionsbedarf, ob vom Rekordgewinn etwas uebrig bleibt."
+ },
+ "SNDK": {
+  "text": "372 Prozent Wachstum, 78 Prozent operative Marge - die Abspaltung von Western Digital trifft den Aufschwung mit perfektem Timing. KGV 8,5, Gewinnrendite 11,7 Prozent. Kein innerer Wert, weil die Zahlenreihe erst seit sechs Quartalen existiert; fuer einen abgezinsten Zahlungsstrom fehlt die Historie. NAND ist der zyklischere Teil des Speichermarkts und faellt in Abschwuengen tiefer als DRAM.",
+  "achten": "Ob die Marge den ersten Nachfragedaempfer ueberlebt. NAND hat weniger Preisdisziplin als DRAM, weil mehr Anbieter darin stecken."
+ },
+ "KIOXIA": {
+  "text": "Auch hier fehlt dem juengsten Quartal die Umsatzzeile, Wachstum und Marge sind nicht bildbar. KGV 48 bei 2,1 Prozent Gewinnrendite steht damit auf duennem Grund. Kioxia reicht keine Quartalsberichte bei der SEC ein, es liegen nur drei Quartale vor - die duennste Datenlage unter den Speicherherstellern, ausgerechnet im Zyklus, in dem die anderen Rekorde melden.",
+  "achten": "Die japanischen Originalberichte. Ueber EDGAR ist diese Firma nicht sauber zu verfolgen."
+ },
+ "ASE": {
+  "text": "27 Prozent Wachstum bei 11 Prozent operativer Marge, KGV 33, Gewinnrendite 3,0 Prozent. Packaging ist die Stelle, an der Rechenchip und Speicher zu einem Baustein werden - unscheinbar in der Marge, aber direkt begrenzend fuer die Zahl lieferbarer Beschleuniger. Kein innerer Wert, weil ASE nicht bei der SEC einreicht.",
+  "achten": "Die Kapazitaet fuer fortgeschrittenes Packaging. Sie deckelt die Stueckzahl unmittelbar, unabhaengig davon, wie viele Wafer gefertigt werden."
+ },
+ "AMKR": {
+  "text": "26 Prozent Wachstum, 11 Prozent operative Marge, KGV 17 und 5,8 Prozent Gewinnrendite - die guenstigste Bewertung in der Packaging-Schicht. Innerer Wert 21 gegen 54 Dollar. Amkor ist mit 12 Mrd Marktkapitalisierung der kleinere der beiden Auftragsverpacker und haengt staerker an Auftraegen aus Kommunikation und Automobil als am Rechenzentrum.",
+  "achten": "Der Anteil des Rechenzentrumsgeschaefts. Nur er waechst mit dem Boom, der Rest ist gewoehnlicher Halbleiterzyklus."
+ },
+ "ANET": {
+  "text": "38 Prozent Wachstum bei 45 Prozent operativer Marge - fuer einen Netzwerkausruester aussergewoehnlich und ein Zeichen dafuer, wie knapp diese Schicht besetzt ist. KGV 53, Gewinnrendite 1,9 Prozent, innerer Wert 116 gegen 197 Dollar. Arista lebt davon, dass tausende Beschleuniger als eine Maschine auftreten muessen. Das ist ihr Rueckenwind und zugleich ihre Verwundbarkeit: Die Nachfrage haengt nicht an der Zahl der Chips, sondern an der Groesse des groessten zusammenhaengenden Clusters.",
+  "achten": "Die Clustergroessen der Hyperscaler. Verteilte oder kleinere Modelle greifen genau diese Kennzahl an, nicht die Rechenmenge."
+ },
+ "COHR": {
+  "text": "21 Prozent Wachstum bei nur 13 Prozent operativer Marge, KGV 76, Gewinnrendite 1,3 Prozent - teuer bezahlt fuer ein Geschaeft, das an der Marge nicht verdient, was die Bewertung unterstellt. Kein innerer Wert, weil der freie Cashflow ueber den Zeitraum nicht positiv war. Coherent liefert optische Verbindungen; das Geschaeft ist kapitalintensiv und im Wettbewerb mit Lumentum und asiatischen Anbietern.",
+  "achten": "Die Marge, nicht der Auftragseingang. Optik ist ein Volumengeschaeft mit duennen Spannen, auch im Boom."
+ },
+ "ALAB": {
+  "text": "Ein KGV von 558 bei 5 Prozent operativer Marge und 0,6 Mrd Umsatz: Astera Labs ist mit 50 Mrd bewertet fuer ein Geschaeft, das noch kaum verdient. 26 Prozent Wachstum nach 16 ist ordentlich, aber nicht das, was solche Vielfachen tragen. Kein innerer Wert, die Zahlenreihe ist zu kurz und zu klein. Retimer und Verbindungsbausteine sind genau die Schicht, die eine Verlagerung weg von grossen Clustern zuerst treffen wuerde.",
+  "achten": "Ob das Wachstum die Bewertung einholt oder die Bewertung das Wachstum. Bei 558 ist wenig Spielraum fuer Enttaeuschung."
+ },
+ "CRDO": {
+  "text": "157 Prozent Wachstum klingt hervorragend, ist aber der erste Rueckgang der Beschleunigung: 44 Punkte weniger als im Vorquartal. Bei 36 Prozent operativer Marge und KGV 64 ist Credo profitabler als Astera, aber ebenso von grossen Clustern abhaengig. Innerer Wert 19 gegen 225 Dollar - das Zwoelffache.",
+  "achten": "Die Kundenkonzentration. In dieser Schicht haengen einzelne Anbieter oft an zwei oder drei Abnehmern."
+ },
+ "DELL": {
+  "text": "88 Prozent Umsatzwachstum bei 8 Prozent operativer Marge - das Geschaeft der Server-Montage in einem Satz: viel Umsatz, wenig Marge. Mit KGV 22 und 4,5 Prozent Gewinnrendite ist Dell dennoch guenstiger bewertet als fast alles in der Kette. Der innere Wert von 199 gegen 463 Dollar ist mit Vorsicht zu lesen: Bei Dell ist die Aktienzahl im Datensatz unvollstaendig, was Marktkapitalisierung und alle darauf gebauten Zahlen verzerrt.",
+  "achten": "Die Marge im KI-Servergeschaeft. Umsatz laesst sich damit beliebig machen; die Frage ist, was davon haengen bleibt."
+ },
+ "SMCI": {
+  "text": "123 Prozent Wachstum bei 6 Prozent operativer Marge, KGV 13 und 7,7 Prozent Gewinnrendite - die hoechste Rendite unter den Systemhaeusern, und der Markt bezahlt sie trotzdem nicht. Das ist der Preis frueherer Bilanzierungsprobleme, nicht des laufenden Geschaefts. Kein innerer Wert, weil der freie Cashflow negativ ist: Wachstum dieser Groesse bindet Vorraete und Forderungen schneller, als Gewinn hereinkommt.",
+  "achten": "Das Umlaufvermoegen. Bei diesem Tempo entscheidet die Finanzierung des Wachstums, nicht die Nachfrage."
+ },
+ "HONHAI": {
+  "text": "270 Mrd Umsatz bei 4 Prozent operativer Marge - der groesste Umsatz der ganzen Liste und die duennste Spanne. Hon Hai baut, was andere entwerfen, und verdient daran wenig je Stueck, aber an sehr vielen Stuecken. 29 Prozent Wachstum, KGV 18, Gewinnrendite 5,6 Prozent. Das Nettoergebnis weicht deutlich vom operativen ab, die operative Linie ist die belastbare.",
+  "achten": "Der Anteil der KI-Server am Umsatz. Er waechst schneller als das Gesamtgeschaeft und traegt eine bessere Marge als die Telefonmontage."
+ },
+ "VRT": {
+  "text": "24 Prozent Wachstum bei 19 Prozent operativer Marge, KGV 52, Gewinnrendite 1,9 Prozent, innerer Wert 53 gegen 278 Dollar. Vertiv liefert Kuehlung und Stromverteilung fuer Rechenzentren - ein Geschaeft, das erst spaet im Bauzyklus abgerufen wird und deshalb laenger traegt als die Chiplieferungen davor. Die Bewertung unterstellt allerdings, dass nach dem heutigen Bestand weitergebaut wird.",
+  "achten": "Der Auftragseingang gegen den Bestand. Der Bestand ist die Vergangenheit; der Eingang dreht als Erstes."
+ },
+ "GEV": {
+  "text": "22 Prozent Wachstum bei nur 6 Prozent operativer Marge und einem KGV von 97 - die teuerste Bewertung unter den grossen Zulieferern, fuer die duennste Marge ihrer Schicht. Innerer Wert 132 gegen 1018 Dollar. GE Vernova verkauft Turbinen und Netztechnik; der Rueckenwind aus dem Strombedarf der Rechenzentren ist real, aber die Lieferzeiten sind lang und die Vertraege oft zu Festpreisen geschlossen.",
+  "achten": "Ob die Marge mit dem Auftragsbestand steigt. Festpreisvertraege in einer Inflationsphase sind eine bekannte Falle im Anlagenbau."
+ },
+ "MPWR": {
+  "text": "Dem juengsten Quartal fehlt die Umsatzzeile, Wachstum und Marge sind daher nicht bildbar; KGV 62 und 1,6 Prozent Gewinnrendite stehen auf einem Bein. Der innere Wert von 494 gegen 1345 Dollar stammt aus den Jahresabschluessen. Monolithic Power liefert die Spannungswandler direkt neben dem Beschleuniger - eine kleine, aber unverzichtbare Position auf jeder Platine.",
+  "achten": "Die naechste vollstaendige Meldung. Bis dahin ist die Ertragsseite hier nicht sauber messbar."
+ },
+ "MSFT": {
+  "text": "18 Prozent Wachstum bei 45 Prozent operativer Marge und 332 Mrd Umsatz - die stabilste grosse Zahl der Liste. KGV 26, Gewinnrendite 3,9 Prozent, innerer Wert 215 gegen 487 Dollar. Microsoft ist zugleich groesster Kunde und groesster Vermieter von Rechenleistung; was es an Cloudumsatz verlieren wuerde, spart es beim Einkauf. Diese Doppelrolle macht es robuster gegen eine Verlagerung als jeden reinen Anbieter.",
+  "achten": "Die Abschreibungsdauer der Beschleuniger. Eine Verkuerzung waere das Eingestaendnis, dass sie schneller wertlos werden als geplant."
+ },
+ "GOOGL": {
+  "text": "24 Prozent Wachstum bei 34 Prozent operativer Marge, und mit KGV 9,4 und 10,7 Prozent Gewinnrendite scheinbar die guenstigste Bewertung unter den Hyperscalern. Vorsicht: Im Datensatz ist die Aktienzahl unvollstaendig - aus Nettogewinn und Gewinn je Aktie folgen rund 12,3 Mrd Aktien, hinterlegt sind 5,9. Marktkapitalisierung und Kurs-Umsatz-Verhaeltnis sind dadurch etwa halbiert. Die Renditen selbst stimmen, weil sie aus Kurs und Gewinn je Aktie kommen.",
+  "achten": "Der TPU-Anteil an der eigenen Rechenleistung. Er entscheidet, wie viel von Alphabets KI-Ausgaben ueberhaupt bei Nvidia landet."
+ },
+ "AMZN": {
+  "text": "776 Mrd Umsatz bei 20 Prozent Wachstum und 14 Prozent operativer Marge. KGV 11 und 8,8 Prozent Gewinnrendite wirken guenstig, doch der Nettogewinn weicht deutlich vom operativen ab - Beteiligungsbewertungen bestimmen die Zahl mit. Kein innerer Wert: Der freie Cashflow ist ueber den Zeitraum nicht positiv, weil der Rechenzentrumsausbau alles aufzehrt. Das ist bei Amazon kein Warnsignal, sondern die bewusste Entscheidung.",
+  "achten": "Die operative Marge von AWS getrennt vom Handel. Nur dort entscheidet sich, ob der Ausbau sich rechnet."
+ },
+ "META": {
+  "text": "28 Prozent Wachstum bei 31 Prozent operativer Marge, KGV 23, Gewinnrendite 4,3 Prozent, innerer Wert 487 gegen 589 Dollar - der kleinste Abstand zwischen Rechnung und Kurs unter den grossen Technologiewerten. Meta kauft Rechenleistung, ohne sie zu vermieten, und traegt die Kosten damit vollstaendig selbst. Das macht die Ausgaben sichtbarer als bei den Cloudanbietern, aber nicht unbedingt unwirtschaftlicher.",
+  "achten": "Ob die Werbeerloese mit den Rechenausgaben Schritt halten. Meta hat keine zweite Einnahmequelle, die den Ausbau traegt."
+ },
+ "ORCL": {
+  "text": "21 Prozent Wachstum bei 32 Prozent operativer Marge, KGV 26, Gewinnrendite 3,9 Prozent. Kein innerer Wert: Der freie Cashflow war zuletzt negativ, weil Oracle den Rechenzentrumsausbau mit Fremdkapital vorfinanziert. Das unterscheidet Oracle von Microsoft und Alphabet, die ihren Ausbau aus dem laufenden Geschaeft zahlen - und macht die Firma von den Kreditmaerkten abhaengig.",
+  "achten": "Die Verschuldung gegen den Auftragsbestand. Beides waechst; die Frage ist, welches schneller."
+ },
+ "CRWV": {
+  "text": "112 Prozent Wachstum bei minus 7 Prozent operativer Marge und einer negativen Gewinnrendite. Kein KGV, kein innerer Wert - CoreWeave verdient nichts und verbraucht mehr, als hereinkommt. Das Geschaeft besteht im Vermieten generischer Rechenkapazitaet, also genau in dem, was eine Verlagerung ins eigene Haus ersetzt. Dazu die Kundenkonzentration und GPU-besicherte Kredite, die in den naechsten Jahren faellig werden.",
+  "achten": "Der Restwert gebrauchter Beschleuniger. Er ist die Sicherheit der Kredite - faellt er, wird aus einer Nachfrageverschiebung ein Kreditereignis."
+ },
+ "NBIS": {
+  "text": "25 Prozent Wachstum bei minus 6 Prozent operativer Marge, kein KGV, kein innerer Wert. Vorsicht bei allen Zeitreihen: Nebius mischt zwei Periodenraster - SEC-Quartale mit Ende Februar, Mai, August, November und Kalenderquartale aus yfinance. Sie ueberlappen sich, wodurch Vierquartalssummen Zeitraeume doppelt zaehlen. Von den 66 Firmen ist dies die einzige mit diesem Problem.",
+  "achten": "Zuerst die Datengrundlage, dann das Geschaeft. Solange die Perioden ueberlappen, ist jede Summe hier fragwuerdig."
+ },
+ "SONY": {
+  "text": "8 Prozent Wachstum bei 17 Prozent operativer Marge, KGV 17, Gewinnrendite 6,0 Prozent. Der Nettogewinn weicht deutlich vom operativen ab - die Abspaltung des Finanzgeschaefts wirkt in den Zahlen nach. Kein innerer Wert, weil Sony keine Quartalsberichte bei der SEC einreicht und nur fuenf Quartale vorliegen. Der Bezug zur KI-Kette laeuft ueber Bildsensoren, nicht ueber Rechenleistung.",
+  "achten": "Das Sensorgeschaeft getrennt vom Rest. Im Konzernergebnis verschwindet es zwischen Spielen, Musik und Filmen."
+ },
+ "AMSOSR": {
+  "text": "Minus 3 Prozent Umsatz, minus 4 Prozent operative Marge, minus 34 Prozent Gewinnrendite - die schwaechste Zahlenreihe unter den Optikanbietern. Mit 2 Mrd Marktkapitalisierung ist ams OSRAM zugleich die kleinste. Kein innerer Wert, weil der freie Cashflow nicht positiv ist. Von der KI-Nachfrage kommt hier nichts an; das Geschaeft haengt an Automobil und Beleuchtung.",
+  "achten": "Die Schuldenlast. Bei dieser Marge ist die Refinanzierung die eigentliche Frage, nicht das Wachstum."
+ },
+ "LITE": {
+  "text": "90 Prozent Wachstum bei 22 Prozent operativer Marge - deutlich besser als der Wettbewerber Coherent, und der Markt bezahlt es mit einem KGV von 157. Gewinnrendite 0,6 Prozent, innerer Wert 36 gegen 826 Dollar, der groesste Abstand der Liste. Optische Module fuer Rechenzentren sind der Rueckenwind; die Bewertung nimmt allerdings viele Jahre davon vorweg.",
+  "achten": "Ob die Marge das Wachstum ueberlebt. Optik hatte historisch immer dann Preisdruck, wenn die Kapazitaet nachzog."
+ },
+ "STM": {
+  "text": "26 Prozent Wachstum bei 7 Prozent operativer Marge, KGV 52, Gewinnrendite 1,9 Prozent, innerer Wert 12 gegen 53 Dollar. STMicroelectronics liefert Analog- und Leistungshalbleiter fuer Industrie und Automobil - ein Geschaeft, das vom KI-Ausbau nur mittelbar profitiert, ueber die Stromversorgung der Rechenzentren.",
+  "achten": "Der Automobilzyklus. Er bestimmt hier mehr als alles, was in Rechenzentren passiert."
+ },
+ "ON": {
+  "text": "9 Prozent Wachstum bei 16 Prozent operativer Marge, KGV 33, Gewinnrendite 3,1 Prozent, innerer Wert 31 gegen 77 Dollar. onsemi ist auf Leistungselektronik spezialisiert und damit naeher am Rechenzentrum als STMicro, aber ebenfalls stark vom Automobilgeschaeft abhaengig - und dort ist die Nachfrage schwach.",
+  "achten": "Der Anteil der Rechenzentrumsversorgung. Er ist klein, waechst aber und traegt bessere Margen als das Automobilgeschaeft."
+ },
+ "HSAI": {
+  "text": "30 Prozent Wachstum, aber operativ knapp im Minus. Wichtiger als die Bewertung ist hier eine Warnung zur Datenlage: Gewinn je Aktie und Nettogewinn passen im Datensatz nicht zusammen - der eine Wert liegt rund siebenfach ueber dem, was Nettogewinn geteilt durch Aktienzahl ergibt. Das entspricht ungefaehr dem Verhaeltnis von Yuan zu Dollar. Solange das nicht geklaert ist, sind KGV und Gewinnrendite fuer Hesai nicht belastbar.",
+  "achten": "Zuerst die Waehrungsbasis. Ein chinesischer Emittent mit Dollar-Notierung ist genau die Konstellation, in der solche Fehler entstehen."
+ },
+ "ROBOSENSE": {
+  "text": "Dem juengsten Quartal fehlen Umsatz und Ergebnis, es liegen nur vier Quartale vor - die duennste Datenlage der ganzen Liste. Bei 1 Mrd Marktkapitalisierung und negativer Gewinnrendite ist das ein Unternehmen im Aufbau, kein Bewertungsfall. RoboSense reicht nicht bei der SEC ein; ueber EDGAR ist es nicht zu verfolgen.",
+  "achten": "Die Originalberichte aus Hongkong. Ohne sie ist hier nichts Belastbares zu messen."
+ },
+ "OUST": {
+  "text": "49 Prozent Wachstum bei minus 40 Prozent operativer Marge - Ouster waechst schnell und verliert dabei je Umsatzdollar vierzig Cent. Kein KGV, kein innerer Wert. Bei 0,2 Mrd Umsatz und 2 Mrd Bewertung zahlt der Markt das Zehnfache des Jahresumsatzes fuer ein Geschaeft, das noch keinen Beweis erbracht hat, dass es bei Groesse profitabel wird.",
+  "achten": "Die Bruttomarge, nicht das Wachstum. Sie zeigt, ob die Stueckkosten mit der Menge fallen - der einzige Weg aus dem Verlust."
+ },
+ "AEVA": {
+  "text": "86 Prozent Wachstum auf sehr kleiner Grundlage, bei minus 561 Prozent operativer Marge: Aeva gibt fuer jeden eingenommenen Dollar mehr als fuenf aus. Kein KGV, kein innerer Wert, negative Gewinnrendite. Das ist ein Forschungsunternehmen mit Boersennotierung, kein Zulieferer mit Ertragsrechnung.",
+  "achten": "Die Reichweite der Barmittel. Bei diesem Verhaeltnis entscheidet der Kassenbestand, nicht der Auftragseingang."
+ },
+ "INVZ": {
+  "text": "Minus 59 Prozent Umsatz bei minus 371 Prozent operativer Marge und einer Gewinnrendite von minus 145 Prozent - die schwaechste Kombination der gesamten Liste. Innoviz schrumpft und verliert dabei ein Vielfaches des Umsatzes. Bei unter 1 Mrd Bewertung ist das eine Wette auf einen einzelnen Grossauftrag, nicht auf ein laufendes Geschaeft.",
+  "achten": "Ob ueberhaupt ein Serienauftrag in Produktion geht. Alles andere ist hier nachrangig."
+ },
+ "MBLY": {
+  "text": "Null Prozent Wachstum bei minus 6 Prozent operativer Marge. Der innere Wert von 38 gegen 8,45 Dollar ist der einzige Fall der Liste, in dem die Rechnung deutlich ueber dem Kurs liegt - was hier weniger fuer Mobileye spricht als gegen die Rechnung: Sie fusst auf frueheren, besseren Jahren. Das Geschaeft stagniert, waehrend die Autohersteller eigene Systeme aufbauen.",
+  "achten": "Ob das Stagnieren des Umsatzes endet. Ein innerer Wert aus alten Jahren ist wertlos, wenn die neuen anders aussehen."
+ },
+ "AMBA": {
+  "text": "17 Prozent Wachstum bei minus 19 Prozent operativer Marge, kein KGV, innerer Wert 17 gegen 82 Dollar. Ambarella baut Bildverarbeitungschips fuer Kameras und Fahrzeuge - technisch nah an dem, was lokale Bilderkennung braucht, wirtschaftlich aber noch ohne Beweis, dass daraus ein profitables Geschaeft wird.",
+  "achten": "Der Anteil der Edge-KI-Chips am Umsatz. Er ist das einzige Segment mit strukturellem Rueckenwind."
+ },
+ "QCOM": {
+  "text": "Minus 4 Prozent Umsatz - eine der wenigen schrumpfenden Firmen der Liste, bei 16 Prozent operativer Marge. KGV 22, Gewinnrendite 4,6 Prozent, innerer Wert 127 gegen 158 Dollar: der zweitkleinste Abstand zwischen Rechnung und Kurs unter den grossen Werten. Qualcomm ist strukturell der Gewinner, wenn Rechenleistung auf Endgeraete wandert, und wird derzeit nicht dafuer bezahlt.",
+  "achten": "Der Umsatz ausserhalb des Telefongeschaefts. Nur er zeigt, ob die Verlagerung auf Endgeraete bei Qualcomm ankommt."
+ },
+ "ABB": {
+  "text": "14 Prozent Wachstum bei 18 Prozent operativer Marge, KGV 36, Gewinnrendite 2,7 Prozent. Kein innerer Wert, weil ABB keine Quartalszahlen bei der SEC einreicht. Das Geschaeft mit Automatisierung und Elektrifizierung profitiert vom Rechenzentrumsbau, ist aber breit genug aufgestellt, dass dieser Anteil im Konzernergebnis untergeht.",
+  "achten": "Das Segment Elektrifizierung getrennt. Nur dort schlaegt der Rechenzentrumsbau durch."
+ },
+ "ISRG": {
+  "text": "19 Prozent Wachstum bei 34 Prozent operativer Marge, KGV 40, Gewinnrendite 2,5 Prozent, innerer Wert 120 gegen 375 Dollar. Intuitive Surgical verdient an Verbrauchsmaterial je Eingriff, nicht am Verkauf der Roboter - ein Geschaeftsmodell mit wiederkehrenden Erloesen, das mit der installierten Basis waechst und wenig mit dem KI-Zyklus zu tun hat.",
+  "achten": "Die Zahl der Eingriffe, nicht die der verkauften Systeme. Sie ist die eigentliche Umsatzbasis."
+ },
+ "AAPL": {
+  "text": "16 Prozent Wachstum bei 33 Prozent operativer Marge und 467 Mrd Umsatz - mit 4,6 Bio die hoechste Bewertung der Liste. KGV 39 und 2,6 Prozent Gewinnrendite sind fuer dieses Wachstum ambitioniert; der innere Wert von 104 gegen 311 Dollar zeigt denselben Abstand. Apple ist die Firma, die am meisten davon haette, wenn Modelle auf dem Geraet laufen - und die am wenigsten davon spricht.",
+  "achten": "Der Speicherausbau je Geraet. Er ist die messbare Vorbedingung fuer lokale Modelle und schlaegt direkt auf die Stueckliste durch."
+ },
+ "SDGR": {
+  "text": "8 Prozent Wachstum bei minus 71 Prozent operativer Marge. Kein innerer Wert. Schroedinger verkauft Simulationssoftware fuer die Wirkstoffsuche und haelt zugleich eigene Wirkstoffprogramme - eine Mischung, die die Zahlen schwer lesbar macht: Der Softwareteil ist ein Geschaeft, der Forschungsteil ein Kostenblock.",
+  "achten": "Der Softwareumsatz getrennt von den eigenen Programmen. Nur der erste ist bewertbar."
+ },
+ "CERT": {
+  "text": "Minus 11 Prozent Umsatz bei einer operativen Marge um null und minus 17,5 Prozent Gewinnrendite. Innerer Wert 8,53 gegen 8,01 Dollar - Rechnung und Kurs liegen fast gleichauf, was bei einem schrumpfenden Geschaeft eher heisst, dass beide dasselbe Problem sehen. Certara verkauft Simulationssoftware fuer Zulassungsverfahren.",
+  "achten": "Ob der Umsatzrueckgang endet. Bei dieser Marge bleibt kein Spielraum fuer ein weiteres schwaches Jahr."
+ },
+ "SLP": {
+  "text": "7 Prozent Wachstum bei 21 Prozent operativer Marge, KGV 26, Gewinnrendite 3,9 Prozent, innerer Wert 20 gegen 18 Dollar. Simulations Plus ist mit unter 1 Mrd die kleinste profitable Firma der Liste - ein solides Nischengeschaeft, das weder vom KI-Boom getragen noch von ihm bedroht wird.",
+  "achten": "Das Wachstum. Bei dieser Groesse entscheidet es, ob aus einer Nische ein Markt wird."
+ },
+ "TEM": {
+  "text": "22 Prozent Wachstum bei minus 20 Prozent operativer Marge. Das KGV von 571 ist keine Aussage, sondern das Ergebnis eines Quartals nahe der Nulllinie. Kein innerer Wert. Tempus AI verkauft Diagnostik und Datenzugang - das Geschaeftsmodell, das der KI-Anwendung im Gesundheitswesen am naechsten kommt, aber noch ohne Ertragsbeweis.",
+  "achten": "Der Datenumsatz getrennt von der Labordiagnostik. Nur der erste skaliert ohne zusaetzliche Kosten."
+ },
+ "RXRX": {
+  "text": "Minus 60 Prozent Umsatz bei minus 1760 Prozent operativer Marge - fuer jeden eingenommenen Dollar gehen mehr als siebzehn hinaus. Das ist keine Bewertungsfrage mehr, sondern eine Frage der Kassenreichweite. Recursion ist ein Forschungsunternehmen, dessen Umsatz aus Kooperationen stammt und entsprechend springt.",
+  "achten": "Der Kassenbestand gegen die vierteljaehrliche Verbrennungsrate. Alles andere ist hier nachrangig."
+ },
+ "LLY": {
+  "text": "48 Prozent Wachstum bei 40 Prozent operativer Marge und 1,1 Bio Bewertung - die groesste Firma der Liste ausserhalb der Technik. KGV 37, Gewinnrendite 2,7 Prozent, innerer Wert 120 gegen 1170 Dollar. Der Bezug zur KI-Kette ist mittelbar: Eli Lilly ist Grossabnehmer von Rechenleistung fuer die Wirkstoffsuche, verdient sein Geld aber an Praeparaten, die damit nichts zu tun haben.",
+  "achten": "Ob KI-gestuetzte Forschung je in der Pipeline sichtbar wird. Bisher ist der Zusammenhang eine Erzaehlung, keine Zahl."
+ },
+ "PLTR": {
+  "text": "93 Prozent Wachstum bei 47 Prozent operativer Marge - eine seltene Kombination, und der Markt bezahlt sie mit einem KGV von 108 und 0,9 Prozent Gewinnrendite. Der innere Wert von 24 gegen 158 Dollar ist der groesste Abstand unter den grossen Anwendungswerten. Palantir verkauft in Sitzplaetzen und Projekten, also genau in dem Modell, das durch Agenten unter Druck geraet.",
+  "achten": "Der Umsatz je Kunde gegen die Zahl der Kunden. Waechst nur das Erste, ist es Preisdurchsetzung; waechst das Zweite, ist es ein Markt."
+ },
+ "APP": {
+  "text": "53 Prozent Wachstum bei 78 Prozent operativer Marge - die zweithoechste Marge der Liste nach Micron, und anders als dort ohne Zyklus dahinter. KGV 21 und 4,9 Prozent Gewinnrendite sind dafuer bemerkenswert guenstig, innerer Wert 152 gegen 418 Dollar. AppLovin verkauft Werbevermittlung; die Marge stammt aus Software, nicht aus Anlagen.",
+  "achten": "Die Abhaengigkeit von wenigen Werbekunden und Plattformen. Solche Margen halten selten, wenn die Gegenseite verhandelt."
+ },
+ "NOW": {
+  "text": "24 Prozent Wachstum bei nur 4 Prozent operativer Marge, KGV 108, Gewinnrendite 0,9 Prozent. Der innere Wert von 130 gegen 117 Dollar liegt ueber dem Kurs - ein Hinweis darauf, dass die Rechnung hier den freien Cashflow trifft, den die Gewinnrechnung wegen hoher aktienbasierter Verguetung nicht zeigt. Beide Zahlen zusammen sind aussagekraeftiger als jede fuer sich.",
+  "achten": "Die Luecke zwischen Gewinn und freiem Cashflow. Sie besteht aus aktienbasierter Verguetung, die den Aktionaer real etwas kostet."
+ },
+ "CRM": {
+  "text": "13 Prozent Wachstum bei 21 Prozent operativer Marge, KGV 21, Gewinnrendite 4,7 Prozent. Der innere Wert von 534 gegen 193 Dollar ist der auffaelligste Ueberschuss der Liste - die Rechnung sieht Salesforce als deutlich unterbewertet. Vorsicht dabei: Sie unterstellt, dass der freie Cashflow so weiterlaeuft. Genau das ist bei Sitzplatzpreisen im Agentenzeitalter die offene Frage.",
+  "achten": "Der Anteil nutzungsbasierter Erloese. Er entscheidet, ob der Cashflow der Rechnung standhaelt."
+ },
+ "INTU": {
+  "text": "Achtung bei der Quartalszahl: KGV 7,8 und 12,8 Prozent Gewinnrendite entstehen, weil das juengste Quartal saisonal das staerkste ist - Intuits Geschaeft haengt an der Steuersaison. Das Quartal mal vier ueberzeichnet das Jahr erheblich. Die Vierquartalszahl ist hier die einzige brauchbare. 10 Prozent Wachstum bei 47 Prozent operativer Marge sind solide, der innere Wert von 544 gegen 328 Dollar teilt die Vorsicht der Salesforce-Rechnung.",
+  "achten": "Ausschliesslich die Vierquartalswerte. Bei saisonalen Geschaeften ist Quartal mal vier eine Irrefuehrung."
+ },
+ "DUOL": {
+  "text": "27 Prozent Wachstum bei 15 Prozent operativer Marge, KGV 40, Gewinnrendite 2,5 Prozent, innerer Wert 396 gegen 135 Dollar. Duolingo ist die einzige Firma der Liste, deren Produkt durch Sprachmodelle sowohl besser als auch angreifbar wird: Dieselbe Technik, die den Unterricht verbessert, senkt die Huerde fuer Wettbewerber.",
+  "achten": "Die Zahl zahlender Nutzer gegen die Gesamtnutzer. Nur die Umwandlungsquote zeigt, ob das Produkt Preise durchsetzt."
+ },
+ "HPE": {
+  "text": "40 Prozent Wachstum bei 7 Prozent operativer Marge, KGV 31, Gewinnrendite 3,2 Prozent. Der innere Wert von 13,70 gegen 53 Dollar ist deutlich - HPE verdient an KI-Servern Umsatz, aber wenig Marge, und traegt zugleich die Uebernahme von Juniper. Wandert Inferenz ins eigene Haus der Kunden, ist HPE einer der wenigen strukturellen Gewinner der Liste.",
+  "achten": "Die Marge im KI-Servergeschaeft gegen die des uebrigen Geschaefts. Wachstum zu Selbstkosten hilft niemandem."
+ },
+ "_gesamt": {
+  "titel": "Was die 66 Firmen zusammen zeigen",
+  "text": "Die auffaelligste Zahl dieses Datenstands steht nicht bei Nvidia. Sie steht bei Micron: 80 Prozent operative Marge, bei 346 Prozent Umsatzwachstum. SK hynix kommt auf 76 Prozent, SanDisk auf 78, Samsung auf 52. Solche Margen hat die Speicherindustrie in keinem frueheren Zyklus erreicht - sie liegen ueber dem, was Nvidia mit 66 Prozent erzielt, in einem Geschaeft, das jahrzehntelang als austauschbare Massenware galt.\n\nDer Markt glaubt nicht daran. Dieselben vier Firmen werden mit KGV zwischen 3,3 und 9,5 bewertet, waehrend GE Vernova bei 6 Prozent operativer Marge ein KGV von 97 traegt und Astera Labs bei 5 Prozent eines von 558. Die Bewertung folgt in dieser Liste nicht der Marge, sondern der Erwartung an ihre Dauer. Wer heute am meisten verdient, wird am billigsten bewertet, weil man ihm den Absturz bereits unterstellt.\n\nDas Zweite: Der Aufschwung beschleunigt sich, statt abzuflachen. Nvidia waechst um 21 Punkte schneller als im Vorquartal, Broadcom um 18, Micron um 149, Samsung um 61, SK hynix um 59. Selbst Intel dreht von 7 auf 25 Prozent. In einer reifenden Nachfrage saehe das anders aus.\n\nDas Dritte, und das ist die Klammer zu den Speichermargen: Die Knappheit, die den Speicherherstellern diese Margen verschafft, ist dieselbe, die Arbeitsspeicher fuer Endgeraete gerade verteuert. Wer darauf setzt, dass Modelle auf lokale Geraete wandern, setzt implizit auf fallende Speicherpreise - und damit gegen die vier Firmen, die in dieser Liste am besten verdienen.\n\nWo nichts verdient wird, liegt es am Rand, nicht in der Mitte: Bei den Lidar-Herstellern Ouster, Aeva und Innoviz zwischen minus 40 und minus 371 Prozent operativer Marge, bei Recursion bei minus 1760, bei CoreWeave und Nebius im einstelligen Minus. Die Verlustzone der Kette liegt bei denen, die Nachfrage erst schaffen muessen, nicht bei denen, die sie bedienen.\n\nZur Belastbarkeit dieser Auswertung gehoert ihre Grenze. Ein innerer Wert liess sich fuer 36 der 66 Firmen rechnen. Bei elf fehlen SEC-Einreichungen, bei zwoelf ist der freie Cashflow ueber Jahre nicht positiv, weil der Ausbau alles aufzehrt - bei Micron nur 0,3 Prozent des Umsatzes. Dazu kommen etwa zehn Firmen mit einem Datenfehler, der eine Kopfzahl trifft: fehlende Umsaetze im juengsten Quartal bei Lam Research, KLA, Monolithic Power und Kioxia, unvollstaendige Aktienzahlen bei Alphabet und Dell, eine Waehrungsverwechslung bei Hesai, zwei sich ueberlappende Periodenraster bei Nebius. Jede dieser Stellen ist auf der Firmenseite benannt. Eine Zahl, die auf einem Bein steht, ist als solche gekennzeichnet - das ist der Unterschied zwischen einer Auswertung und einer Behauptung."
+ }
+}
