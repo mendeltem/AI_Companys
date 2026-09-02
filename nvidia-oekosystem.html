@@ -191,6 +191,40 @@ td a:hover{color:var(--akzent);border-color:var(--akzent)}
 .kennzahlen{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;
             background:var(--linie);border:1px solid var(--linie)}
 .kz{background:var(--flaeche);padding:12px 13px}
+/* kzgruppen: anfang */
+/* kzgruppen */
+.kzgruppen{display:flex;flex-direction:column;gap:22px}
+.kzgruppe h4{font-family:var(--disp);font-size:15px;font-weight:600;letter-spacing:.01em;
+             margin:0 0 3px;color:var(--tinte)}
+.kzgruppe > p{margin:0 0 9px;font-size:12.5px;line-height:1.5;color:var(--gedaempft);
+              max-width:78ch}
+/* kzgruppen: ende */
+
+/* analyse: anfang */
+/* analyse */
+.analyse h3{font-family:var(--disp);font-size:17px;font-weight:600;margin:0 0 8px}
+.analyse .analyse-text{font-size:15px;line-height:1.62;margin:0 0 10px;max-width:74ch}
+.analyse .analyse-achten{font-size:14px;line-height:1.55;margin:0 0 10px;max-width:74ch;
+  padding:10px 13px;background:var(--flaeche2);border-left:2px solid var(--akzent)}
+.analyse .analyse-fuss{font-size:11.5px;color:var(--schwach);font-family:var(--mono);margin:0}
+.analyse-gesamt .analyse-text{max-width:78ch}
+
+/* zuklappen */
+.kzgruppe details, .analyse details{margin:0}
+.kzgruppe summary, .analyse summary{list-style:none;cursor:pointer;display:flex;
+  align-items:baseline;gap:9px;padding:6px 0 2px}
+.kzgruppe details{margin-top:2px}
+.kzgruppe summary::-webkit-details-marker, .analyse summary::-webkit-details-marker{display:none}
+.gr-titel{font-family:var(--disp);font-size:15px;font-weight:600;color:var(--tinte)}
+.an-titel{font-family:var(--disp);font-size:17px;font-weight:600;color:var(--tinte)}
+.mehr{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--schwach);border-bottom:1px solid var(--linie-stark);line-height:1.3}
+summary:hover .mehr{color:var(--akzent);border-color:var(--akzent)}
+summary:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:2px}
+details[open] .mehr{color:var(--akzent);border-color:var(--akzent)}
+details[open] summary{margin-bottom:8px}
+/* analyse: ende */
+
 /* analyse */
 .analyse h3{font-family:var(--disp);font-size:17px;font-weight:600;margin:0 0 8px}
 .analyse .analyse-text{font-size:15px;line-height:1.62;margin:0 0 10px;max-width:74ch}
@@ -1337,6 +1371,7 @@ function firmenseite(k){
        e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : '\u2013',
        (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+' USD' : T('kz_rendite_verlust'))
          + kgvText(e.kgv_ttm), 'kgv_ttm'],
+    ], mehr:[
       [T('kz_rendite_op_q'),
        opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : '\u2013',
        (opQ!=null ? nf(inUsd(opQ,w),2)+' USD \u00d7 4' : T('kz_rendite_verlust'))
@@ -1352,19 +1387,29 @@ function firmenseite(k){
   ];
 
   let kzh='';
-  for(const g of kzGruppen){
-    let innen='';
-    for(const [t,v,s,art] of g.kacheln){
+  const baueKacheln = (liste)=>{
+    let h='';
+    for(const [t,v,s,art] of liste){
       const geht = art && erklaerung(art, k);
-      innen += geht
+      h += geht
         ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"
              title="${T('erkl_oeffnen')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`
         : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;
     }
+    return h;
+  };
+  for(const g of kzGruppen){
+    // Der Titel steht fuer sich, darunter die Kacheln, darunter erst der
+    // Schalter. So laeuft das Wort "mehr" nicht in die Ueberschrift, und was
+    // zusaetzlich erscheint, erscheint an der Stelle, an der man es erwartet.
+    const zusatz = g.mehr ? baueKacheln(g.mehr) : '';
     kzh += `<section class="kzgruppe">
-      <details><summary><span class="gr-titel">${g.titel}</span><span class="mehr">${T('mehr')}</span></summary>
-      <p>${g.text}</p></details>
-      <div class="kennzahlen">${innen}</div></section>`;
+      <h4>${g.titel}</h4>
+      <div class="kennzahlen">${baueKacheln(g.kacheln)}</div>
+      <details><summary><span class="mehr">${T('mehr')}</span></summary>
+        <p>${g.text}</p>
+        ${zusatz ? `<div class="kennzahlen">${zusatz}</div>` : ''}
+      </details></section>`;
   }
   /* ende kennzahl-gruppen */
 

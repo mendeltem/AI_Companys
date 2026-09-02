@@ -23,7 +23,7 @@ MARKE = "/* wertung: eingetragen */"
 
 GRUPPEN_ALT = '  const kz=[\n    [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, null],\n    [T(\'kz_marktkap\'), gross(e.marktkap_usd,\'USD\'), gross(e.marktkap,w), \'marktkap\'],\n    [T(\'kz_kgv_ttm\'), nf(e.kgv_ttm,1), T(\'kz_eps\')+\' \'+nf(inUsd(e.eps_ttm,w),2)+\' USD\', \'kgv_ttm\'],\n    [T(\'kz_kgv_q4x\'), nf(e.kgv_q4x,1), T(\'kz_letztes_q\')+\' \'+nf(inUsd(e.eps_q,w),2)+\' USD\', \'kgv_q4x\'],\n    [T(\'kz_kgv_q4x_op\'), nf(e.kgv_q4x_op,1), T(\'kz_op_q\')+\' \'+gross(e.op_q,w), \'kgv_q4x_op\'],\n    [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    [T(\'kz_kurs3j\'), pf(e.rendite_3j,0), T(\'kz_kurs1j\')+\' \'+pf(e.rendite_1j,0), null],\n  ];\n  let kzh=\'\';\n  for(const [t,v,s,art] of kz){\n    const geht = art && erklaerung(art, k);\n    kzh += geht\n      ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n           title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n      : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n  }\n'
 
-GRUPPEN_NEU = '  /* kennzahl-gruppen */\n  // Drei Gruppen statt einer Reihe. Rendite und KGV stehen in derselben\n  // Kachel, weil sie dieselbe Zahl sind - einmal als Prozentsatz im Jahr,\n  // einmal als Zahl der Jahre bis zur Amortisation. Der Kursverlauf ist keine\n  // eigene Kennzahl mehr, sondern liegt hinter dem Klick auf den Kurs.\n  const wv = WERT[k];\n  const ekWert = (wv && wv.wert!=null) ? wv.unternehmenswert - wv.nettoschulden : null;\n  const kgvText = (v)=> v==null ? \'\' : \' \\u00b7 \' + T(\'kz_kgv_kurz\') + \' \' + nf(v,1);\n  const opQ = opJeAktie(e,false), opV = opJeAktie(e,true);\n  const kgvOpV = (opV!=null && e.kurs) ? e.kurs/opV : null;\n\n  const kzGruppen=[\n    {titel:T(\'gr_preis\'), text:T(\'gr_preis_t\'), kacheln:[\n      [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, \'kurs\'],\n      [T(\'kz_marktkap\'), gross(e.marktkap,w),\n       ekWert!=null\n         ? T(\'kz_wert\')+\' \'+gross(ekWert, wv.waehrung||w)+\' \\u00b7 \'+T(\'kz_wert_verh\')+\' \'+nf(e.marktkap_usd/inUsd(ekWert, wv.waehrung||w),2)\n         : (wv ? (wv.grund||\'\').split(\' - \')[0] : \'\'),\n       ekWert!=null ? \'wert\' : \'marktkap\'],\n      [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    ]},\n    {titel:T(\'gr_ertrag\'), text:T(\'gr_ertrag_t\'), kacheln:[\n      [T(\'kz_rendite_q\'),\n       e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : \'\\u2013\',\n       (e.eps_q!=null ? nf(inUsd(e.eps_q,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x), \'kgv_q4x\'],\n      [T(\'kz_rendite_ttm\'),\n       e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : \'\\u2013\',\n       (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_ttm), \'kgv_ttm\'],\n      [T(\'kz_rendite_op_q\'),\n       opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : \'\\u2013\',\n       (opQ!=null ? nf(inUsd(opQ,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x_op), \'kgv_q4x_op\'],\n      [T(\'kz_rendite_op_ttm\'),\n       opV!=null ? pf(rendite(opV, e.kurs),1) : \'\\u2013\',\n       (opV!=null ? nf(inUsd(opV,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(kgvOpV), null],\n    ]},\n    {titel:T(\'gr_wachstum\'), text:T(\'gr_wachstum_t\'), kacheln:[\n      [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    ]},\n  ];\n\n  let kzh=\'\';\n  for(const g of kzGruppen){\n    let innen=\'\';\n    for(const [t,v,s,art] of g.kacheln){\n      const geht = art && erklaerung(art, k);\n      innen += geht\n        ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n             title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n        : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n    }\n    kzh += `<section class="kzgruppe">\n      <details><summary><span class="gr-titel">${g.titel}</span><span class="mehr">${T(\'mehr\')}</span></summary>\n      <p>${g.text}</p></details>\n      <div class="kennzahlen">${innen}</div></section>`;\n  }\n  /* ende kennzahl-gruppen */\n'
+GRUPPEN_NEU = '  /* kennzahl-gruppen */\n  // Drei Gruppen statt einer Reihe. Rendite und KGV stehen in derselben\n  // Kachel, weil sie dieselbe Zahl sind - einmal als Prozentsatz im Jahr,\n  // einmal als Zahl der Jahre bis zur Amortisation. Der Kursverlauf ist keine\n  // eigene Kennzahl mehr, sondern liegt hinter dem Klick auf den Kurs.\n  const wv = WERT[k];\n  const ekWert = (wv && wv.wert!=null) ? wv.unternehmenswert - wv.nettoschulden : null;\n  const kgvText = (v)=> v==null ? \'\' : \' \\u00b7 \' + T(\'kz_kgv_kurz\') + \' \' + nf(v,1);\n  const opQ = opJeAktie(e,false), opV = opJeAktie(e,true);\n  const kgvOpV = (opV!=null && e.kurs) ? e.kurs/opV : null;\n\n  const kzGruppen=[\n    {titel:T(\'gr_preis\'), text:T(\'gr_preis_t\'), kacheln:[\n      [T(\'kz_kurs\'), kursF(e.kurs,w), e.kursdatum, \'kurs\'],\n      [T(\'kz_marktkap\'), gross(e.marktkap,w),\n       ekWert!=null\n         ? T(\'kz_wert\')+\' \'+gross(ekWert, wv.waehrung||w)+\' \\u00b7 \'+T(\'kz_wert_verh\')+\' \'+nf(e.marktkap_usd/inUsd(ekWert, wv.waehrung||w),2)\n         : (wv ? (wv.grund||\'\').split(\' - \')[0] : \'\'),\n       ekWert!=null ? \'wert\' : \'marktkap\'],\n      [T(\'kz_kuv\'), nf(e.kuv,1), T(\'kz_umsatz\')+\' \'+gross(e.umsatz_ttm_usd,\'USD\'), \'kuv\'],\n    ]},\n    {titel:T(\'gr_ertrag\'), text:T(\'gr_ertrag_t\'), kacheln:[\n      [T(\'kz_rendite_q\'),\n       e.eps_q!=null ? pf(rendite(e.eps_q*4, e.kurs),1) : \'\\u2013\',\n       (e.eps_q!=null ? nf(inUsd(e.eps_q,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x), \'kgv_q4x\'],\n      [T(\'kz_rendite_ttm\'),\n       e.eps_ttm!=null ? pf(rendite(e.eps_ttm, e.kurs),1) : \'\\u2013\',\n       (e.eps_ttm!=null ? nf(inUsd(e.eps_ttm,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_ttm), \'kgv_ttm\'],\n    ], mehr:[\n      [T(\'kz_rendite_op_q\'),\n       opQ!=null ? pf(rendite(opQ*4, e.kurs),1) : \'\\u2013\',\n       (opQ!=null ? nf(inUsd(opQ,w),2)+\' USD \\u00d7 4\' : T(\'kz_rendite_verlust\'))\n         + kgvText(e.kgv_q4x_op), \'kgv_q4x_op\'],\n      [T(\'kz_rendite_op_ttm\'),\n       opV!=null ? pf(rendite(opV, e.kurs),1) : \'\\u2013\',\n       (opV!=null ? nf(inUsd(opV,w),2)+\' USD\' : T(\'kz_rendite_verlust\'))\n         + kgvText(kgvOpV), null],\n    ]},\n    {titel:T(\'gr_wachstum\'), text:T(\'gr_wachstum_t\'), kacheln:[\n      [T(\'kz_umsatz_yoy\'), pf(e.umsatz_yoy), T(\'kz_letztes_q\'), null],\n    ]},\n  ];\n\n  let kzh=\'\';\n  const baueKacheln = (liste)=>{\n    let h=\'\';\n    for(const [t,v,s,art] of liste){\n      const geht = art && erklaerung(art, k);\n      h += geht\n        ? `<div class="kz klickbar" tabindex="0" role="button" data-erkl="${art}"\n             title="${T(\'erkl_oeffnen\')}"><small>${t}</small><b>${v}</b><em>${s}</em></div>`\n        : `<div class="kz"><small>${t}</small><b>${v}</b><em>${s}</em></div>`;\n    }\n    return h;\n  };\n  for(const g of kzGruppen){\n    // Der Titel steht fuer sich, darunter die Kacheln, darunter erst der\n    // Schalter. So laeuft das Wort "mehr" nicht in die Ueberschrift, und was\n    // zusaetzlich erscheint, erscheint an der Stelle, an der man es erwartet.\n    const zusatz = g.mehr ? baueKacheln(g.mehr) : \'\';\n    kzh += `<section class="kzgruppe">\n      <h4>${g.titel}</h4>\n      <div class="kennzahlen">${baueKacheln(g.kacheln)}</div>\n      <details><summary><span class="mehr">${T(\'mehr\')}</span></summary>\n        <p>${g.text}</p>\n        ${zusatz ? `<div class="kennzahlen">${zusatz}</div>` : \'\'}\n      </details></section>`;\n  }\n  /* ende kennzahl-gruppen */\n'
 
 RAHMEN_ALT = '  <div class="abschnitt"><div class="kennzahlen">${kzh}</div>'
 RAHMEN_NEU = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</div>'
@@ -73,7 +73,8 @@ ANALYSE_CSS = """
 /* zuklappen */
 .kzgruppe details, .analyse details{margin:0}
 .kzgruppe summary, .analyse summary{list-style:none;cursor:pointer;display:flex;
-  align-items:baseline;gap:9px;padding:2px 0;margin-bottom:6px}
+  align-items:baseline;gap:9px;padding:6px 0 2px}
+.kzgruppe details{margin-top:2px}
 .kzgruppe summary::-webkit-details-marker, .analyse summary::-webkit-details-marker{display:none}
 .gr-titel{font-family:var(--disp);font-size:15px;font-weight:600;color:var(--tinte)}
 .an-titel{font-family:var(--disp);font-size:17px;font-weight:600;color:var(--tinte)}
@@ -81,7 +82,7 @@ ANALYSE_CSS = """
   color:var(--schwach);border-bottom:1px solid var(--linie-stark);line-height:1.3}
 summary:hover .mehr{color:var(--akzent);border-color:var(--akzent)}
 summary:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:2px}
-details[open] .mehr{visibility:hidden}
+details[open] .mehr{color:var(--akzent);border-color:var(--akzent)}
 details[open] summary{margin-bottom:8px}
 """
 
@@ -420,6 +421,23 @@ ERKL = """  else if(art==='kurs'){
 """
 
 
+def _stil(s, kennung, css):
+    """Einen Stilblock setzen oder ersetzen.
+
+    Wie bei den Kacheln und der Analysehilfe: Nur einfuegen heisst, dass eine
+    einmal veroeffentlichte Fassung nie wieder korrigiert wird. Genau daran
+    fehlte auf der Seite das Zuklapp-CSS - der Browser zeigte weiter sein
+    eigenes Dreieck und das Wort "mehr" klebte am Titel.
+    """
+    auf, zu = "/* %s: anfang */\n" % kennung, "/* %s: ende */\n" % kennung
+    neu = auf + css.strip() + "\n" + zu
+    if auf in s:
+        return re.sub(re.escape(auf) + ".*?" + re.escape(zu), lambda _: neu, s,
+                      count=1, flags=re.S), "ersetzt"
+    anker = ".kz{background:var(--flaeche);padding:12px 13px}"
+    return s.replace(anker, anker + "\n" + neu, 1), "eingefuegt"
+
+
 def _block(s, name, anker, inhalt):
     """Einen Abschnitt zwischen zwei Marken setzen oder ersetzen.
 
@@ -515,10 +533,8 @@ def eintragen(pruefen=False):
         if "${gesamtBlock()}" not in s and ANALYSE_ANKER_UEBER in s:
             s = s.replace(ANALYSE_ANKER_UEBER, ANALYSE_ANKER_UEBER + "\n    ${gesamtBlock()}", 1)
             schritte.append("Gesamttext auf der Uebersicht verdrahtet")
-        if ANALYSE_CSS_MARKE not in s:
-            s = s.replace(".kz{background:var(--flaeche);padding:12px 13px}",
-                          ".kz{background:var(--flaeche);padding:12px 13px}" + ANALYSE_CSS, 1)
-            schritte.append("Analyse-CSS eingefuegt")
+        s, meldung = _stil(s, "analyse", ANALYSE_CSS)
+        schritte.append("Analyse-CSS " + meldung)
 
     if "const rendite" not in s:
         s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
@@ -547,10 +563,8 @@ def eintragen(pruefen=False):
         s = s.replace(RAHMEN_ALT, RAHMEN_NEU, 1)
         schritte.append("Rahmen umgestellt")
 
-    if CSS_MARKE not in s:
-        s = s.replace(".kz{background:var(--flaeche);padding:12px 13px}",
-                      ".kz{background:var(--flaeche);padding:12px 13px}" + CSS, 1)
-        schritte.append("Gruppen-CSS eingefuegt")
+    s, meldung = _stil(s, "kzgruppen", CSS)
+    schritte.append("Gruppen-CSS " + meldung)
 
     # Der Rechenweg wird bei jedem Lauf ersetzt, nicht nur beim ersten - sonst
     # kommt eine Korrektur an der Darstellung nie auf der Seite an. Deshalb
