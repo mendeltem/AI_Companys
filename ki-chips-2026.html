@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Lagebericht zu KI-Beschleunigern: Architekturen, Engpasskette, Hyperscaler-Capex und Marktstruktur.">
+<title>Siliziumzyklus 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root{
+  --ground:#EDEEF0;
+  --surface:#FFFFFF;
+  --surface-sunk:#E4E6EA;
+  --ink:#15181D;
+  --ink-2:#3B424E;
+  --muted:#616A78;
+  --hairline:#D5D9DF;
+  --hairline-strong:#B9BFC9;
+  --copper:#A8501F;
+  --copper-soft:#EBD9CE;
+  --teal:#1F5E63;
+  --teal-soft:#D5E3E3;
+  --amber:#8A6410;
+  --alarm:#9C3226;
+  --bar-quiet:#AEB5C0;
+  --shadow:0 1px 0 rgba(21,24,29,.04), 0 8px 24px -18px rgba(21,24,29,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1115;
+    --surface:#171A20;
+    --surface-sunk:#1E222A;
+    --ink:#E9EBEF;
+    --ink-2:#C2C8D2;
+    --muted:#939BA8;
+    --hairline:#2A2F38;
+    --hairline-strong:#3A414C;
+    --copper:#DE8B57;
+    --copper-soft:#3A2418;
+    --teal:#66B8BC;
+    --teal-soft:#122B2D;
+    --amber:#D5A63C;
+    --alarm:#E0796A;
+    --bar-quiet:#4A515D;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1115;
+  --surface:#171A20;
+  --surface-sunk:#1E222A;
+  --ink:#E9EBEF;
+  --ink-2:#C2C8D2;
+  --muted:#939BA8;
+  --hairline:#2A2F38;
+  --hairline-strong:#3A414C;
+  --copper:#DE8B57;
+  --copper-soft:#3A2418;
+  --teal:#66B8BC;
+  --teal-soft:#122B2D;
+  --amber:#D5A63C;
+  --alarm:#E0796A;
+  --bar-quiet:#4A515D;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+.col{max-width:66ch}
+
+h1,h2,h3,h4,.mono,.stat-v,th,.tag{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+.mono,.eyebrow,.unit,.src,.axis,.pill,td.num,.spec-k{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  border-bottom:1px solid var(--hairline);
+  background:var(--surface);
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 47px,var(--hairline) 47px 48px),
+    repeating-linear-gradient(0deg,transparent 0 47px,var(--hairline) 47px 48px);
+  opacity:.5;
+  -webkit-mask-image:radial-gradient(120% 90% at 82% 8%,#000 0%,transparent 62%);
+  mask-image:radial-gradient(120% 90% at 82% 8%,#000 0%,transparent 62%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;max-width:1080px;margin:0 auto;padding:64px 24px 52px}
+.eyebrow{
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+.eyebrow .dot{width:6px;height:6px;background:var(--copper);border-radius:50%}
+h1{
+  font-size:clamp(38px,6.4vw,68px);line-height:1.02;letter-spacing:-.025em;
+  font-weight:700;margin:22px 0 0;text-wrap:balance;max-width:16ch;
+}
+h1 em{font-style:normal;color:var(--copper)}
+.dek{margin:20px 0 0;max-width:60ch;font-size:19px;color:var(--ink-2)}
+
+/* ---------- structure ---------- */
+.part{
+  margin:76px 0 0;padding-top:22px;border-top:2px solid var(--ink);
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;
+}
+.part .label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);font-family:"IBM Plex Mono",monospace}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0;font-weight:700;text-wrap:balance}
+h3{
+  font-size:20px;letter-spacing:-.01em;margin:52px 0 0;font-weight:600;text-wrap:balance;
+}
+h3 .spec-k{display:block;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:400}
+h4{font-size:15px;margin:0 0 6px;font-weight:600;letter-spacing:-.005em}
+p{margin:14px 0 0}
+a{color:var(--copper);text-underline-offset:3px;text-decoration-thickness:1px}
+strong{font-weight:600}
+.lede{font-size:19px;color:var(--ink-2)}
+
+ul.plain{margin:16px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+ul.plain li{padding-left:20px;position:relative}
+ul.plain li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--copper)}
+
+/* ---------- stat strip ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;background:var(--hairline);border:1px solid var(--hairline);
+  margin:40px 0 0;box-shadow:var(--shadow);
+}
+.stat{background:var(--surface);padding:20px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.stat-v{font-size:31px;line-height:1;letter-spacing:-.03em;font-weight:600;font-variant-numeric:tabular-nums}
+.stat-v .unit{font-size:14px;letter-spacing:0;color:var(--muted);margin-left:4px}
+.stat-k{font-size:13.5px;line-height:1.35;color:var(--ink-2)}
+.stat-s{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:"IBM Plex Mono",monospace;margin-top:auto;padding-top:6px}
+
+/* ---------- figures ---------- */
+figure{margin:40px 0 0;background:var(--surface);border:1px solid var(--hairline);padding:24px 22px 20px;box-shadow:var(--shadow)}
+figcaption{font-size:13px;color:var(--muted);margin-top:18px;padding-top:14px;border-top:1px solid var(--hairline);line-height:1.5}
+.fig-t{font-family:Archivo,sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.fig-sub{font-size:13.5px;color:var(--muted);margin-top:4px}
+
+.bars{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+.bar-row{display:grid;grid-template-columns:minmax(96px,132px) 1fr;gap:14px;align-items:center}
+.bar-name{font-size:14px;font-family:Archivo,sans-serif;font-weight:500}
+.bar-track{position:relative;height:26px;background:var(--surface-sunk)}
+.bar-fill{
+  height:100%;background:var(--copper);border-radius:0 3px 3px 0;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:9px;
+}
+.bar-fill.quiet{background:var(--bar-quiet)}
+.bar-val{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--surface)}
+:root[data-theme="dark"] .bar-val{color:#12151A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bar-val{color:#12151A}}
+.bar-note{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);padding-left:9px;align-self:center}
+
+.share{display:flex;height:34px;gap:2px;margin-top:20px}
+.share span{display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;overflow:hidden;white-space:nowrap}
+.share .s1{background:var(--copper);color:var(--surface);flex:0 0 90%}
+:root[data-theme="dark"] .share .s1{color:#12151A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .share .s1{color:#12151A}}
+.share .s2{background:var(--teal);flex:0 0 5%}
+.share .s3{background:var(--bar-quiet);flex:1 1 auto}
+.share-key{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2)}
+.share-key i{display:inline-block;width:10px;height:10px;margin-right:7px;vertical-align:baseline}
+.k1{background:var(--copper)}.k2{background:var(--teal)}.k3{background:var(--bar-quiet)}
+
+/* ---------- chain diagram ---------- */
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--hairline);border:1px solid var(--hairline);margin-top:22px}
+.link{background:var(--surface);padding:16px 15px;display:flex;flex-direction:column;gap:8px}
+.link .step{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.link .who{font-family:Archivo,sans-serif;font-weight:600;font-size:15px}
+.link .why{font-size:13px;line-height:1.45;color:var(--ink-2)}
+.pill{align-self:flex-start;margin-top:2px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border:1px solid currentColor}
+.pill.hot{color:var(--alarm)}
+.pill.warm{color:var(--amber)}
+.pill.ok{color:var(--teal)}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto;margin-top:22px;border:1px solid var(--hairline);background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:14px}
+th{
+  text-align:left;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  font-weight:500;padding:13px 14px;border-bottom:1px solid var(--hairline-strong);white-space:nowrap;
+  background:var(--surface);
+}
+td{padding:13px 14px;border-bottom:1px solid var(--hairline);vertical-align:top;color:var(--ink-2);line-height:1.45}
+tr:last-child td{border-bottom:none}
+td.name{color:var(--ink);font-family:Archivo,sans-serif;font-weight:600;white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:13px}
+
+/* ---------- callouts ---------- */
+.note{
+  margin:36px 0 0;padding:18px 20px;background:var(--surface);
+  border-left:3px solid var(--copper);border-top:1px solid var(--hairline);
+  border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+}
+.note.caution{border-left-color:var(--alarm)}
+.note p:first-child{margin-top:0}
+.note .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;font-weight:600}
+
+.takeaways{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--hairline);border:1px solid var(--hairline);margin-top:34px;box-shadow:var(--shadow)}
+.tk{background:var(--surface);padding:20px 18px;display:flex;flex-direction:column;gap:8px}
+.tk .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--copper);letter-spacing:.1em}
+.tk p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- sources ---------- */
+.src{font-size:12.5px;line-height:1.7;color:var(--muted);margin-top:20px;columns:2;column-gap:34px}
+.src a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--hairline-strong)}
+.src a:hover{color:var(--copper);border-bottom-color:var(--copper)}
+.src div{break-inside:avoid;margin-bottom:7px}
+@media (max-width:720px){.src{columns:1}}
+
+footer{margin-top:70px;padding-top:22px;border-top:1px solid var(--hairline);font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+
+a:focus-visible,summary:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:600px){
+  .hero-inner{padding:44px 20px 38px}
+  .wrap{padding:0 20px 72px}
+  body{font-size:16.5px}
+  .bar-row{grid-template-columns:1fr;gap:5px}
+}
+</style>
+
+</head>
+<body>
+<article>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot"></span><span>Lagebericht</span><span>Stand 2. September 2026</span><span>Technik &amp; Markt</span></div>
+    <h1>Der <em>Siliziumzyklus</em> hat die Wirtschaft erreicht</h1>
+    <p class="dek">KI-Beschleuniger sind 2026 rund die Hälfte aller Halbleiterumsätze – bei weniger als 0,2 % der verkauften Stückzahlen. Was diese Chips technisch ausmacht, wo sie klemmen, und was die 725 Mrd. $ Investitionen der Hyperscaler bereits im Rest der Elektronik anrichten.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-v">975<span class="unit">Mrd. $</span></div>
+      <div class="stat-k">Halbleiterumsatz weltweit 2026, Rekord (+26 %)</div>
+      <div class="stat-s">Deloitte</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">~500<span class="unit">Mrd. $</span></div>
+      <div class="stat-k">davon GenAI-Chips – rund die Hälfte des Gesamtmarkts</div>
+      <div class="stat-s">Deloitte</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">~725<span class="unit">Mrd. $</span></div>
+      <div class="stat-k">Capex der vier großen Hyperscaler 2026 (+77 % ggü. ~410 Mrd. $)</div>
+      <div class="stat-s">Analystenkonsens</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">89,0<span class="unit">Mrd. $</span></div>
+      <div class="stat-k">Nvidia Data-Center-Umsatz in <em>einem</em> Quartal (Q2 FY27, +117 % ggü. Vj.)</div>
+      <div class="stat-s">Nvidia 8-K</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p class="lede" style="margin-top:34px">Zwei Dinge sind 2026 gleichzeitig wahr: Der KI-Chip ist technisch kein einzelner Chip mehr, sondern ein Rack – und ökonomisch ist er kein Produkt mehr, sondern ein Investitionszyklus, dessen Nebenwirkungen inzwischen im Preis eines gewöhnlichen Notebooks sichtbar werden. Dieser Bericht trennt beides sauber: erst was die Hardware kann und wo sie hängt, dann was das Geld tut.</p>
+  </div>
+
+  <!-- ============ TEIL I ============ -->
+  <div class="part">
+    <h2>Vom Chip zum Rack</h2>
+    <span class="label">Teil I — Technik</span>
+  </div>
+
+  <div class="col">
+    <p>Die relevante Recheneinheit ist nicht mehr die GPU. Nvidias Vera Rubin NVL72 fasst 72 GPUs und 36 Vera-CPUs zu einer Domäne mit 260 TB/s Scale-up-Bandbreite zusammen; verkauft, geplant und stromversorgt wird das Rack, nicht der Baustein. Entsprechend verschiebt sich, worüber Ingenieure streiten: weg von FLOPS, hin zu Speicherbandbreite, Interconnect und Watt pro Token.</p>
+    <p>Vier Achsen bestimmen eine Beschleuniger-Generation:</p>
+    <ul class="plain">
+      <li><strong>Rechenwerk und Präzision.</strong> Matrix-Einheiten für immer kürzere Zahlenformate. Rubin gibt bis zu 50 PFLOPS NVFP4-Inferenz und 35 PFLOPS Training an – laut Nvidia das 5- bzw. 3,5-Fache von Blackwell. Ein großer Teil dieses Sprungs ist Formatwechsel (FP8 → FP4), nicht Transistorleistung.</li>
+      <li><strong>Speicher.</strong> HBM ist die eigentliche Währung. Rubin trägt 288 GB HBM4 über acht Stapel mit bis zu 22 TB/s – rund das 2,8-Fache von Blackwell. Bei LLM-Inferenz limitiert fast immer die Bandbreite, nicht die Rechenleistung.</li>
+      <li><strong>Interconnect.</strong> Innerhalb des Racks NVLink, gegenüber offene Ansätze wie UALink (AMD, AWS, Google, Meta, Microsoft u. a., Spezifikation 1.0 seit April 2025) und Ethernet-Varianten, deren Hardware Ende 2026/2027 in Produktion geht.</li>
+      <li><strong>Packaging.</strong> 2,5D-Integration (TSMC CoWoS), Chiplets, künftig Co-Packaged Optics. Kupfer reicht nicht mehr über die Rack-Distanz, sobald sich die Bandbreite pro GPU je Generation verdoppelt.</li>
+    </ul>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>Plattform</th><th>Status</th><th>Speicher</th><th>Kennzahl</th><th>Fertigung / Besonderheit</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">Nvidia Rubin (VR200)</td>
+          <td class="num">Produktion seit Juni 2026</td>
+          <td class="num">288 GB HBM4 · 22 TB/s</td>
+          <td class="num">50 PF NVFP4 (Inf.)</td>
+          <td>TSMC N3P, 336 Mrd. Transistoren; Vera-CPU; NVL72-Rack</td>
+        </tr>
+        <tr>
+          <td class="name">Nvidia Rubin Ultra</td>
+          <td class="num">angekündigt (GTC 2026)</td>
+          <td class="num">HBM4, Menge strittig</td>
+          <td class="num">NVLink-Domäne bis 1.152 GPUs</td>
+          <td>Erste Plattform mit Co-Packaged Optics als Serienlösung</td>
+        </tr>
+        <tr>
+          <td class="name">AMD MI450 / Helios</td>
+          <td class="num">Auslieferung H2 2026</td>
+          <td class="num">+50 % Bandbreite lt. AMD</td>
+          <td class="num">~5,25 Mio. $ pro Rack</td>
+          <td>2 nm; erstes AMD-Rack-System; Microsoft als Erstkunde</td>
+        </tr>
+        <tr>
+          <td class="name">Google TPU v7 „Ironwood“</td>
+          <td class="num">im Einsatz</td>
+          <td class="num">192 GB HBM3E · 7,37 TB/s</td>
+          <td class="num">4.614 TFLOPS FP8</td>
+          <td>TSMC N3P, Dual-Chiplet; mit Broadcom/MediaTek entwickelt</td>
+        </tr>
+        <tr>
+          <td class="name">AWS Trainium3</td>
+          <td class="num">im Einsatz</td>
+          <td class="num">HBM (Gen 3)</td>
+          <td class="num">Nachfolger angekündigt</td>
+          <td>Trainium4 für Ende 2026/2027: 3× FP8, 6× FP4, 4× Bandbreite</td>
+        </tr>
+        <tr>
+          <td class="name">Meta MTIA 300–500</td>
+          <td class="num">Roadmap bis 2027</td>
+          <td class="num">k. A.</td>
+          <td class="num">4 Generationen angekündigt</td>
+          <td>Zusätzlich zu bereits laufenden MTIA 100/200</td>
+        </tr>
+        <tr>
+          <td class="name">Microsoft Maia 200</td>
+          <td class="num">2026</td>
+          <td class="num">k. A.</td>
+          <td class="num">—</td>
+          <td>Inferenz-orientiert, für Azure-eigene Last</td>
+        </tr>
+        <tr>
+          <td class="name">Huawei Ascend 910C</td>
+          <td class="num">Hochlauf</td>
+          <td class="num">CXMT-HBM (inländisch)</td>
+          <td class="num">Ziel bis 1,6 Mio. Dies 2026</td>
+          <td>SMIC-7nm; TSMC-Die-Bestand aufgebraucht</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-top:12px;max-width:66ch">Leistungsangaben sind Herstellerangaben unter jeweils eigenen Messbedingungen und über Generationen hinweg nur eingeschränkt vergleichbar – insbesondere, weil Präzisionsformate wechseln.</p>
+
+  <h3><span class="spec-k">Engpasskette</span>Wo es tatsächlich klemmt</h3>
+  <div class="col"><p>Die Grenze liegt seit 2025 nicht mehr bei der Logik-Fertigung. Sie wandert entlang der Kette nach hinten – zuletzt bis in die Stromversorgung.</p></div>
+
+  <figure>
+    <div class="fig-t">Die Kette hinter einem ausgelieferten Rack</div>
+    <div class="fig-sub">Jede Stufe kann die Auslieferung allein blockieren. Stand Mitte 2026.</div>
+    <div class="chain">
+      <div class="link">
+        <span class="step">Logik-Wafer</span>
+        <span class="who">TSMC N3P / N2</span>
+        <span class="why">2 nm ausgebucht, aber ausbaubar. Nicht mehr der harte Engpass.</span>
+        <span class="pill warm">eng</span>
+      </div>
+      <div class="link">
+        <span class="step">Speicher</span>
+        <span class="who">HBM4-Stapel</span>
+        <span class="why">Ausverkauft. Getestete Stapel begrenzen, wie viele Pakete überhaupt entstehen. 12-/16-Hi bringt Ausbeute- und Thermikrisiko.</span>
+        <span class="pill hot">kritisch</span>
+      </div>
+      <div class="link">
+        <span class="step">Packaging</span>
+        <span class="who">CoWoS</span>
+        <span class="why">13.000 Wafer/Monat Ende 2023 → 120.000–140.000 Ende 2026. Angebotslücke schrumpft von ~20 % auf ~10 %.</span>
+        <span class="pill warm">eng</span>
+      </div>
+      <div class="link">
+        <span class="step">Netzwerk</span>
+        <span class="who">Optik &amp; Switching</span>
+        <span class="why">Übergang zu Co-Packaged Optics; bei 1,6T-Modulen bindet die Energie, nicht die Bandbreite.</span>
+        <span class="pill ok">im Umbau</span>
+      </div>
+      <div class="link">
+        <span class="step">Standort</span>
+        <span class="who">Strom &amp; Netzanschluss</span>
+        <span class="why">Die bindende Restriktion in den USA. Microsoft nennt einen Azure-Auftragsbestand von 80 Mrd. $, der mangels Strom nicht bedient werden kann.</span>
+        <span class="pill hot">kritisch</span>
+      </div>
+    </div>
+    <figcaption>Quellen: TrendForce, TechInsights/SemiWiki (CoWoS), CNBC/Micron (HBM), Global Data Center Hub (Microsoft-Backlog). Die CoWoS-Kapazität liegt nach unterschiedlichen Schätzungen bei 120.000–140.000 Wafer-Starts pro Monat zum Jahresende 2026; Nvidia hält davon geschätzt rund 60 %.</figcaption>
+  </figure>
+
+  <h3><span class="spec-k">Lastverschiebung</span>Inferenz frisst das Wachstum</h3>
+  <div class="col">
+    <p>Rund zwei Drittel der KI-Rechenlast entfallen inzwischen auf Inferenz, nicht auf Training. Das verändert, welche Hardware gewinnt: Trainingscluster belohnen rohe FLOPS und Skalierbarkeit, Inferenz belohnt Latenz, Speichernähe und Energie pro Token. Daraus entstehen drei konkurrierende Architekturschulen:</p>
+    <ul class="plain">
+      <li><strong>SRAM-nah statt HBM-nah.</strong> Cerebras' Wafer-Scale-Engine hält Gewichte direkt neben der Rechenlogik – mit ~2.100 Token/s auf Llama 3.3 70B gegenüber ~750 Token/s bei Groqs LPU. AMD kombiniert Cerebras-Technik mit Helios und beansprucht 5× mehr Token pro Sekunde und Watt.</li>
+      <li><strong>Fest verdrahtete Transformer.</strong> Etched (Sohu) gießt die Architektur in Silizium – maximale Effizienz gegen null Flexibilität, bewertet mit 5 Mrd. $ bei sehr schmaler kommerzieller Basis.</li>
+      <li><strong>Konsolidierung.</strong> Nvidia hat Groq übernommen. Der Marktführer behandelt spezialisierte Inferenz-Silizium damit selbst als strategische Notwendigkeit, nicht als Nische.</li>
+    </ul>
+    <p>Parallel wandert ein Teil der Inferenz aus dem Rechenzentrum heraus: On-Device-Antworten in unter 20 ms gegenüber 200–500 ms Cloud-Roundtrip. 2026 haben mehr als die Hälfte aller verkauften PCs eine NPU (Snapdragon X2 Elite Extreme: 80 TOPS; Apple A19: 38 TOPS). Das ist volumenstark, aber wertmäßig eine andere Liga – der Edge-Markt liegt bei rund 30,7 Mrd. $.</p>
+  </div>
+
+  <!-- ============ TEIL II ============ -->
+  <div class="part">
+    <h2>Das Geld und seine Nebenwirkungen</h2>
+    <span class="label">Teil II — Markt</span>
+  </div>
+
+  <div class="col">
+    <p>Der Nachfrageimpuls kommt aus wenigen Bilanzen. Vier US-Konzerne planen 2026 gemeinsam rund 725 Mrd. $ Investitionen, überwiegend Rechenzentren, Beschleuniger und Strominfrastruktur. Jeder große Cloud-Anbieter hat seine Prognose 2026 mindestens einmal angehoben, die meisten zweimal – ein Signal, dass die Nachfrage weiter über der verfügbaren Kapazität liegt.</p>
+  </div>
+
+  <figure>
+    <div class="fig-t">Capex-Planung 2026 der vier großen Hyperscaler</div>
+    <div class="fig-sub">Angaben in Mrd. US-Dollar, jeweils aktuellste Unternehmensguidance; Balkenlänge = Mittelwert der Spanne.</div>
+    <div class="bars">
+      <div class="bar-row">
+        <span class="bar-name">Amazon</span>
+        <div style="display:flex"><div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%"><span class="bar-val">220</span></div></div><span class="bar-note">angehoben von 200</span></div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name">Alphabet</span>
+        <div style="display:flex"><div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90.9%"><span class="bar-val">195–205</span></div></div><span class="bar-note">von 180–190</span></div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name">Microsoft</span>
+        <div style="display:flex"><div class="bar-track" style="flex:1"><div class="bar-fill" style="width:86.4%"><span class="bar-val">~190</span></div></div><span class="bar-note">Kalenderjahr</span></div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name">Meta</span>
+        <div style="display:flex"><div class="bar-track" style="flex:1"><div class="bar-fill" style="width:62.5%"><span class="bar-val">130–145</span></div></div><span class="bar-note">Spanne verengt</span></div>
+      </div>
+      <div class="bar-row" style="margin-top:6px">
+        <span class="bar-name" style="color:var(--muted)">Summe 2025</span>
+        <div style="display:flex"><div class="bar-track" style="flex:1"><div class="bar-fill quiet" style="width:56.6%"><span class="bar-val">~410</span></div></div><span class="bar-note">zum Vergleich: alle vier</span></div>
+      </div>
+    </div>
+    <figcaption>Die letzte Zeile ist die Summe aller vier Unternehmen im <em>Vorjahr</em> und dient nur der Größeneinordnung – 2026 liegt die Summe bei rund 725 Mrd. $, ein Plus von etwa 77 %. Quellen: Tom's Hardware, Futurum Group, valueaddvc; Einzelwerte sind Guidance-Stände Mitte 2026 und wurden mehrfach revidiert.</figcaption>
+  </figure>
+
+  <h3><span class="spec-k">Struktur</span>Ein Anbieter, viele Herausforderer</h3>
+  <div class="col">
+    <p>Nvidias Q2 FY2027 (Quartalsende 26. Juli 2026, veröffentlicht am 26. August) zeigt die Konzentration in Zahlen: 96,2 Mrd. $ Gesamtumsatz (+106 % gegenüber dem Vorjahr), davon 89,0 Mrd. $ Data Center (+117 %), bei 75,0 % Bruttomarge. Die eigene Prognose von 91,0 Mrd. $ wurde damit deutlich übertroffen; für das laufende Quartal stellt Nvidia rund 108 Mrd. $ ± 2 % in Aussicht. Ein Jahr zuvor lag derselbe Posten bei rund 41 Mrd. $ – das ist die Steigung, um die es geht.</p>
+  </div>
+
+  <figure>
+    <div class="fig-t">Data-Center-GPU-Markt nach Anbieter</div>
+    <div class="fig-sub">Schätzung Futurum Group, 2026. Nur diskrete DC-GPUs – hausinterne ASICs sind hier nicht enthalten.</div>
+    <div class="share" role="img" aria-label="Nvidia rund 95 Prozent, AMD rund 4,5 Prozent, übrige Anbieter unter 1 Prozent">
+      <span class="s1">Nvidia ~95 %</span>
+      <span class="s2"></span>
+      <span class="s3"></span>
+    </div>
+    <div class="share-key">
+      <span><i class="k1"></i>Nvidia ~95 %</span>
+      <span><i class="k2"></i>AMD ~4,5 %</span>
+      <span><i class="k3"></i>Übrige &lt;1 %</span>
+    </div>
+    <figcaption>Diese Sicht überzeichnet Nvidias Position, weil sie den schnellstwachsenden Teil ausblendet: Kundeneigene ASICs (Google TPU, AWS Trainium, Meta MTIA, Microsoft Maia) wachsen mit rund 44,6 % CAGR und zielen genau auf die Inferenzlast, die zwei Drittel des Bedarfs ausmacht. AMD rechnet mit Helios/MI450 mittelfristig mit 20–25 % Anteil – eine Herstellerprognose, kein Marktkonsens.</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>Der eigentliche Gewinner der ASIC-Welle ist Broadcom: Das Unternehmen hat sein Custom-Silicon-Geschäft von einem Google-Auftrag zu einem Mehrkundenhaus ausgebaut – mit Meta, OpenAI und Anthropic. Wer keine eigene Chipabteilung hat, kauft sie dort ein.</p>
+  </div>
+
+  <h3><span class="spec-k">Zweite Ordnung</span>Der Preis, den alle anderen zahlen</h3>
+  <div class="col">
+    <p>Die interessanteste Auswirkung steht in keiner KI-Bilanz. Samsung, SK Hynix und Micron kontrollieren über 95 % der DRAM-Produktion und haben Kapazität systematisch auf HBM umgeschichtet – margenstark statt volumenstark. Die Folge ist eine Verknappung, die den gesamten Rest der Elektronik trifft.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-v">+50–55<span class="unit">%</span></div>
+      <div class="stat-k">DRAM-Kontraktpreise Q1 2026 gegenüber Q4 2025</div>
+      <div class="stat-s">TrendForce</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">−12,9<span class="unit">%</span></div>
+      <div class="stat-k">prognostizierter Rückgang der Smartphone-Auslieferungen 2026</div>
+      <div class="stat-s">IDC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">−11,3<span class="unit">%</span></div>
+      <div class="stat-k">prognostizierte Schrumpfung des PC-Markts 2026</div>
+      <div class="stat-s">IDC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v">2027<span class="unit">+</span></div>
+      <div class="stat-k">Zeithorizont, bis sich die Speicherknappheit laut Herstellern entspannt</div>
+      <div class="stat-s">Samsung / SK Hynix</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Das ist der bemerkenswerteste Befund dieser Recherche: Ein Investitionszyklus im Rechenzentrum verteuert Notebooks, Autoelektronik und Smartphones. Deloitte formuliert dieselbe Asymmetrie von der anderen Seite – KI-Chips sind rund die Hälfte des Branchenumsatzes, aber weniger als 0,2 % der Stückzahlen: rund 20 Millionen Chips von 1,05 Billionen verkauften.</p>
+  </div>
+
+  <h3><span class="spec-k">Bifurkation</span>Zwei getrennte Märkte</h3>
+  <div class="col">
+    <p>Exportkontrollen haben aus einem Weltmarkt zwei gemacht. Nvidias Anteil am chinesischen Markt fiel von 95 % (2023) auf rund 8 % (2026). Huaweis Ascend-Linie hält dort geschätzt 50–60 % der KI-Rechenkapazität bei etwa 12,1 Mrd. $ Jahresumsatz. Der Preis der Eigenständigkeit ist Fertigungstiefe: Der TSMC-Die-Bestand ist aufgebraucht, jede weitere Ascend-Einheit hängt an SMIC-Wafern, inländischem Packaging und CXMT-HBM – bei laufend verschärften Werkzeugbeschränkungen gegenüber chinesischen Fabs. Getrennte Lieferketten bedeuten mittelfristig getrennte Software-Ökosysteme, und das ist die teurere Trennung.</p>
+  </div>
+
+  <div class="note caution">
+    <span class="tag">Gegenrechnung</span>
+    <p><strong>Wo dieser Zyklus brechen könnte.</strong> Hyperscaler schreiben KI-Hardware über 5–6 Jahre ab, während die ökonomische Nutzungsdauer eher bei 2–3 Jahren liegen dürfte; Analysten beziffern die daraus resultierende Untererfassung auf rund 176 Mrd. $ für 2026–2028. Gleichzeitig wachsen die Ausgaben schneller als der ausgewiesene KI-Umsatz, Beschleuniger altern in Lagern, während auf Netzanschlüsse gewartet wird („stranded capex“), und die Fed führt KI-Investitionen inzwischen als systemisches Risiko. Das Szenario ist nicht „KI funktioniert nicht“, sondern: Inferenzerlöse wachsen bei fallenden Preisen zu langsam, um Abschreibung und Fremdkapital dieser Infrastruktur zu tragen.</p>
+  </div>
+
+  <!-- ============ SYNTHESE ============ -->
+  <div class="part">
+    <h2>Fünf Befunde</h2>
+    <span class="label">Auswirkung</span>
+  </div>
+
+  <div class="takeaways">
+    <div class="tk"><span class="n">01</span><h4>Der Engpass ist gewandert</h4><p>Nicht Logikfertigung, sondern HBM, Packaging und Strom bestimmen, wie viele Beschleuniger 2026 real in Betrieb gehen. Wer Lieferzeiten prognostiziert, muss diese drei Stufen modellieren, nicht die Nanometerzahl.</p></div>
+    <div class="tk"><span class="n">02</span><h4>Inferenz ist der Markt</h4><p>Zwei Drittel der Last, und damit das Feld, auf dem ASICs, SRAM-nahe Architekturen und Edge-NPUs gegen die General-Purpose-GPU antreten. Effizienz pro Token schlägt Spitzenleistung.</p></div>
+    <div class="tk"><span class="n">03</span><h4>Monopol im Kern, Wettbewerb an den Rändern</h4><p>~95 % bei diskreten DC-GPUs, aber die am schnellsten wachsende Kategorie ist kundeneigenes Silizium. Nvidias Anteil sinkt vermutlich, ohne dass sein Umsatz sinkt.</p></div>
+    <div class="tk"><span class="n">04</span><h4>Die Kosten sind längst breit verteilt</h4><p>Speicherpreise übertragen die KI-Investition in jede Materialliste. Für Hardware-Kalkulationen 2026/27 ist DRAM/NAND die volatilste Position, nicht der Prozessor.</p></div>
+    <div class="tk"><span class="n">05</span><h4>Die Finanzierung ist die offene Flanke</h4><p>Abschreibungsdauer, Stromverfügbarkeit und die Lücke zwischen Capex und ausgewiesenem KI-Umsatz sind die drei Kennzahlen, an denen sich ein Kippen zuerst zeigen würde – nicht an der Technik.</p></div>
+  </div>
+
+  <div class="note">
+    <span class="tag">Methodik &amp; Belastbarkeit</span>
+    <p>Primärquellen (Nvidia-Quartalsbericht, Deloitte-Branchenausblick, UALink-Spezifikation) sind belastbar. Marktanteile, CoWoS-Kapazitäten, Huawei-Stückzahlen und alle Capex-Summen stammen aus Analysten- und Marktforschungsschätzungen, die zwischen Anbietern deutlich abweichen – Größenordnungen sind aussagekräftig, Nachkommastellen nicht. Leistungsangaben zu noch nicht breit ausgelieferten Produkten (Rubin Ultra, MI450, Trainium4) sind Herstellerangaben. Prognosen für Marktvolumina 2030+ wurden bewusst weggelassen; sie sind bei dieser Volatilität nicht informativ. Stand: 2. September 2026.</p>
+  </div>
+
+  <h3><span class="spec-k">Belege</span>Quellen</h3>
+  <div class="src">
+    <div><a href="https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027">Nvidia – Q2 FY2027 Financial Results</a></div>
+    <div><a href="https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027">Nvidia – Q1 FY2027 Financial Results</a></div>
+    <div><a href="https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/semiconductor-industry-outlook.html">Deloitte – 2026 Semiconductor Industry Outlook</a></div>
+    <div><a href="https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion">Tom's Hardware – Big Tech Capex 725 Mrd. $</a></div>
+    <div><a href="https://futurumgroup.com/insights/ai-capex-2026-the-690b-infrastructure-sprint/">Futurum Group – AI Capex 2026</a></div>
+    <div><a href="https://www.techpowerup.com/350947/nvidia-details-the-rubin-architecture-die-annotation-vera-cpu-hbm4-and-disaggregated-inference">TechPowerUp – Rubin-Architektur im Detail</a></div>
+    <div><a href="https://videocardz.com/newz/nvidia-vera-rubin-nvl72-detailed-72-gpus-36-cpus-260-tb-s-scale-up-bandwidth">VideoCardz – Vera Rubin NVL72</a></div>
+    <div><a href="https://en.wikipedia.org/wiki/Rubin_(microarchitecture)">Wikipedia – Rubin (Mikroarchitektur)</a></div>
+    <div><a href="https://www.cnbc.com/2026/07/20/amd-helios-microsoft-ai-nvidia.html">CNBC – AMD Helios, Microsoft als Kunde</a></div>
+    <div><a href="https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia">Tom's Hardware – Custom AI ASICs (Mai 2026)</a></div>
+    <div><a href="https://www.spheron.network/blog/hyperscaler-custom-ai-chips-2026-trainium-tpu-maia-mtia-vs-nvidia-gpu/">Spheron – Hyperscaler Custom Chips 2026</a></div>
+    <div><a href="https://www.trendforce.com/news/2026/06/15/news-tsmc-cowos-supply-demand-gap-reportedly-seen-narrowing-from-20-to-10-by-end-2026-as-capacity-expands/">TrendForce – CoWoS-Angebotslücke</a></div>
+    <div><a href="https://siliconanalysts.com/analysis/foundry-allocation-status-q1-2026">Silicon Analysts – Foundry-Allokation Q1 2026</a></div>
+    <div><a href="https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html">CNBC – AI-Speicher ausverkauft</a></div>
+    <div><a href="https://www.idc.com/resource-center/blog/global-memory-shortage-crisis-market-analysis-and-the-potential-impact-on-the-smartphone-and-pc-markets-in-2026/">IDC – Speicherknappheit, Smartphone- und PC-Markt</a></div>
+    <div><a href="https://www.tomshardware.com/pc-components/ram/memory-price-surge-begins-to-cool-as-consumers-hit-affordability-limit-ai-demand-still-keeps-dram-and-nand-prices-climbing-through-q3-2026">Tom's Hardware – Speicherpreise Q3 2026</a></div>
+    <div><a href="https://insights.trendforce.com/p/ai-inference-chip-architecture">TrendForce – The Inference Economy Arrives</a></div>
+    <div><a href="https://www.sdxcentral.com/analysis/cerebras-spins-nvidias-groq-tieup-as-proof-its-waferscale-bet-was-right/">SDxCentral – Cerebras, Groq, Nvidia</a></div>
+    <div><a href="https://radiant.co/blog/nvidia-vera-rubin-ultra-ushers-in-the-cpo-era">Radiant – Co-Packaged Optics mit Vera Rubin Ultra</a></div>
+    <div><a href="https://www.the-substrate.net/p/where-chinas-ai-chip-supply-chain">The Substrate – Chinas KI-Chip-Lieferkette 2026</a></div>
+    <div><a href="https://valueaddvc.com/blog/how-export-controls-on-ai-chips-are-reshaping-global-tech-competition">Value Add VC – Exportkontrollen und Huaweis Anteil</a></div>
+    <div><a href="https://www.globaldatacenterhub.com/p/microsoft-q3-fy2026-the-190b-capex">Global Data Center Hub – Microsoft-Capex und Strom-Backlog</a></div>
+    <div><a href="https://nextwavesinsight.com/on-device-ai-2026-apple-pixel-galaxy-npu/">Next Waves Insight – On-Device-AI und NPUs 2026</a></div>
+  </div>
+
+  <footer>Lagebericht KI-Beschleuniger · Technik &amp; Marktökonomie · 2. September 2026</footer>
+</div>
+</article>
+</body>
+</html>

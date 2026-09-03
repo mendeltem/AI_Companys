@@ -158,6 +158,82 @@ Filing-Quelle steht in jeder Quartalszeile.
 
 ---
 
+## Zweiter Bericht: KI-Chips 2026
+
+`ki-chips-2026.html` — Lagebericht zu KI-Beschleunigern, Technik und
+Marktökonomie. Ergänzt die Bewertungsseite um die andere Hälfte der Frage: was
+die 66 Firmen dort eigentlich bauen, und an welcher Stufe der Kette es klemmt.
+Wieder eine einzelne HTML-Datei, kein Server, kein Build.
+
+**➜ [Zum Bericht](https://mendeltem.github.io/AI_Companys/ki-chips-2026.html)**
+
+Ohne GitHub Pages, ohne etwas umzustellen:
+
+    https://raw.githack.com/mendeltem/AI_Companys/main/ki-chips-2026.html
+
+Stand der Recherche: 2. September 2026.
+
+### Was drin steht
+
+| Teil | Inhalt |
+|---|---|
+| Technik | Rack statt Chip (Vera Rubin NVL72), Präzisionsformate FP8/FP4, HBM4, Interconnect, Packaging; Generationsvergleich Rubin, MI450, TPU v7, Trainium, MTIA, Maia, Ascend |
+| Engpasskette | Logik-Wafer → HBM → CoWoS → Optik → Netzanschluss, je Stufe mit Status. Der Engpass liegt nicht mehr in der Logikfertigung |
+| Markt | 725 Mrd. $ Hyperscaler-Capex 2026, Nvidia Q2 FY27, Marktanteile bei DC-GPUs, Broadcoms Rolle im ASIC-Geschäft |
+| Zweite Ordnung | DRAM-Preise, Smartphone- und PC-Prognosen, China-Bifurkation, Abschreibungs- und Stromdebatte |
+
+**Belastbarkeit.** Primärquellen (Nvidia-Quartalsbericht, Deloitte-Ausblick,
+UALink-Spezifikation) sind solide. Marktanteile, CoWoS-Kapazitäten,
+Huawei-Stückzahlen und alle Capex-Summen sind Analysten- und
+Marktforschungsschätzungen mit erheblicher Streuung zwischen Anbietern:
+Größenordnungen tragen, Nachkommastellen nicht. Leistungsangaben zu noch nicht
+breit ausgelieferten Produkten (Rubin Ultra, MI450, Trainium4) sind
+Herstellerangaben unter eigenen Messbedingungen.
+
+### Quellen
+
+**Primär**
+
+- [Nvidia — Q2 FY2027 Financial Results](https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027)
+- [Nvidia — Q1 FY2027 Financial Results](https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027)
+- [Deloitte — 2026 Semiconductor Industry Outlook](https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/semiconductor-industry-outlook.html)
+
+**Technik und Architekturen**
+
+- [TechPowerUp — Rubin-Architektur im Detail](https://www.techpowerup.com/350947/nvidia-details-the-rubin-architecture-die-annotation-vera-cpu-hbm4-and-disaggregated-inference)
+- [VideoCardz — Vera Rubin NVL72](https://videocardz.com/newz/nvidia-vera-rubin-nvl72-detailed-72-gpus-36-cpus-260-tb-s-scale-up-bandwidth)
+- [Wikipedia — Rubin (Mikroarchitektur)](https://en.wikipedia.org/wiki/Rubin_(microarchitecture))
+- [CNBC — AMD Helios, Microsoft als Erstkunde](https://www.cnbc.com/2026/07/20/amd-helios-microsoft-ai-nvidia.html)
+- [Tom's Hardware — Custom AI ASICs, Mai 2026](https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia)
+- [Spheron — Hyperscaler Custom Chips 2026](https://www.spheron.network/blog/hyperscaler-custom-ai-chips-2026-trainium-tpu-maia-mtia-vs-nvidia-gpu/)
+- [Radiant — Co-Packaged Optics mit Vera Rubin Ultra](https://radiant.co/blog/nvidia-vera-rubin-ultra-ushers-in-the-cpo-era)
+- [TrendForce — The Inference Economy Arrives](https://insights.trendforce.com/p/ai-inference-chip-architecture)
+- [SDxCentral — Cerebras, Groq, Nvidia](https://www.sdxcentral.com/analysis/cerebras-spins-nvidias-groq-tieup-as-proof-its-waferscale-bet-was-right/)
+- [Next Waves Insight — On-Device-AI und NPUs](https://nextwavesinsight.com/on-device-ai-2026-apple-pixel-galaxy-npu/)
+
+**Markt, Capex und Lieferkette**
+
+- [Tom's Hardware — Big Tech Capex 725 Mrd. $](https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion)
+- [Futurum Group — AI Capex 2026](https://futurumgroup.com/insights/ai-capex-2026-the-690b-infrastructure-sprint/)
+- [TrendForce — CoWoS-Angebotslücke 20 % auf 10 %](https://www.trendforce.com/news/2026/06/15/news-tsmc-cowos-supply-demand-gap-reportedly-seen-narrowing-from-20-to-10-by-end-2026-as-capacity-expands/)
+- [Silicon Analysts — Foundry-Allokation Q1 2026](https://siliconanalysts.com/analysis/foundry-allocation-status-q1-2026)
+- [Global Data Center Hub — Microsoft-Capex und Strom-Backlog](https://www.globaldatacenterhub.com/p/microsoft-q3-fy2026-the-190b-capex)
+
+**Speicher und Zweitrundeneffekte**
+
+- [CNBC — KI-Speicher ausverkauft](https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html)
+- [IDC — Speicherknappheit, Smartphone- und PC-Markt](https://www.idc.com/resource-center/blog/global-memory-shortage-crisis-market-analysis-and-the-potential-impact-on-the-smartphone-and-pc-markets-in-2026/)
+- [Tom's Hardware — Speicherpreise bis Q3 2026](https://www.tomshardware.com/pc-components/ram/memory-price-surge-begins-to-cool-as-consumers-hit-affordability-limit-ai-demand-still-keeps-dram-and-nand-prices-climbing-through-q3-2026)
+
+**China**
+
+- [The Substrate — Chinas KI-Chip-Lieferkette 2026](https://www.the-substrate.net/p/where-chinas-ai-chip-supply-chain)
+- [Value Add VC — Exportkontrollen und Huaweis Anteil](https://valueaddvc.com/blog/how-export-controls-on-ai-chips-are-reshaping-global-tech-competition)
+
+Keine Anlageberatung. Marktzahlen sind Schätzungen Dritter.
+
+---
+
 <a name="english"></a>
 
 ## English
@@ -192,3 +268,15 @@ require the measure management actually steers per segment, which is operating
 profit.
 
 Not investment advice. Figures may contain extraction errors.
+
+### AI chips report
+
+`ki-chips-2026.html` — a companion report on AI accelerators: what these
+companies actually build, and where the chain binds. Architectures from rack to
+memory, the bottleneck chain from logic wafers through HBM, CoWoS and optics to
+grid power, and the market economics around it. As of 2 September 2026.
+
+**➜ [Open the report](https://mendeltem.github.io/AI_Companys/ki-chips-2026.html)**
+
+Market shares, packaging capacities and capex totals are third-party estimates;
+orders of magnitude hold, decimal places do not.
