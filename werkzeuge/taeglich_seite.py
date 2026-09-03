@@ -114,6 +114,14 @@ def main():
     for z in neue[1:9]:
         sag("  " + z[:110])
 
+    # 2. Kurse erneuern. Sie sind die Haelfte jeder Kennzahl auf der Seite -
+    # KGV, Kurs-Umsatz-Verhaeltnis und die Renditen haengen alle am Zaehler -
+    # und anders als die Quartalszahlen sind sie taeglich zu haben. Die
+    # Quartalsreihen bleiben unberuehrt; deshalb nennt der Kopf zwei Daten.
+    code, aus = _lauf("kurse.py", *(["--pruefen"] if args.pruefen else []))
+    erste = [z for z in aus.splitlines() if "Kurse erneuert" in z or "Nichts zu schreiben" in z]
+    sag("Kurse (Code %d): %s" % (code, erste[0] if erste else aus.strip()[:90]))
+
     if args.wert or _wert_faellig():
         code, aus = _lauf("wert.py")
         letzte = [z for z in aus.splitlines() if z.strip()][-1:] or [""]

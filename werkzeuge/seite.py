@@ -90,7 +90,24 @@ details[open] summary{margin-bottom:8px}
 ANALYSE_ANKER_FIRMA = '  <div class="abschnitt"><div class="kzgruppen">${kzh}</div>'
 ANALYSE_ANKER_UEBER = "    <p>${T('intro')}</p>"
 
+KOPF_STAND_ALT = ("    <div class=\"stand\">${T('stand')} ${D.stand} &middot; "
+                  "${T('n_firmen')} &middot; ${T('kurse3j')}</div>")
+KOPF_STAND_NEU = ("    <div class=\"stand\">${T('stand_zahlen')} ${D.stand}"
+                  "${D.stand_kurse ? ` &middot; ${T('stand_kurse')} ${D.stand_kurse}` : ''}"
+                  " &middot; ${T('n_firmen')} &middot; ${T('kurse3j')}</div>")
+
+
 TEXTE = {
+    "stand_zahlen": {
+        "de": "Zahlen",
+        "en": "Figures",
+        "mn": "Тооны байдал",
+    },
+    "stand_kurse": {
+        "de": "Kurse",
+        "en": "Prices",
+        "mn": "Ханш",
+    },
     "mehr": {
         "de": "mehr",
         "en": "more",
@@ -535,6 +552,12 @@ def eintragen(pruefen=False):
             schritte.append("Gesamttext auf der Uebersicht verdrahtet")
         s, meldung = _stil(s, "analyse", ANALYSE_CSS)
         schritte.append("Analyse-CSS " + meldung)
+
+    # Der Kopf nennt beide Daten: die Berichtszahlen kommen aus der Pipeline,
+    # die Kurse taeglich von der Boerse. Sie stimmen nur selten ueberein.
+    if KOPF_STAND_ALT in s:
+        s = s.replace(KOPF_STAND_ALT, KOPF_STAND_NEU, 1)
+        schritte.append("Kopf nennt Zahlen- und Kursdatum")
 
     if "const rendite" not in s:
         s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
