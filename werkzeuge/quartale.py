@@ -66,8 +66,14 @@ TAGS_IFRS = {
     "operativ": ["ProfitLossFromOperatingActivities", "OperatingIncomeLoss"],
     "netto": ["ProfitLoss", "ProfitLossAttributableToOwnersOfParent"],
     "eps": ["DilutedEarningsLossPerShare", "BasicEarningsLossPerShare"],
+    # GlobalFoundries bucht die Aktienzahl schlicht als WeightedAverageShares.
+    # Ohne diesen Namen fehlt sie, ohne sie laesst sich der Gewinn je Aktie fuer
+    # das rekonstruierte Quartal nicht nachrechnen, und ohne den faellt die
+    # Vierquartalssumme aus - und mit ihr das KGV. Eine fehlende Zeile in einer
+    # Namensliste, drei Schritte weiter eine fehlende Kennzahl.
     "aktien": ["WeightedAverageNumberOfDilutedOrdinarySharesOutstanding",
-               "WeightedAverageNumberOfOrdinarySharesOutstandingBasic"],
+               "WeightedAverageNumberOfOrdinarySharesOutstandingBasic",
+               "AdjustedWeightedAverageShares", "WeightedAverageShares"],
 }
 
 # Was sich als Geschaeftsjahr minus Neunmonate rekonstruieren laesst: Fluesse.
@@ -372,8 +378,10 @@ def main():
     for sym, reihe in neue_reihen.items():
         _einsetzen(F[sym], reihe)
     D["stand"] = dt.date.today().isoformat()
+    aus_xbrl = sum(1 for e in F.values()
+                   if e.get("quartale") and e["quartale"][0].get("quelle") == "SEC XBRL")
     D["stand_quelle"] = "SEC XBRL fuer %d Firmen, Pipeline fuer %d" % (
-        len(neue_reihen), len(F) - len(neue_reihen))
+        aus_xbrl, len(F) - aus_xbrl)
     neu = json.dumps(D, ensure_ascii=False, separators=(",", ":"))
     open(pfad, "w", encoding="utf-8", newline="").write(s[:m.start(2)] + neu + s[m.end(2):])
     print("\n%d Firmen umgestellt, %d behalten ihre bisherigen Zahlen" %

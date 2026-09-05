@@ -38,6 +38,9 @@ ZWEIG = "main"
 # im Jahr. Sechsundsechzig Abrufe bei der SEC dafuer jeden Morgen waeren
 # Verschwendung; einmal die Woche reicht und faengt jede Meldung rechtzeitig.
 WERT_TAGE = 7
+# Quartalszahlen aendern sich vier Mal im Jahr. Woechentlich ist reichlich und
+# spart 66 XBRL-Abrufe an sechs von sieben Tagen.
+QUARTALE_TAGE = 7
 
 
 def _git(pfad, *args, pruefen=True):
@@ -74,6 +77,23 @@ def _lauf(befehl, *args):
     return erg.returncode, (erg.stdout or "") + (erg.stderr or "")
 
 
+def _quartale_faellig():
+    """Faellig, wenn der Stand in der Seite aelter als eine Woche ist.
+
+    Kein eigener Merker: Der Stand steht ohnehin im Datenblock, und zwei
+    Wahrheiten ueber dasselbe Datum laufen frueher oder spaeter auseinander.
+    """
+    import re as _re
+    pfad = os.path.join(BAUM, "nvidia-oekosystem.html")
+    if not os.path.exists(pfad):
+        return True
+    m = _re.search(r'"stand":"(\d{4}-\d{2}-\d{2})"', open(pfad, encoding="utf-8").read())
+    if not m:
+        return True
+    alter = date.today() - date.fromisoformat(m.group(1))
+    return alter > timedelta(days=QUARTALE_TAGE)
+
+
 def _wert_faellig():
     p = b._pfad("wert.json")
     if not os.path.exists(p):
@@ -87,6 +107,7 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--pruefen", action="store_true", help="nichts schreiben, nur berichten")
     p.add_argument("--wert", action="store_true", help="Wertrechnung erzwingen")
+    p.add_argument("--quartale", action="store_true", help="Quartalszahlen erzwingen")
     p.add_argument("--ohne-push", action="store_true", help="committen, aber nicht pushen")
     args = p.parse_args()
 
@@ -121,6 +142,17 @@ def main():
     code, aus = _lauf("kurse.py", *(["--pruefen"] if args.pruefen else []))
     erste = [z for z in aus.splitlines() if "Kurse erneuert" in z or "Nichts zu schreiben" in z]
     sag("Kurse (Code %d): %s" % (code, erste[0] if erste else aus.strip()[:90]))
+
+    # 3. Quartalszahlen. Sie aendern sich vier Mal im Jahr, kosten aber 66
+    # XBRL-Abrufe - taeglich waere Verschwendung. Gelaufen wird, wenn der Stand
+    # der Seite aelter als eine Woche ist; ein eigener Merker dafuer waere eine
+    # zweite Wahrheit neben der, die ohnehin in der Seite steht.
+    if args.quartale or _quartale_faellig():
+        code, aus = _lauf("quartale.py")
+        letzte = [z for z in aus.splitlines() if "umgestellt" in z or "Nichts zu schreiben" in z]
+        sag("Quartalszahlen (Code %d): %s" % (code, letzte[-1] if letzte else aus.strip()[:90]))
+    else:
+        sag("Quartalszahlen uebersprungen, Stand der Seite juenger als %d Tage" % QUARTALE_TAGE)
 
     if args.wert or _wert_faellig():
         code, aus = _lauf("wert.py")
