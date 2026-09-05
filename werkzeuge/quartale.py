@@ -74,6 +74,11 @@ TAGS_IFRS = {
 # Gewichtete Groessen nicht - siehe Kopf.
 REKONSTRUIERBAR = {"umsatz", "brutto", "operativ", "netto"}
 
+# So viele Quartale wandern in die Seite. NVIDIAs XBRL reicht 73 Quartale
+# zurueck; alles davon einzubetten blaeht die Datei, ohne dass die Seite es
+# zeigt. Zwoelf Jahre sind mehr als jede Darstellung dort braucht.
+MAX_QUARTALE = 48
+
 QUARTAL = (75, 105)      # Tage, die als Quartalszeitraum gelten
 NEUN = (255, 285)
 JAHR = (340, 400)
@@ -197,12 +202,39 @@ def firma(sym, e):
     if "umsatz" not in felder:
         return None, None, ["kein Umsatz im XBRL"]
 
+    # Gewinn je Aktie fuer die rekonstruierten Quartale nachrechnen.
+    #
+    # Subtrahieren darf man ihn nicht - die Differenz zweier gewichteter Mittel
+    # ist kein Mittel, daraus entstand im alten Bestand NVIDIAs Quartal mit
+    # -1,00 bei 1,4 Mrd Gewinn. Teilen darf man: Gewinn des Quartals durch die
+    # Aktienzahl. Fehlt sie fuer das rekonstruierte Quartal, wird die des
+    # naechstgelegenen bekannten Quartals genommen - eine Naeherung, aber eine
+    # der Groessenordnung nach richtige, und sie wird als solche vermerkt.
+    # Ohne sie faellt der Gewinn je Aktie ueber vier Quartale aus, und mit ihm
+    # das KGV - bei allen fuenfzig umgestellten Firmen.
+    aktien_reihe = felder.get("aktien", {})
+    berechnet = set()
+    if aktien_reihe:
+        sortiert = sorted(aktien_reihe)
+        for ende, netto in (felder.get("netto") or {}).items():
+            if felder.get("eps", {}).get(ende) is not None or netto is None:
+                continue
+            nah = min(sortiert, key=lambda a: abs(
+                (dt.date.fromisoformat(a) - dt.date.fromisoformat(ende)).days), default=None)
+            if nah and aktien_reihe[nah]:
+                felder.setdefault("eps", {})[ende] = netto / aktien_reihe[nah]
+                berechnet.add(ende)
+    if berechnet:
+        hinweise.append("eps: %d aus Gewinn und Aktienzahl gerechnet" % len(berechnet))
+
     enden = sorted(set(felder["umsatz"]), reverse=True)
     reihe = []
     for ende in enden:
         z = {"ende": ende, "quelle": "SEC XBRL"}
         for feld in TAGS:
             z[feld] = felder.get(feld, {}).get(ende)
+        if ende in berechnet:
+            z["eps_berechnet"] = True
         if z.get("umsatz"):
             for feld, name in (("brutto", "bruttomarge"), ("operativ", "operativmarge"),
                                ("netto", "nettomarge")):
@@ -214,6 +246,58 @@ def firma(sym, e):
     if geld and geld != e.get("waehrung"):
         hinweise.append("Einheit %s, Kurs in %s" % (geld, e.get("waehrung")))
     return reihe, geld, hinweise
+
+
+def _einsetzen(e, reihe):
+    """Reihe in den Firmensatz schreiben und alles Abgeleitete neu rechnen.
+
+    Die Seite haelt neben den Quartalen eine Reihe von Werten, die sich daraus
+    ergeben: Gewinn je Aktie ueber vier Quartale, Umsatz ueber vier Quartale,
+    Margen, Wachstum, KGV. Wer die Quartale austauscht und diese stehen laesst,
+    hinterlaesst eine Seite, auf der Kachel und Tabelle einander widersprechen.
+    """
+    e["quartale"] = reihe
+    e["n_quartale"] = len(reihe)
+    q0 = reihe[0]
+    kurs = e.get("kurs")
+
+    e["eps_q"] = q0.get("eps")
+    e["op_q"] = q0.get("operativ")
+    for feld in ("bruttomarge", "operativmarge"):
+        if q0.get(feld) is not None:
+            e[feld] = q0[feld]
+
+    def summe(feld, von, bis):
+        werte = [z.get(feld) for z in reihe[von:bis]]
+        return sum(werte) if len(werte) == bis - von and all(v is not None for v in werte) else None
+
+    e["eps_ttm"] = summe("eps", 0, 4)
+    e["umsatz_ttm"] = summe("umsatz", 0, 4)
+
+    # Wachstum zum Vorjahresquartal, nicht zum Vorquartal - sonst misst man
+    # die Saison statt des Geschaefts.
+    if len(reihe) > 4 and q0.get("umsatz") and reihe[4].get("umsatz"):
+        e["umsatz_yoy"] = (q0["umsatz"] / reihe[4]["umsatz"] - 1) * 100
+
+    fx = e.get("fx_usd") or 1.0
+    n = e.get("aktien_zahl")
+    if e.get("umsatz_ttm"):
+        e["umsatz_ttm_usd"] = e["umsatz_ttm"] * fx
+        if n and kurs:
+            e["kuv"] = (kurs * n) / e["umsatz_ttm"]
+    e["kgv_ttm"] = (kurs / e["eps_ttm"]) if (kurs and e.get("eps_ttm") and e["eps_ttm"] > 0) else None
+    e["kgv_q4x"] = (kurs / (e["eps_q"] * 4)) if (kurs and e.get("eps_q") and e["eps_q"] > 0) else None
+    e["kgv_q4x_op"] = ((kurs * n) / (e["op_q"] * 4)
+                       if (kurs and n and e.get("op_q") and e["op_q"] > 0) else None)
+
+    # Der Warnkasten der Seite: Weicht der Nettogewinn stark vom operativen ab,
+    # misst das KGV Quartal x 4 nicht mehr das Geschaeft.
+    if q0.get("netto") is not None and q0.get("operativ"):
+        ab = abs(q0["netto"] - q0["operativ"]) / abs(q0["operativ"])
+        e["q0_abweichung"] = ab
+        e["q0_verzerrt"] = ab > 0.25
+    else:
+        e["q0_verzerrt"] = False
 
 
 def vergleich(sym, neu, alt):
@@ -250,6 +334,7 @@ def main():
 
     gewuenscht = [a.upper() for a in args] or sorted(F)
     ges_t = ges_d = ges_f = 0
+    neue_reihen = {}
     print("%-10s %5s %6s %6s %6s  %s" % ("Ticker", "Q", "gleich", "anders", "fehlt", "Hinweise"))
     for sym in gewuenscht:
         if sym not in F:
@@ -264,6 +349,11 @@ def main():
             continue
         t, d, fl, bsp = vergleich(sym, reihe, F[sym].get("quartale", []))
         ges_t += t; ges_d += d; ges_f += fl
+        # Umgestellt wird nur, wo die Reihe traegt. Zwei Quartale aus einem
+        # frisch an die Boerse gegangenen Unternehmen ersetzen keine gepflegte
+        # Reihe; dort bleibt es bei dem, was schon dasteht.
+        if len(reihe) >= 8 and any(z.get("umsatz") for z in reihe[:4]):
+            neue_reihen[sym] = reihe[:MAX_QUARTALE]
         print("%-10s %5d %6d %6d %6d  %s" % (sym, len(reihe), t, d, fl, "; ".join(hinweise)[:60]))
         if args and bsp:
             for x in bsp:
@@ -274,6 +364,21 @@ def main():
           % (ges_t, gesamt, 100 * ges_t / gesamt if gesamt else 0, ges_f))
     if pruefen:
         print("--pruefen: nichts geschrieben.")
+        return 0
+    if not neue_reihen:
+        print("Nichts zu schreiben.")
+        return 0
+
+    for sym, reihe in neue_reihen.items():
+        _einsetzen(F[sym], reihe)
+    D["stand"] = dt.date.today().isoformat()
+    D["stand_quelle"] = "SEC XBRL fuer %d Firmen, Pipeline fuer %d" % (
+        len(neue_reihen), len(F) - len(neue_reihen))
+    neu = json.dumps(D, ensure_ascii=False, separators=(",", ":"))
+    open(pfad, "w", encoding="utf-8", newline="").write(s[:m.start(2)] + neu + s[m.end(2):])
+    print("\n%d Firmen umgestellt, %d behalten ihre bisherigen Zahlen" %
+          (len(neue_reihen), len(F) - len(neue_reihen)))
+    print("-> %s" % pfad)
     return 0
 
 
