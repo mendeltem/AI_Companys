@@ -143,18 +143,28 @@ def main():
     erste = [z for z in aus.splitlines() if "Kurse erneuert" in z or "Nichts zu schreiben" in z]
     sag("Kurse (Code %d): %s" % (code, erste[0] if erste else aus.strip()[:90]))
 
-    # 3. Quartalszahlen. Sie aendern sich vier Mal im Jahr, kosten aber 66
-    # XBRL-Abrufe - taeglich waere Verschwendung. Gelaufen wird, wenn der Stand
-    # der Seite aelter als eine Woche ist; ein eigener Merker dafuer waere eine
-    # zweite Wahrheit neben der, die ohnehin in der Seite steht.
-    if args.quartale or _quartale_faellig():
+    # 3. Quartalszahlen. Sie aendern sich nur, wenn eine Firma berichtet - und
+    # ob das seit gestern passiert ist, weiss Schritt 1 bereits. Deshalb laufen
+    # sie am selben Morgen, an dem ein Bericht eingeht, statt bis zu sieben
+    # Tage zu warten. Die Wochenfrist bleibt als Absicherung, falls eine
+    # Einreichung einmal nicht erkannt wird. Blind taeglich waeren es 66
+    # XBRL-Abrufe fuer meist nichts.
+    berichtsformen = ("10-Q", "10-K", "20-F", "40-F", "6-K", "8-K")
+    neue_berichte = [z for z in neue
+                     if z.startswith("- ") and any(f in z for f in berichtsformen)]
+    if neue_berichte:
+        sag("Neue Berichte eingegangen (%d) - Quartalszahlen und Wert laufen heute mit"
+            % len(neue_berichte))
+
+    if args.quartale or neue_berichte or _quartale_faellig():
         code, aus = _lauf("quartale.py")
         letzte = [z for z in aus.splitlines() if "umgestellt" in z or "Nichts zu schreiben" in z]
         sag("Quartalszahlen (Code %d): %s" % (code, letzte[-1] if letzte else aus.strip()[:90]))
     else:
-        sag("Quartalszahlen uebersprungen, Stand der Seite juenger als %d Tage" % QUARTALE_TAGE)
+        sag("Quartalszahlen uebersprungen, kein neuer Bericht und Stand juenger als %d Tage"
+            % QUARTALE_TAGE)
 
-    if args.wert or _wert_faellig():
+    if args.wert or neue_berichte or _wert_faellig():
         code, aus = _lauf("wert.py")
         letzte = [z for z in aus.splitlines() if z.strip()][-1:] or [""]
         sag("Wertrechnung gelaufen (Code %d): %s" % (code, letzte[0][:90]))
