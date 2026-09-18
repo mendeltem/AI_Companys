@@ -438,6 +438,115 @@ ERKL = """  else if(art==='kurs'){
 """
 
 
+# --- Werke der Speicherhersteller -------------------------------------------
+# Bei SK hynix, Samsung und Micron steht unter der Einordnung eine Liste der
+# Fabriken: jede Zeile aufklappbar, darin Stand, Einordnung und Herkunft der
+# Zahl. Die Daten liegen in fabriken.json im Repository, wie die Analysetexte,
+# damit der Tageslauf sie jedes Mal neu eintraegt und sie nicht mit einem
+# Upload der erzeugenden Pipeline verschwinden.
+FABRIK_HILFE = """
+const fabrikBlock = (k)=>{
+  const f = FABRIKEN[k];
+  if(!f || !f.werke) return '';
+  const werke = f.werke.map(w=>`<details class="fab fab-${w.status}">
+      <summary title="${T('fab_st_'+w.status)}">
+        <span class="fab-name">${w.name}</span>
+        <span class="fab-ort">${w.ort}</span>
+        <span class="fab-prod">${w.produkt.map(p=>`<i class="fab-pill fp-${p[0]}">${p[1]}</i>`).join('')}</span>
+        <span class="fab-zahl">${w.wafer}</span>
+        <span class="fab-termin">${w.termin}</span>
+      </summary>
+      <div class="fab-mehr">
+        <p class="fab-stand">${T('fab_st_'+w.status)} &middot; ${w.stand}</p>
+        <p>${w.text}</p>
+        ${w.link ? `<p><a href="${w.link[1]}" target="_blank" rel="noopener">${w.link[0]} &rarr;</a></p>` : ''}
+        <p class="fab-herkunft">${T('fab_herkunft')}: ${w.herkunft}</p>
+      </div>
+    </details>`).join('');
+  const nachbarn = (f.nachbarn||[]).filter(n=>F[n])
+    .map(n=>`<a href="#/${L}/${n}">${F[n].name}</a>`).join(' &middot; ');
+  return `<section class="abschnitt fabriken">
+    <h3 class="an-titel">${T('fab_titel')}</h3>
+    <p class="fab-kopf">${f.kopf}</p>
+    <p class="fab-these">${f.these}</p>
+    <div class="fab-legende"><span>${T('fab_werk')}</span><span>${T('fab_ort')}</span>
+      <span>${T('fab_produkt')}</span><span class="fab-zahl">${T('fab_wafer')}</span><span>${T('fab_termin')}</span></div>
+    <div class="fab-liste">${werke}</div>
+    <p class="fab-zeichen"><i class="fab-p fab-lauft"></i>${T('fab_st_lauft')}
+      <i class="fab-p fab-bau"></i>${T('fab_st_bau')}
+      <i class="fab-p fab-plan"></i>${T('fab_st_plan')}
+      <span>&middot; ${T('fab_hinweis')}</span></p>
+    <p class="fab-fuss">${nachbarn ? T('fab_nachbarn')+' '+nachbarn+' &middot; ' : ''}<a
+      href="${FABRIKEN._seite}" target="_blank" rel="noopener">${T('fab_ganze')} &rarr;</a>
+      &middot; ${T('fab_stand_am')} ${FABRIKEN._stand}</p>
+  </section>`;
+};
+"""
+
+FABRIK_CSS = """
+.fabriken .an-titel{margin:0 0 6px}
+.fabriken .fab-kopf{font-family:var(--mono);font-size:12.5px;color:var(--tinte);margin:0 0 6px}
+.fabriken .fab-these{font-size:14.5px;line-height:1.55;color:var(--gedaempft);margin:0 0 14px;max-width:74ch}
+.fab-legende, .fab summary{display:grid;gap:10px;align-items:baseline;
+  grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr)}
+.fab-legende{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--schwach);padding:0 12px 6px;border-bottom:1px solid var(--linie-stark)}
+.fab{border-bottom:1px solid var(--linie)}
+.fab summary{list-style:none;cursor:pointer;padding:10px 12px}
+.fab summary::-webkit-details-marker{display:none}
+.fab summary:hover, .fab[open] summary{background:var(--flaeche2)}
+.fab summary:focus-visible{outline:2px solid var(--akzent);outline-offset:-2px}
+.fab-name{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--tinte);
+  position:relative;padding-left:15px}
+.fab-name::before, .fab-p{content:"";position:absolute;left:0;top:.42em;width:8px;height:8px;
+  border-radius:50%;box-sizing:border-box;background:var(--neutral)}
+.fab-p{position:static;display:inline-block;margin:0 5px 0 12px;vertical-align:baseline}
+.fab-p:first-child{margin-left:0}
+.fab-lauft .fab-name::before, .fab-p.fab-lauft{background:var(--gut)}
+.fab-bau .fab-name::before, .fab-p.fab-bau{background:var(--bin4)}
+.fab-plan .fab-name::before, .fab-p.fab-plan{background:transparent;border:1.5px solid var(--gedaempft)}
+.fab-ort, .fab-termin{font-size:13px;color:var(--gedaempft)}
+.fab-zahl{font-family:var(--mono);font-size:13px;color:var(--tinte);text-align:right}
+.fab-legende .fab-zahl{font-size:10.5px;color:var(--schwach)}
+.fab-pill{font-style:normal;font-family:var(--mono);font-size:10.5px;padding:1px 6px;
+  margin:0 4px 2px 0;display:inline-block;border:1px solid var(--linie-stark);color:var(--gedaempft)}
+.fp-hbm{border-color:var(--akzent);color:var(--akzent)}
+.fp-dram{border-color:var(--bin1);color:var(--bin1)}
+.fp-logik{border-style:dashed}
+.fab-mehr{padding:4px 12px 14px 27px;max-width:80ch}
+.fab-mehr p{font-size:14px;line-height:1.55;margin:0 0 8px}
+.fab-mehr .fab-stand{font-family:var(--mono);font-size:12px;color:var(--gedaempft)}
+.fab-mehr .fab-herkunft{font-family:var(--mono);font-size:11.5px;color:var(--schwach);margin:0}
+.fab-mehr a, .fab-fuss a{color:var(--akzent)}
+.fab-zeichen{font-size:12px;color:var(--gedaempft);margin:10px 0 0}
+.fab-fuss{font-size:12.5px;color:var(--gedaempft);margin:6px 0 0}
+@media (max-width:700px){
+  .fab-legende{display:none}
+  .fab summary{grid-template-columns:minmax(0,1fr) auto;row-gap:3px}
+  .fab-zahl{grid-row:1;grid-column:2}
+  .fab-ort, .fab-prod, .fab-termin{grid-column:1 / -1;padding-left:15px}
+  .fab-mehr{padding-left:15px}
+}
+"""
+
+FAB_TEXTE = {
+    "fab_titel": {"de": "Die Fabriken", "en": "The fabs"},
+    "fab_werk": {"de": "Werk", "en": "Fab"},
+    "fab_ort": {"de": "Ort", "en": "Location"},
+    "fab_produkt": {"de": "Produkt", "en": "Product"},
+    "fab_wafer": {"de": "Wafer/Monat", "en": "Wafers/month"},
+    "fab_termin": {"de": "Termin", "en": "Timing"},
+    "fab_st_lauft": {"de": "laeuft", "en": "running"},
+    "fab_st_bau": {"de": "im Bau oder Umbau", "en": "under construction or conversion"},
+    "fab_st_plan": {"de": "geplant", "en": "planned"},
+    "fab_hinweis": {"de": "Werk anklicken fuer Einzelheiten", "en": "click a fab for details"},
+    "fab_herkunft": {"de": "Herkunft der Zahl", "en": "Source of the figure"},
+    "fab_nachbarn": {"de": "Konkurrenz:", "en": "Competitors:"},
+    "fab_ganze": {"de": "Alle Werke und die Hochrechnung", "en": "All fabs and the projection"},
+    "fab_stand_am": {"de": "Stand", "en": "as of"},
+}
+
+
 def _stil(s, kennung, css):
     """Einen Stilblock setzen oder ersetzen.
 
@@ -553,6 +662,38 @@ def eintragen(pruefen=False):
         s, meldung = _stil(s, "analyse", ANALYSE_CSS)
         schritte.append("Analyse-CSS " + meldung)
 
+    # Werke der Speicherhersteller: gleiches Muster wie die Analysetexte -
+    # Datenblock, Hilfsfunktion und Stil zwischen Marken, bei jedem Lauf ersetzt.
+    pfad_fab = os.path.join(b.WURZEL, "fabriken.json")
+    if os.path.exists(pfad_fab) and "${analyseBlock(k)}" in s:
+        fab = json.load(open(pfad_fab, encoding="utf-8"))
+        block_fab = ('<script id="fabriken" type="application/json">%s</script>'
+                     % json.dumps(fab, ensure_ascii=False, separators=(",", ":")))
+        if 'id="fabriken"' in s:
+            s = re.sub(r'<script id="fabriken" type="application/json">.*?</script>',
+                       lambda _: block_fab, s, count=1, flags=re.S)
+            schritte.append("Fabrikblock ersetzt")
+        else:
+            m3 = re.search(r'(<script id="wertung" type="application/json">.*?</script>\n?)', s, re.S)
+            s = s[:m3.end()] + block_fab + "\n" + s[m3.end():]
+            schritte.append("Fabrikblock eingefuegt")
+        if "const FABRIKEN" not in s:
+            s = s.replace("const WERT = JSON.parse(document.getElementById('wertung').textContent);",
+                          "const WERT = JSON.parse(document.getElementById('wertung').textContent);\n"
+                          "const FABRIKEN = JSON.parse(document.getElementById('fabriken').textContent);", 1)
+        f_auf, f_zu = "/* fabrik-hilfe */\n", "/* ende fabrik-hilfe */\n"
+        neu_fab = f_auf + FABRIK_HILFE.strip() + "\n" + f_zu
+        if f_auf in s:
+            s = re.sub(re.escape(f_auf) + ".*?" + re.escape(f_zu),
+                       lambda _: neu_fab, s, count=1, flags=re.S)
+        else:
+            s = s.replace("const rendite = ", neu_fab + "const rendite = ", 1)
+        if "${fabrikBlock(k)}" not in s:
+            s = s.replace("${analyseBlock(k)}", "${analyseBlock(k)}${fabrikBlock(k)}", 1)
+            schritte.append("Fabriken auf der Firmenseite verdrahtet")
+        s, meldung = _stil(s, "fabriken", FABRIK_CSS)
+        schritte.append("Fabrik-CSS " + meldung)
+
     # Der Kopf nennt beide Daten: die Berichtszahlen kommen aus der Pipeline,
     # die Kurse taeglich von der Boerse. Sie stimmen nur selten ueberein.
     if KOPF_STAND_ALT in s:
@@ -610,6 +751,7 @@ def eintragen(pruefen=False):
     m = re.search(r'(<script[^>]*id="texte"[^>]*>)(.*?)(</script>)', s, re.S)
     TX = json.loads(m.group(2))
     TX["t"].update(TEXTE)
+    TX["t"].update(FAB_TEXTE)
     s = s[:m.start(2)] + json.dumps(TX, ensure_ascii=False, separators=(",", ":")) + s[m.end(2):]
     schritte.append("Texte aktualisiert (%d Schluessel)" % len(TEXTE))
 
