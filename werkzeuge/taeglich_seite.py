@@ -163,6 +163,11 @@ def main():
     else:
         sag("Quartalszahlen uebersprungen, kein neuer Bericht und Stand juenger als %d Tage"
             % QUARTALE_TAGE)
+        # Die Handquartale trotzdem: Sie kosten keinen Abruf, und die Pipeline
+        # kann die Seite seit gestern ohne sie neu geschrieben haben.
+        code, aus = _lauf("quartale.py", "--hand", *(["--pruefen"] if args.pruefen else []))
+        letzte = [z for z in aus.splitlines() if z.strip()][-1:] or [""]
+        sag("Handquartale (Code %d): %s" % (code, letzte[0][:90]))
 
     if args.wert or neue_berichte or _wert_faellig():
         code, aus = _lauf("wert.py")

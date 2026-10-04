@@ -1,0 +1,256 @@
+{
+ "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-04.",
+ "MU": {
+  "quartale": [
+   {
+    "ende": "2026-09-03",
+    "quelle": "Micron Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm",
+    "umsatz": 54229000000.0,
+    "brutto": 47047000000.0,
+    "operativ": 43751000000.0,
+    "netto": 37701000000.0,
+    "eps": 32.87
+   }
+  ]
+ },
+ "LITE": {
+  "quartale": [
+   {
+    "ende": "2026-06-27",
+    "quelle": "Lumentum Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001633978/000162828026055726/lite_ex991xq4fy26.htm",
+    "umsatz": 1006300000.0,
+    "brutto": 477300000.0,
+    "operativ": 279300000.0,
+    "netto": -7161700000.0,
+    "eps": -84.65,
+    "anmerkung": "Einmaliger, nicht zahlungswirksamer Verlust von rund 7,8 Mrd $ aus der Umwandlung von Wandelanleihen; bereinigt +326,3 Mio $"
+   },
+   {
+    "ende": "2026-03-28",
+    "quelle": "Lumentum Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001633978/000162828026030530/lite_ex991xq3fy26.htm",
+    "umsatz": 808400000.0,
+    "brutto": 357000000.0,
+    "operativ": 174500000.0,
+    "netto": 144200000.0,
+    "eps": 1.5
+   },
+   {
+    "ende": "2025-12-27",
+    "quelle": "Lumentum Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/1633978/000162828026005005/lite_ex991xq2fy26.htm",
+    "umsatz": 665500000.0,
+    "brutto": 240100000.0,
+    "operativ": 64300000.0,
+    "netto": 78200000.0,
+    "eps": 0.89
+   },
+   {
+    "ende": "2025-09-27",
+    "quelle": "Lumentum Pressemitteilung",
+    "link": "https://s21.q4cdn.com/377324469/files/doc_news/Lumentum-Announces-First-Quarter-of-Fiscal-Year-2026-Financial-Results-2025.pdf",
+    "umsatz": 533799999.99999994,
+    "brutto": 181500000.0,
+    "operativ": 6700000.0,
+    "netto": 4200000.0,
+    "eps": 0.05
+   }
+  ]
+ },
+ "GFS": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "GlobalFoundries Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001709048/000170904826000218/globalfoundries2q2026earni.htm",
+    "umsatz": 1786000000.0,
+    "brutto": 505000000.0,
+    "operativ": 174000000.0,
+    "netto": 167000000.0,
+    "eps": 0.3
+   },
+   {
+    "ende": "2026-03-31",
+    "quelle": "GlobalFoundries Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001709048/000170904826000111/globalfoundries1q2026earni.htm",
+    "umsatz": 1634000000.0,
+    "brutto": 451000000.0,
+    "operativ": 180000000.0,
+    "netto": 104000000.0,
+    "eps": 0.18
+   }
+  ]
+ },
+ "AMKR": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "Amkor Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001047127/000104712726000043/amkr6302026erex-991.htm",
+    "umsatz": 1897965000.0,
+    "brutto": 318590000.0,
+    "operativ": 199854000.0,
+    "netto": 173753000.0,
+    "eps": 0.7
+   }
+  ]
+ },
+ "INVZ": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "Innoviz Pressemitteilung",
+    "link": "https://ir.innoviz.tech/sec-filings/all-sec-filings/content/0001178913-26-003861/0001178913-26-003861.pdf",
+    "umsatz": 18084000.0,
+    "brutto": 697000.0,
+    "operativ": -18421000.0,
+    "netto": -18527000.0,
+    "eps": -0.08
+   }
+  ]
+ },
+ "NBIS": {
+  "anmerkung": "Die Pipeline fuehrt fuer NBIS die CIK 1731348 - das ist Tilray Brands. Die Reihe wird deshalb ganz ersetzt. Nebius meldet keinen Bruttogewinn; die Herstellkosten enthalten keine Abschreibungen, ein Bruttogewinn daraus waere geschoent.",
+  "setzen": {
+   "cik": "0001513845"
+  },
+  "ersetzen": true,
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm",
+    "umsatz": 582300000.0,
+    "brutto": null,
+    "operativ": -175900000.0,
+    "netto": -190400000.0,
+    "eps": -0.68
+   },
+   {
+    "ende": "2026-03-31",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926059872/tm2614392d1_ex99-1.htm",
+    "umsatz": 399000000.0,
+    "brutto": null,
+    "operativ": -128000000.0,
+    "netto": 621200000.0,
+    "eps": 2.11,
+    "anmerkung": "Buchgewinn von 780,6 Mio $ aus der Neubewertung der ClickHouse-Beteiligung"
+   },
+   {
+    "ende": "2025-12-31",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+    "umsatz": 227700000.0,
+    "brutto": null,
+    "operativ": -234500000.0,
+    "netto": -249600000.0,
+    "eps": -0.99,
+    "eps_berechnet": true
+   },
+   {
+    "ende": "2025-09-30",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925109806/tm2530882d1_ex99-1.htm",
+    "umsatz": 146100000.0,
+    "brutto": null,
+    "operativ": -130199999.99999999,
+    "netto": -119600000.0,
+    "eps": -0.48,
+    "eps_berechnet": true
+   },
+   {
+    "ende": "2025-06-30",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm",
+    "umsatz": 105100000.0,
+    "brutto": null,
+    "operativ": -111200000.0,
+    "netto": 502500000.0,
+    "eps": 2.05,
+    "anmerkung": "Buchgewinn aus der Neubewertung der ClickHouse-Beteiligung"
+   },
+   {
+    "ende": "2025-03-31",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926059872/tm2614392d1_ex99-1.htm",
+    "umsatz": 50900000.0,
+    "brutto": null,
+    "operativ": -120300000.0,
+    "netto": -104300000.0,
+    "eps": -0.44
+   }
+  ]
+ },
+ "KIOXIA": {
+  "anmerkung": "Die bisherige Reihe aus yfinance enthielt nur Gewinn je Aktie, mit Luecken und unklaren Zeitraeumen. Ersetzt durch die Zahlen aus dem Tanshin; die Summe ueber vier Quartale bleibt leer, bis vier Quartale vorliegen.",
+  "ersetzen": true,
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "Kioxia Tanshin",
+    "link": "https://www2.jpx.co.jp/disc/285A0/081220260731505265_tse-qcedifsm-285A0-202607313285A0-ixbrl.htm",
+    "umsatz": 1767100000000.0,
+    "brutto": 1380100000000.0,
+    "operativ": 1270000000000.0,
+    "netto": 842200000000.0,
+    "eps": 1539.91
+   },
+   {
+    "ende": "2026-03-31",
+    "quelle": "Kioxia Tanshin",
+    "link": "https://www2.jpx.co.jp/disc/285A0/081220260515537803_tse-acedifsm-285A0-202605153285A0-ixbrl.htm",
+    "umsatz": 1002900000000.0,
+    "brutto": 642900000000.0,
+    "operativ": 596800000000.0,
+    "netto": 407700000000.0,
+    "eps": 745.01,
+    "eps_berechnet": true
+   }
+  ]
+ },
+ "HONHAI": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "Focus Taiwan (CNA)",
+    "link": "https://focustaiwan.tw/business/202608120018",
+    "umsatz": 2530000000000.0,
+    "brutto": 154500000000.0,
+    "operativ": 94800000000.0,
+    "netto": 59970000000.0,
+    "eps": 4.27
+   }
+  ]
+ },
+ "AMSOSR": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "ams OSRAM Pressemitteilung",
+    "link": "https://ams-osram.com/news/press-releases/q2-2026-results",
+    "umsatz": 805000000.0,
+    "brutto": 207000000.0,
+    "operativ": -1000000.0,
+    "netto": -122000000.0,
+    "eps": -1.22
+   }
+  ]
+ },
+ "ROBOSENSE": {
+  "quartale": [
+   {
+    "ende": "2026-06-30",
+    "quelle": "RoboSense HKEX-Mitteilung",
+    "link": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601087.pdf",
+    "umsatz": 560999000.0,
+    "brutto": 122588000.0,
+    "operativ": -95183000.0,
+    "netto": -96995000.0,
+    "eps": -0.21
+   }
+  ]
+ }
+}

@@ -98,6 +98,12 @@ Quartalszeile.
 **Segmente** aus den XBRL-Instanzen der einzelnen Einreichungen. Die
 Companyfacts-Schnittstelle liefert sie nicht, sie kennt nur Konzernwerte.
 
+**Quartale von Hand** in `quartale_hand.json`: was weder im XBRL noch in der
+Pipeline steht, etwa Quartale ausländischer Emittenten (6-K ohne Zahlenteil),
+vierte Quartale vor dem 10-K und Berichte aus Tokio, Taipeh und Hongkong. Jede
+Zeile mit Quelle und Link. Der Tageslauf trägt sie jedes Mal neu auf; ein
+Quartal aus dem XBRL mit demselben Ende hat Vorrang.
+
 ---
 
 ## Fallstricke, über die dieses Projekt gestolpert ist

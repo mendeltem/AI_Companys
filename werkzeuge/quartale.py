@@ -306,6 +306,51 @@ def _einsetzen(e, reihe):
         e["q0_verzerrt"] = False
 
 
+def hand(F):
+    """Quartale aus quartale_hand.json auftragen. Zurueck kommt eine Meldung je Firma.
+
+    Nicht jede Firma liefert ein Quartal ins XBRL: Auslaendische Emittenten
+    reichen Quartale als 6-K ohne Zahlenteil ein, das vierte Quartal steht
+    erst Wochen nach der Pressemitteilung im 10-K, und fuer Tokio, Taipeh und
+    Hongkong gibt es keine SEC. Diese Quartale stehen von Hand in einer Datei
+    im Repository und werden bei jedem Lauf neu aufgetragen - die Pipeline
+    schreibt die Seite sonst ohne sie neu.
+
+    Ein Quartal aus dem Bericht schlaegt den Handeintrag: Liegt schon eines
+    mit fast demselben Ende vor (20 Tage, Geschaeftsjahre enden an
+    Wochentagen), bleibt es stehen. Fruehere Handeintraege werden vorher
+    entfernt, sonst stuende eine korrigierte Zahl neben der alten.
+    """
+    pfad = os.path.join(b.WURZEL, "quartale_hand.json")
+    if not os.path.exists(pfad):
+        return []
+    H = json.load(open(pfad, encoding="utf-8"))
+    tag = lambda d: dt.date.fromisoformat(d).toordinal()
+    meldungen = []
+    for sym, h in H.items():
+        if sym.startswith("_") or sym not in F:
+            continue
+        e = F[sym]
+        e.update(h.get("setzen", {}))
+        alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
+        neu = []
+        for z in h.get("quartale", []):
+            if any(abs(tag(a["ende"]) - tag(z["ende"])) <= 20 for a in alt):
+                continue
+            z = dict(z, hand=True)
+            if z.get("umsatz"):
+                for feld, name in (("brutto", "bruttomarge"), ("operativ", "operativmarge"),
+                                   ("netto", "nettomarge")):
+                    if z.get(feld) is not None:
+                        z[name] = z[feld] / z["umsatz"] * 100
+            neu.append(z)
+        reihe = sorted(alt + neu, key=lambda z: z["ende"], reverse=True)[:MAX_QUARTALE]
+        if reihe:
+            _einsetzen(e, reihe)
+        meldungen.append("%s: %d von Hand%s" % (sym, len(neu), ", Reihe ersetzt" if h.get("ersetzen") else ""))
+    return meldungen
+
+
 def vergleich(sym, neu, alt):
     """Neue Reihe gegen die der Seite. Zurueck kommt eine Trefferquote."""
     alt_map = {z["ende"]: z for z in alt}
@@ -337,6 +382,28 @@ def main():
     m = re.search(r'(<script id="daten" type="application/json">)(.*?)(</script>)', s, re.S)
     D = json.loads(m.group(2))
     F = D["firmen"]
+
+    if "--hand" in sys.argv:
+        # Nur die Handeintraege, ohne einen Abruf bei der SEC. Laeuft taeglich,
+        # weil die Pipeline die Seite jederzeit ohne sie neu schreiben kann.
+        meldungen = hand(F)
+        for z in meldungen:
+            print(z)
+        if pruefen or not meldungen:
+            print("Nichts geschrieben.")
+            return 0
+        neu = json.dumps(D, ensure_ascii=False, separators=(",", ":"))
+        open(pfad, "w", encoding="utf-8", newline="").write(s[:m.start(2)] + neu + s[m.end(2):])
+        print("Handquartale aufgetragen: %d Firmen" % len(meldungen))
+        return 0
+
+    # Korrigierte Stammdaten (eine falsche CIK) vor dem Abruf, sonst holt der
+    # Lauf die Zahlen einer fremden Firma.
+    pfad_hand = os.path.join(b.WURZEL, "quartale_hand.json")
+    if os.path.exists(pfad_hand):
+        for sym, h in json.load(open(pfad_hand, encoding="utf-8")).items():
+            if sym in F:
+                F[sym].update(h.get("setzen", {}))
 
     gewuenscht = [a.upper() for a in args] or sorted(F)
     ges_t = ges_d = ges_f = 0
@@ -371,12 +438,13 @@ def main():
     if pruefen:
         print("--pruefen: nichts geschrieben.")
         return 0
-    if not neue_reihen:
-        print("Nichts zu schreiben.")
-        return 0
 
     for sym, reihe in neue_reihen.items():
         _einsetzen(F[sym], reihe)
+    meldungen = hand(F)
+    if not neue_reihen and not meldungen:
+        print("Nichts zu schreiben.")
+        return 0
     D["stand"] = dt.date.today().isoformat()
     aus_xbrl = sum(1 for e in F.values()
                    if e.get("quartale") and e["quartale"][0].get("quelle") == "SEC XBRL")
