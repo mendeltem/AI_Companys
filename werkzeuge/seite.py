@@ -547,6 +547,54 @@ FAB_TEXTE = {
 }
 
 
+# Verbund mit den beiden Schwesterseiten: Use-Case-Board und Supply Atlas.
+# Die Zuordnung Firma -> Use Cases und Firma -> Betreiber im Atlas steht an
+# einer Stelle, in deployments.json des Use-Case-Boards. Die Seite holt sie
+# zur Laufzeit; faellt der Abruf aus, verschwindet der Block still.
+VERBUND_HILFE = """
+const VERBUND_URL = 'https://mendeltem.github.io/ai_use_cases_overview/deployments.json';
+const VERBUND_BOARD = 'https://mendeltem.github.io/ai_use_cases_overview/';
+const VERBUND_ATLAS = 'https://mendeltem.github.io/Supply_Atlas3D/';
+let verbundDaten = null, verbundLauf = null;
+const verbundFuellen = ()=>{
+  if(!verbundLauf) verbundLauf = fetch(VERBUND_URL).then(r=>r.ok?r.json():null)
+    .then(d=>{ verbundDaten = d && d.companies; }).catch(()=>{});
+  verbundLauf.then(()=>{
+    document.querySelectorAll('.verbund[data-k]').forEach(el=>{
+      const k = el.dataset.k, c = verbundDaten;
+      if(!c){ el.remove(); return; }
+      const ucs = Object.keys(c.use_cases||{}).filter(s=>c.use_cases[s].includes(k));
+      const atlas = !!(c.operators && c.operators[k]);
+      if(!ucs.length && !atlas){ el.remove(); return; }
+      const sp = L==='de' ? 'de' : 'en';
+      const name = (s)=> (c.cards && c.cards[s] && c.cards[s][sp]) || s;
+      el.innerHTML = `<h4>${T('vb_titel')}</h4>`
+        + (atlas ? `<a class="vb-globus" href="${VERBUND_ATLAS}?company=${k}" target="_blank" rel="noopener">&#127757; ${T('vb_atlas')}</a>` : '')
+        + (ucs.length ? `<p class="vb-uc"><span>${T('vb_uc')}</span>${ucs.map(s=>`<a href="${VERBUND_BOARD}#uc=${s}" target="_blank" rel="noopener">${name(s)}</a>`).join('')}</p>` : '');
+      el.removeAttribute('data-k');
+    });
+  });
+};
+const verbundBlock = (k)=>{ setTimeout(verbundFuellen, 0); return `<section class="verbund" data-k="${k}"></section>`; };
+"""
+
+VERBUND_CSS = """
+.verbund{margin:18px 0 6px;padding:12px 14px;border:1px solid var(--linie,#d9dde3);border-radius:10px}
+.verbund:empty{display:none}
+.verbund h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em}
+.verbund .vb-globus{display:inline-block;margin:0 0 8px;padding:5px 10px;border-radius:7px;font-weight:600;text-decoration:none;border:1px solid currentColor}
+.verbund .vb-uc{margin:0;line-height:2}
+.verbund .vb-uc span{margin-right:6px;opacity:.75}
+.verbund .vb-uc a{display:inline-block;margin:0 6px 4px 0;padding:2px 9px;border-radius:12px;border:1px solid var(--linie,#d9dde3);text-decoration:none;font-size:12.5px}
+"""
+
+VB_TEXTE = {
+    "vb_titel": {"de": "Verbunden mit", "en": "Connected to", "mn": "Холбогдсон"},
+    "vb_atlas": {"de": "Standorte auf dem Globus (Supply Atlas)", "en": "Sites on the globe (Supply Atlas)", "mn": "Бөмбөрцөг дээрх байршил (Supply Atlas)"},
+    "vb_uc": {"de": "Use Cases:", "en": "Use cases:", "mn": "Хэрэглээ:"},
+}
+
+
 def _stil(s, kennung, css):
     """Einen Stilblock setzen oder ersetzen.
 
@@ -694,6 +742,28 @@ def eintragen(pruefen=False):
         s, meldung = _stil(s, "fabriken", FABRIK_CSS)
         schritte.append("Fabrik-CSS " + meldung)
 
+    # Verbund mit Use-Case-Board und Supply Atlas: Hilfsfunktion und Stil
+    # zwischen Marken, bei jedem Lauf ersetzt; eingehaengt hinter den Werken
+    # (oder hinter der Analyse, wenn es keine Werke gibt).
+    v_auf, v_zu = "/* verbund-hilfe */\n", "/* ende verbund-hilfe */\n"
+    neu_v = v_auf + VERBUND_HILFE.strip() + "\n" + v_zu
+    if v_auf in s:
+        s = re.sub(re.escape(v_auf) + ".*?" + re.escape(v_zu), lambda _: neu_v, s, count=1, flags=re.S)
+        schritte.append("Verbundhilfe ersetzt")
+    else:
+        s = s.replace("const rendite = ", neu_v + "const rendite = ", 1)
+        schritte.append("Verbundhilfe eingefuegt")
+    if "${verbundBlock(k)}" not in s:
+        if "${fabrikBlock(k)}" in s:
+            s = s.replace("${fabrikBlock(k)}", "${fabrikBlock(k)}${verbundBlock(k)}", 1)
+        elif "${analyseBlock(k)}" in s:
+            s = s.replace("${analyseBlock(k)}", "${analyseBlock(k)}${verbundBlock(k)}", 1)
+        else:
+            sys.exit("Ankerstelle fuer den Verbund nicht gefunden - die Seite hat sich geaendert.")
+        schritte.append("Verbund auf der Firmenseite verdrahtet")
+    s, meldung = _stil(s, "verbund", VERBUND_CSS)
+    schritte.append("Verbund-CSS " + meldung)
+
     # Der Kopf nennt beide Daten: die Berichtszahlen kommen aus der Pipeline,
     # die Kurse taeglich von der Boerse. Sie stimmen nur selten ueberein.
     if KOPF_STAND_ALT in s:
@@ -752,6 +822,7 @@ def eintragen(pruefen=False):
     TX = json.loads(m.group(2))
     TX["t"].update(TEXTE)
     TX["t"].update(FAB_TEXTE)
+    TX["t"].update(VB_TEXTE)
     s = s[:m.start(2)] + json.dumps(TX, ensure_ascii=False, separators=(",", ":")) + s[m.end(2):]
     schritte.append("Texte aktualisiert (%d Schluessel)" % len(TEXTE))
 
