@@ -555,22 +555,24 @@ VERBUND_HILFE = """
 const VERBUND_URL = 'https://mendeltem.github.io/ai_use_cases_overview/deployments.json';
 const VERBUND_BOARD = 'https://mendeltem.github.io/ai_use_cases_overview/';
 const VERBUND_ATLAS = 'https://mendeltem.github.io/Supply_Atlas3D/';
-let verbundDaten = null, verbundLauf = null;
+let verbundDaten = null, verbundWiki = null, verbundLauf = null;
 const verbundFuellen = ()=>{
   if(!verbundLauf) verbundLauf = fetch(VERBUND_URL).then(r=>r.ok?r.json():null)
-    .then(d=>{ verbundDaten = d && d.companies; }).catch(()=>{});
+    .then(d=>{ verbundDaten = d && d.companies; verbundWiki = d && d.wiki; }).catch(()=>{});
   verbundLauf.then(()=>{
     document.querySelectorAll('.verbund[data-k]').forEach(el=>{
       const k = el.dataset.k, c = verbundDaten;
       if(!c){ el.remove(); return; }
       const ucs = Object.keys(c.use_cases||{}).filter(s=>c.use_cases[s].includes(k));
-      const atlas = !!(c.operators && c.operators[k]);
-      if(!ucs.length && !atlas){ el.remove(); return; }
+      const atlas = !!((c.operators && c.operators[k]) || (c.relations && c.relations[k]));
+      const w = verbundWiki, wps = (w && w.companies && w.companies[k]) || [];
+      if(!ucs.length && !atlas && !wps.length){ el.remove(); return; }
       const sp = L==='de' ? 'de' : 'en';
       const name = (s)=> (c.cards && c.cards[s] && c.cards[s][sp]) || s;
       el.innerHTML = `<h4>${T('vb_titel')}</h4>`
         + (atlas ? `<a class="vb-globus" href="${VERBUND_ATLAS}?company=${k}" target="_blank" rel="noopener">&#127757; ${T('vb_atlas')}</a>` : '')
-        + (ucs.length ? `<p class="vb-uc"><span>${T('vb_uc')}</span>${ucs.map(s=>`<a href="${VERBUND_BOARD}#uc=${s}" target="_blank" rel="noopener">${name(s)}</a>`).join('')}</p>` : '');
+        + (ucs.length ? `<p class="vb-uc"><span>${T('vb_uc')}</span>${ucs.map(s=>`<a href="${VERBUND_BOARD}#uc=${s}" target="_blank" rel="noopener">${name(s)}</a>`).join('')}</p>` : '')
+        + (wps.length ? `<p class="vb-uc"><span>${T('vb_wiki')}</span>${wps.map(p=>{ const e = (w.entries||{})[p]; return `<a href="${w.base}${p}" target="_blank" rel="noopener">${e ? (sp==='de' ? e.de : e.en) : p}</a>`; }).join('')}</p>` : '');
       el.removeAttribute('data-k');
     });
   });
@@ -586,12 +588,34 @@ VERBUND_CSS = """
 .verbund .vb-uc{margin:0;line-height:2}
 .verbund .vb-uc span{margin-right:6px;opacity:.75}
 .verbund .vb-uc a{display:inline-block;margin:0 6px 4px 0;padding:2px 9px;border-radius:12px;border:1px solid var(--linie,#d9dde3);text-decoration:none;font-size:12.5px}
+.verbund a{color:var(--akzent,#A81E62)}
+.verbund a:hover{border-color:var(--akzent,#A81E62)}
+"""
+
+# Auf der Uebersicht: neben der Bruecken-Karte zum Use-Case-Board auch der
+# Globus und das Wiki. Steht zwischen Marken und wird bei jedem Lauf ersetzt.
+SCHWESTER_ANKER = """      <span class="g">${T('br_g')}</span>
+    </a>
+"""
+SCHWESTER_AUF, SCHWESTER_ZU = "    <!-- schwester -->\n", "    <!-- ende schwester -->\n"
+SCHWESTER = """    <p class="vb-schwester">
+      <a href="https://mendeltem.github.io/Supply_Atlas3D/" target="_blank" rel="noopener">&#127757; ${T('vb_s_atlas')}</a>
+      <a href="https://github.com/mendeltem/blackbeard_wikki" target="_blank" rel="noopener">&#128218; ${T('vb_s_wiki')}</a>
+    </p>
+"""
+SCHWESTER_CSS = """
+.vb-schwester{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 0}
+.vb-schwester a{padding:5px 11px;border:1px solid var(--linie,#d9dde3);border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;color:var(--akzent,#A81E62);background:var(--flaeche,#fff)}
+.vb-schwester a:hover{border-color:var(--akzent,#A81E62)}
 """
 
 VB_TEXTE = {
     "vb_titel": {"de": "Verbunden mit", "en": "Connected to", "mn": "Холбогдсон"},
     "vb_atlas": {"de": "Standorte auf dem Globus (Supply Atlas)", "en": "Sites on the globe (Supply Atlas)", "mn": "Бөмбөрцөг дээрх байршил (Supply Atlas)"},
     "vb_uc": {"de": "Use Cases:", "en": "Use cases:", "mn": "Хэрэглээ:"},
+    "vb_wiki": {"de": "Hintergrund im Wiki:", "en": "Background in the wiki:", "mn": "Вики:"},
+    "vb_s_atlas": {"de": "Standorte auf dem Globus (Supply Atlas)", "en": "Sites on the globe (Supply Atlas)", "mn": "Бөмбөрцөг дээрх байршил (Supply Atlas)"},
+    "vb_s_wiki": {"de": "Hintergrund-Wiki (Mechanismen, Befunde)", "en": "Background wiki (mechanisms, findings)", "mn": "Суурь вики"},
 }
 
 
@@ -763,6 +787,17 @@ def eintragen(pruefen=False):
         schritte.append("Verbund auf der Firmenseite verdrahtet")
     s, meldung = _stil(s, "verbund", VERBUND_CSS)
     schritte.append("Verbund-CSS " + meldung)
+    neu_s = SCHWESTER_AUF + SCHWESTER + SCHWESTER_ZU
+    if SCHWESTER_AUF in s:
+        s = re.sub(re.escape(SCHWESTER_AUF) + ".*?" + re.escape(SCHWESTER_ZU), lambda _: neu_s, s, count=1, flags=re.S)
+        schritte.append("Schwesterlinks ersetzt")
+    elif SCHWESTER_ANKER in s:
+        s = s.replace(SCHWESTER_ANKER, SCHWESTER_ANKER + neu_s, 1)
+        schritte.append("Schwesterlinks eingefuegt")
+    else:
+        schritte.append("Schwesterlinks: Anker fehlt, uebersprungen")
+    s, meldung = _stil(s, "schwester", SCHWESTER_CSS)
+    schritte.append("Schwester-CSS " + meldung)
 
     # Der Kopf nennt beide Daten: die Berichtszahlen kommen aus der Pipeline,
     # die Kurse taeglich von der Boerse. Sie stimmen nur selten ueberein.
