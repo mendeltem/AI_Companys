@@ -1,5 +1,5 @@
 {
- "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-04.",
+ "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-28.",
  "MU": {
   "quartale": [
    {
@@ -11,6 +11,22 @@
     "operativ": 43751000000.0,
     "netto": 37701000000.0,
     "eps": 32.87
+   }
+  ]
+ },
+ "SKHYNIX": {
+  "anmerkung": "SK hynix reicht bei der SEC seit dem ADR-Boersengang 2026 ein (CIK 0002120882), die Quartalszahlen stehen aber nur in der Pressemitteilung und der Praesentation, nicht im XBRL. Deshalb von Hand.",
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "SK hynix Pressemitteilung",
+    "link": "https://news.skhynix.com/en/q3-2026-business-results/",
+    "umsatz": 104615500000000.0,
+    "brutto": 89969000000000.0,
+    "operativ": 83333800000000.0,
+    "netto": 39775600000000.0,
+    "eps": 54773.0,
+    "anmerkung": "Nettogewinn durch nicht-operativen Verlust von 32,63 Bio Won gedrueckt: Waehrungsverlust 11,63 Bio (gestiegener Won), Bewertungsverlust auf Beteiligungen 22,92 Bio; Steuern 10,93 Bio. Bruttogewinn aus der Bruttomarge von 86 % der Praesentation gerechnet, nicht als Betrag gemeldet. Gewinn je Aktie wie berichtet (Basis). Dividende 20.000 Won je Aktie (10.000 regulaer, 10.000 Sonderdividende Kioxia), Rueckkauf 20 Bio Won, Ausschuettung 2026 rund 100 Bio Won."
    }
   ]
  },
