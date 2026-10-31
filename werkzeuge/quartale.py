@@ -332,6 +332,12 @@ def hand(F):
             continue
         e = F[sym]
         e.update(h.get("setzen", {}))
+        # Eine gesetzte Aktienzahl (etwa nach einem Split) muss auch die
+        # Marktkapitalisierung tragen; kurse.py rechnet sie sonst erst beim
+        # naechsten Kursabruf neu, und bis dahin widersprechen sich Kachel und KGV.
+        if "aktien_zahl" in h.get("setzen", {}) and e.get("kurs"):
+            e["marktkap"] = e["kurs"] * e["aktien_zahl"]
+            e["marktkap_usd"] = e["marktkap"] * (e.get("fx_usd") or 1.0)
         alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
         # Aktiensplit. Der Kurs kommt split-bereinigt von Yahoo, der Gewinn je
         # Aktie aelterer Quartale aber unbereinigt aus dem XBRL - KLA stand
@@ -339,12 +345,14 @@ def hand(F):
         # Geteilt wird nur, wo Nettogewinn durch Gewinn je Aktie eine viel zu
         # kleine Aktienzahl ergibt. Ein Wert, den eine spaetere Einreichung
         # schon bereinigt nachliefert, bleibt so unberuehrt, und ein zweiter
-        # Lauf teilt nicht noch einmal.
+        # Lauf teilt nicht noch einmal. "bis" ist das letzte Quartalsende, das
+        # in Frage kommt - nicht der Tag des Splits: Das Quartal, in dem er
+        # lag, steht aus der Rekonstruktion mit der alten Aktienzahl da.
         sp = h.get("split")
         n_akt = e.get("aktien_zahl")
         if sp and n_akt:
             for z in alt:
-                if (z["ende"] < sp["datum"] and z.get("eps") and z.get("netto")
+                if (z["ende"] <= sp["bis"] and z.get("eps") and z.get("netto")
                         and abs(z["netto"] / z["eps"]) < n_akt / sp["faktor"] ** 0.5):
                     z["eps"] = z["eps"] / sp["faktor"]
                     z["eps_split"] = sp["faktor"]

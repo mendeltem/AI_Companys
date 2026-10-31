@@ -1,5 +1,5 @@
 {
- "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-28.",
+ "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-31.",
  "MU": {
   "quartale": [
    {
@@ -102,6 +102,16 @@
  "AMKR": {
   "quartale": [
    {
+    "ende": "2026-09-30",
+    "quelle": "Amkor Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001047127/000104712726000049/amkr9302026erex-991.htm",
+    "umsatz": 1990557000.0,
+    "brutto": 363529000.0,
+    "operativ": 224711000.0,
+    "netto": 190613000.0,
+    "eps": 0.76
+   },
+   {
     "ende": "2026-06-30",
     "quelle": "Amkor Pressemitteilung",
     "link": "https://www.sec.gov/Archives/edgar/data/0001047127/000104712726000043/amkr6302026erex-991.htm",
@@ -201,9 +211,21 @@
   ]
  },
  "KIOXIA": {
-  "anmerkung": "Die bisherige Reihe aus yfinance enthielt nur Gewinn je Aktie, mit Luecken und unklaren Zeitraeumen. Ersetzt durch die Zahlen aus dem Tanshin; die Summe ueber vier Quartale bleibt leer, bis vier Quartale vorliegen.",
+  "anmerkung": "Die bisherige Reihe aus yfinance enthielt nur Gewinn je Aktie, mit Luecken und unklaren Zeitraeumen. Ersetzt durch die Zahlen aus dem Tanshin; die Summe ueber vier Quartale bleibt leer, bis vier Quartale vorliegen. Aktiensplit 3:1 zum 1.10.2026: Gewinn je Aktie aller Quartale und die Aktienzahl auf die neue Basis umgerechnet (bisherige Aktienzahl mal drei, ohne den Rueckkauf), weil der Kurs von Yahoo schon bereinigt kommt.",
   "ersetzen": true,
   "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Kioxia Kessan Tanshin",
+    "link": "https://www.nikkei.com/nkd/disclosure/tdnr/20261030561535/",
+    "umsatz": 2480035000000.0,
+    "brutto": null,
+    "operativ": 1994710000000.0,
+    "netto": 1355706000000.0,
+    "eps": 836.03,
+    "eps_berechnet": true,
+    "anmerkung": "Der Tanshin nennt nur Halbjahreswerte; das Quartal ist Halbjahr minus erstes Quartal. Gewinn je Aktie: Halbjahr 1.349,33 Yen nach Split laut Bericht, minus erstes Quartal 1.539,91 / 3 - eine Naeherung, weil der Rueckkauf die Aktienzahl im Halbjahr veraendert hat. Bruttogewinn nicht gefunden."
+   },
    {
     "ende": "2026-06-30",
     "quelle": "Kioxia Tanshin",
@@ -212,7 +234,8 @@
     "brutto": 1380100000000.0,
     "operativ": 1270000000000.0,
     "netto": 842200000000.0,
-    "eps": 1539.91
+    "eps": 513.3,
+    "eps_split": 3
    },
    {
     "ende": "2026-03-31",
@@ -222,10 +245,14 @@
     "brutto": 642900000000.0,
     "operativ": 596800000000.0,
     "netto": 407700000000.0,
-    "eps": 745.01,
-    "eps_berechnet": true
+    "eps": 248.34,
+    "eps_berechnet": true,
+    "eps_split": 3
    }
-  ]
+  ],
+  "setzen": {
+   "aktien_zahl": 1641727461
+  }
  },
  "HONHAI": {
   "quartale": [
@@ -266,6 +293,263 @@
     "operativ": -95183000.0,
     "netto": -96995000.0,
     "eps": -0.21
+   }
+  ]
+ },
+ "SAMSUNG": {
+  "anmerkung": "Samsung reicht nicht bei der SEC ein; Quartale aus Pressemitteilung und Ergebnispraesentation.",
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Samsung Ergebnispraesentation",
+    "link": "https://news.samsung.com/global/samsung-electronics-announces-third-quarter-2026-results",
+    "umsatz": 195253200000000.0,
+    "brutto": 135300000000000.0,
+    "operativ": 107440500000000.0,
+    "netto": 75136100000000.0,
+    "eps": 11462.0,
+    "anmerkung": "Erstmals ueber 100 Bio Won operatives Ergebnis, davon 106,5 Bio aus dem Halbleiterbereich (Umsatz 147,1 Bio). Nettogewinn durch ein Finanzergebnis von minus 9,5 Bio Won gedrueckt (Vorquartal plus 4,7), Steuern 23,4 Bio. Bruttogewinn aus der Praesentation, auf 0,1 Bio gerundet. Gewinn je Aktie wie berichtet (Stammaktie, Basis): Samsung verteilt den Gewinn auf Stamm- und Vorzugsaktien. Die aelteren Quartale der Reihe sind Nettogewinn durch Stammaktien und liegen dadurch rund 13 Prozent hoeher - fuer das zweite Quartal berichtet Samsung 10.849 Won, die Reihe fuehrt 12.425."
+   }
+  ]
+ },
+ "SNDK": {
+  "quartale": [
+   {
+    "ende": "2026-10-02",
+    "quelle": "Sandisk Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/2023554/000162828026068243/sndkq1-27ex991xpressrelease.htm",
+    "umsatz": 11031000000.0,
+    "brutto": 9378000000.0,
+    "operativ": 8780000000.0,
+    "netto": 8101000000.0,
+    "eps": 52.6,
+    "anmerkung": "Sonstiges Ergebnis plus 539 Mio $, davon 513 Mio Gewinn aus Wertpapieren; Steuern 1,218 Mrd. Aktiensplit 8:1, Stichtag 9.11.2026, bereinigter Handel ab 20.11.2026: danach muss der Gewinn je Aktie der ganzen Reihe durch 8, sonst stimmt das KGV nicht."
+   }
+  ]
+ },
+ "TSM": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "TSMC Pressemitteilung",
+    "link": "https://pr.tsmc.com/english/news/3346",
+    "umsatz": 1494243000000.0,
+    "brutto": 992379000000.0,
+    "operativ": 876445000000.0,
+    "netto": 763064000000.0,
+    "eps": 29.43
+   }
+  ]
+ },
+ "INTC": {
+  "quartale": [
+   {
+    "ende": "2026-09-26",
+    "quelle": "Intel Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000050863/000005086326000188/q326earningsrelease.htm",
+    "umsatz": 16513000000.0,
+    "brutto": 7096000000.0,
+    "operativ": 2522000000.0,
+    "netto": 3320000000.0,
+    "eps": 0.6,
+    "anmerkung": "Nettogewinn ueber dem operativen: 330 Mio Gewinn aus Beteiligungen und rund 1 Mrd aus der Neubewertung einer Derivatverbindlichkeit (Escrowed Shares); Steuern 462 Mio, Minderheiten 200 Mio."
+   }
+  ]
+ },
+ "UMC": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "UMC Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001033767/000119312526434992/umc-ex99.htm",
+    "umsatz": 74239000000.0,
+    "brutto": 25205000000.0,
+    "operativ": 18643000000.0,
+    "netto": 16433947000.0,
+    "eps": 1.31,
+    "anmerkung": "Gewinn je Aktie verwaessert; unverwaessert 1,32. Der Nettogewinn faellt gegen das Vorquartal, weil dort 30 Mrd TWD Beteiligungsgewinn enthalten waren."
+   }
+  ]
+ },
+ "ASML": {
+  "quartale": [
+   {
+    "ende": "2026-09-27",
+    "quelle": "ASML Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000937966/000162828026065813/pressreleasefinancialresul.htm",
+    "umsatz": 11662000000.0,
+    "brutto": 6699800000.0,
+    "operativ": 5172800000.0,
+    "netto": 4960400000.0,
+    "eps": 12.93,
+    "anmerkung": "Betraege in Euro wie die uebrige Reihe; der Kurs der Seite ist der US-Kurs in Dollar. Im Nettogewinn stecken 509,7 Mio Euro Buchgewinn (vor Steuern) aus der Neubewertung der Mistral-Beteiligung."
+   }
+  ]
+ },
+ "LRCX": {
+  "quartale": [
+   {
+    "ende": "2026-09-27",
+    "quelle": "Lam Research Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000707549/000070754926000052/lrcx_exhibitx991xq1x2027.htm",
+    "umsatz": 8219418000.0,
+    "brutto": 4298853000.0,
+    "operativ": 3283727000.0,
+    "netto": 2753138000.0,
+    "eps": 2.19
+   }
+  ]
+ },
+ "KLAC": {
+  "anmerkung": "Aktiensplit 10:1 am 11.06.2026. Die XBRL-Quartale davor tragen den alten Gewinn je Aktie, der Kurs kommt bereinigt; quartale.py teilt sie ueber den Schluessel split.",
+  "split": {
+   "faktor": 10,
+   "bis": "2026-06-30"
+  },
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "KLA Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000319201/000031920126000032/exhibit991earningsrelease0.htm",
+    "umsatz": 4136015000.0,
+    "brutto": 2558224000.0,
+    "operativ": 1861670000.0,
+    "netto": 1548588000.0,
+    "eps": 1.18,
+    "anmerkung": "KLA weist keine Zeilen fuer Brutto- und Betriebsergebnis aus. Gerechnet als Umsatz minus Herstellkosten (1.577,8 Mio), minus Forschung (395,1) und Vertrieb/Verwaltung (301,5); mit Zinsen und sonstigem Ergebnis trifft das das gemeldete Ergebnis vor Steuern von 1.824,1 Mio genau."
+   }
+  ]
+ },
+ "ASE": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "ASE Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001122411/000095010326016324/dp255760_6k.htm",
+    "umsatz": 244161000000.0,
+    "brutto": 53967000000.0,
+    "operativ": 33142000000.0,
+    "netto": 26996000000.0,
+    "eps": 5.84,
+    "anmerkung": "Gewinn je Aktie verwaessert; unverwaessert 6,13."
+   }
+  ]
+ },
+ "STM": {
+  "quartale": [
+   {
+    "ende": "2026-09-26",
+    "quelle": "STMicroelectronics Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000932787/000093278726000086/c3419c-q326earningspressre.htm",
+    "umsatz": 3757000000.0,
+    "brutto": 1401000000.0,
+    "operativ": 367000000.0,
+    "netto": 291000000.0,
+    "eps": 0.31,
+    "anmerkung": "Operatives Ergebnis nach 55 Mio Wertminderung und Restrukturierung. Das Vorquartal der Reihe stammt aus yfinance und weicht ab: berichtet waren 187 Mio operativ, nicht 245."
+   }
+  ]
+ },
+ "MPWR": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Monolithic Power Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001280452/000162828026068202/mpwr-20260930xexx991.htm",
+    "umsatz": 1202400000.0,
+    "brutto": 665500000.0,
+    "operativ": 357700000.0,
+    "netto": 271100000.0,
+    "eps": 5.51,
+    "anmerkung": "Betraege auf 0,1 Mio gerundet."
+   }
+  ]
+ },
+ "MBLY": {
+  "quartale": [
+   {
+    "ende": "2026-09-26",
+    "quelle": "Mobileye Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001910139/000110465926119830/tm2628197d1_ex99-1.htm",
+    "umsatz": 492000000.0,
+    "brutto": 261000000.0,
+    "operativ": -82000000.0,
+    "netto": -67000000.0,
+    "eps": -0.08,
+    "anmerkung": "Das kleinere Minus im Vorquartal kam aus einer israelischen Forschungsfoerderung von rund 110 Mio, gebucht fuer das ganze Halbjahr."
+   }
+  ]
+ },
+ "VRT": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Vertiv Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm",
+    "umsatz": 4312800000.0,
+    "brutto": 1643400000.0,
+    "operativ": 983800000.0,
+    "netto": 764500000.0,
+    "eps": 1.95
+   }
+  ]
+ },
+ "MSFT": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Microsoft Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0000789019/000119312526436122/msft-ex99_1.htm",
+    "umsatz": 92279000000.0,
+    "brutto": 62559000000.0,
+    "operativ": 45915000000.0,
+    "netto": 36629000000.0,
+    "eps": 4.92,
+    "anmerkung": "Darin 207 Mio Gewinn aus der OpenAI-Beteiligung; im Vorjahresquartal 3,1 Mrd Verlust daraus."
+   }
+  ]
+ },
+ "GOOGL": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Alphabet Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001652044/000165204426000080/googexhibit991q32026.htm",
+    "umsatz": 127577000000.0,
+    "brutto": null,
+    "operativ": 40576000000.0,
+    "netto": 26468000000.0,
+    "eps": 2.12,
+    "anmerkung": "Verlust von 8,7 Mrd auf Beteiligungen, vor allem SpaceX; nach Steuern 6,7 Mrd oder 0,55 $ je Aktie. Nettogewinn vor der Vorzugsdividende von 298 Mio, wie im XBRL; den Stammaktionaeren stehen 26,17 Mrd zu."
+   }
+  ]
+ },
+ "AMZN": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Amazon Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000038/amzn-20260930xex991.htm",
+    "umsatz": 201944000000.0,
+    "brutto": null,
+    "operativ": 28076000000.0,
+    "netto": 20685000000.0,
+    "eps": 1.89
+   }
+  ]
+ },
+ "META": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Meta Pressemitteilung",
+    "link": "https://www.sec.gov/Archives/edgar/data/0001326801/000162828026066700/meta-09302026xexhibit991.htm",
+    "umsatz": 64601000000.0,
+    "brutto": null,
+    "operativ": 12988000000.0,
+    "netto": 9860000000.0,
+    "eps": 3.83,
+    "anmerkung": "Rueckstellung von 9,89 Mrd fuer den Vergleich mit den Generalstaatsanwaelten der Bundesstaaten; ohne sie rund 22,9 Mrd operativ."
    }
   ]
  }

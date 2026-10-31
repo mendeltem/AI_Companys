@@ -123,6 +123,14 @@ auf 12 Millionen statt 10,9 Milliarden Aktien.
 die Klammern nur entfernt, macht aus zwei Verlustquartalen der Speicherkrise
 Gewinne.
 
+**Aktiensplits.** Yahoo liefert die Kursreihe rückwirkend split-bereinigt, das
+XBRL den Gewinn je Aktie älterer Quartale aber auf alter Basis. KLA (10:1 im Juni
+2026) stand so bei einem KGV von 4 statt 40, Kioxia (3:1 im Oktober 2026) bei 2,3
+statt 4,3. In `quartale_hand.json` teilt der Schlüssel `split` (`faktor`, `bis`)
+die betroffenen Quartale, aber nur dort, wo Nettogewinn durch Gewinn je Aktie eine
+viel zu kleine Aktienzahl ergibt; `setzen` mit `aktien_zahl` zieht die
+Marktkapitalisierung nach.
+
 **Broadcom bucht anders.** Der Nettogewinn liegt unter `ProfitLoss`, nicht unter
 `NetIncomeLoss`; letzteres endet dort 2019.
 
