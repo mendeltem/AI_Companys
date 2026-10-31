@@ -333,6 +333,21 @@ def hand(F):
         e = F[sym]
         e.update(h.get("setzen", {}))
         alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
+        # Aktiensplit. Der Kurs kommt split-bereinigt von Yahoo, der Gewinn je
+        # Aktie aelterer Quartale aber unbereinigt aus dem XBRL - KLA stand
+        # nach dem 10:1-Split vom Juni 2026 so bei einem KGV von 4 statt 40.
+        # Geteilt wird nur, wo Nettogewinn durch Gewinn je Aktie eine viel zu
+        # kleine Aktienzahl ergibt. Ein Wert, den eine spaetere Einreichung
+        # schon bereinigt nachliefert, bleibt so unberuehrt, und ein zweiter
+        # Lauf teilt nicht noch einmal.
+        sp = h.get("split")
+        n_akt = e.get("aktien_zahl")
+        if sp and n_akt:
+            for z in alt:
+                if (z["ende"] < sp["datum"] and z.get("eps") and z.get("netto")
+                        and abs(z["netto"] / z["eps"]) < n_akt / sp["faktor"] ** 0.5):
+                    z["eps"] = z["eps"] / sp["faktor"]
+                    z["eps_split"] = sp["faktor"]
         neu = []
         for z in h.get("quartale", []):
             if any(abs(tag(a["ende"]) - tag(z["ende"])) <= 20 for a in alt):
