@@ -339,6 +339,14 @@ def hand(F):
             for z in e.get("quartale", []):
                 if z["ende"] == k["ende"]:
                     z.update({f: v for f, v in k.items() if f != "ende"})
+                    # Margen der Zeile mitziehen. Ohne das traegt eine Zeile, der
+                    # hier ein fehlendes Betriebsergebnis nachgereicht wird (KLA
+                    # weist keines aus), weiter eine leere operative Marge.
+                    if z.get("umsatz"):
+                        for feld, name in (("brutto", "bruttomarge"), ("operativ", "operativmarge"),
+                                           ("netto", "nettomarge")):
+                            if z.get(feld) is not None:
+                                z[name] = z[feld] / z["umsatz"] * 100
         alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
         neu = []
         for z in h.get("quartale", []):
@@ -396,6 +404,17 @@ def main():
         meldungen = hand(F)
         for z in meldungen:
             print(z)
+        # Das Datum "Zahlen" im Kopf der Seite. Ein reiner Handlauf liess es
+        # bisher stehen: Nach dem Nachtrag des dritten Quartals 2026 zeigte die
+        # Seite weiter den 2. Oktober. Angehoben wird nur, nie gesenkt; ein
+        # XBRL-Lauf setzt sein eigenes, juengeres Datum. Gewollte Nebenwirkung:
+        # taeglich_seite.py haelt den naechsten XBRL-Lauf eine Woche ab diesem
+        # Datum zurueck.
+        pfad_hand = os.path.join(b.WURZEL, "quartale_hand.json")
+        hand_stand = json.load(open(pfad_hand, encoding="utf-8")).get("_stand") if os.path.exists(pfad_hand) else None
+        if hand_stand and hand_stand > (D.get("stand") or ""):
+            print("Stand der Zahlen: %s -> %s" % (D.get("stand"), hand_stand))
+            D["stand"] = hand_stand
         if pruefen or not meldungen:
             print("Nichts geschrieben.")
             return 0

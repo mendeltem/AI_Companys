@@ -1,5 +1,6 @@
 {
  "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-11-01.",
+ "_stand": "2026-11-01",
  "MU": {
   "quartale": [
    {
@@ -635,6 +636,12 @@
    {
     "ende": "2018-09-30",
     "eps": 0.254
+   },
+   {
+    "ende": "2026-09-30",
+    "brutto": 2558224000.0,
+    "operativ": 1861670000.0,
+    "anmerkung": "Brutto- und Betriebsergebnis aus der Pressemitteilung gerechnet: KLA weist keine eigenen Zeilen dafuer aus. Umsatz minus Herstellkosten (1.577,8 Mio), minus Forschung (395,1) und Vertrieb/Verwaltung (301,5); mit Zinsen und sonstigem Ergebnis trifft das das gemeldete Ergebnis vor Steuern von 1.824,1 Mio genau. https://www.sec.gov/Archives/edgar/data/0000319201/000031920126000032/exhibit991earningsrelease0.htm"
    }
   ]
  },
@@ -654,5 +661,20 @@
    "aktien_zahl": 824000000,
    "aktien_quelle": "SEC XBRL, gewichteter Durchschnitt beider Klassen"
   }
+ },
+ "VRT": {
+  "anmerkung": "Vertiv fuehrt den Bruttogewinn nicht unter GrossProfit im XBRL; nachgetragen aus Pressemitteilung und 10-Q.",
+  "korrekturen": [
+   {
+    "ende": "2026-09-30",
+    "brutto": 1643400000.0,
+    "anmerkung": "Bruttogewinn 1.643,4 Mio (Umsatz 4.312,8 minus Herstellkosten 2.669,4). https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm"
+   },
+   {
+    "ende": "2026-06-30",
+    "brutto": 1234900000.0,
+    "anmerkung": "Bruttogewinn 1.234,9 Mio laut 10-Q. https://www.sec.gov/Archives/edgar/data/0001674101/000162828026050323/q22026exhibit991vrt07292026.htm"
+   }
+  ]
  }
 }
