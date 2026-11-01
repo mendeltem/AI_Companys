@@ -332,6 +332,13 @@ def hand(F):
             continue
         e = F[sym]
         e.update(h.get("setzen", {}))
+        # Einzelne Felder eines Quartals nach dem Bericht berichtigen, etwa wenn
+        # die Pipeline den Gewinn je Aktie auf der falschen Aktienbasis rechnete.
+        # Der Rest der Zeile bleibt, wie er ist.
+        for k in h.get("korrekturen", []):
+            for z in e.get("quartale", []):
+                if z["ende"] == k["ende"]:
+                    z.update({f: v for f, v in k.items() if f != "ende"})
         alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
         neu = []
         for z in h.get("quartale", []):
