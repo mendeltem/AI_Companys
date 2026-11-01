@@ -1,5 +1,6 @@
 {
  "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-10-31.",
+ "_stand": "2026-10-31",
  "MU": {
   "quartale": [
    {

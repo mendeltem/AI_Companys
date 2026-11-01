@@ -412,6 +412,17 @@ def main():
         meldungen = hand(F)
         for z in meldungen:
             print(z)
+        # Das Datum "Zahlen" im Kopf der Seite. Ohne diesen Schritt stand dort
+        # nach dem Nachtrag des dritten Quartals 2026 weiter der 2. Oktober,
+        # obwohl Zahlen bis Ende Oktober auf der Seite waren. Angehoben wird nur,
+        # nie gesenkt: Ein spaeterer XBRL-Lauf setzt sein eigenes, juengeres
+        # Datum. Nebenwirkung, gewollt: taeglich_seite.py haelt den naechsten
+        # XBRL-Lauf dann eine Woche ab diesem Datum zurueck.
+        pfad_hand = os.path.join(b.WURZEL, "quartale_hand.json")
+        hand_stand = json.load(open(pfad_hand, encoding="utf-8")).get("_stand") if os.path.exists(pfad_hand) else None
+        if hand_stand and hand_stand > (D.get("stand") or ""):
+            print("Stand der Zahlen: %s -> %s" % (D.get("stand"), hand_stand))
+            D["stand"] = hand_stand
         if pruefen or not meldungen:
             print("Nichts geschrieben.")
             return 0
