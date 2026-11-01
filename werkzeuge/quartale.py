@@ -332,30 +332,22 @@ def hand(F):
             continue
         e = F[sym]
         e.update(h.get("setzen", {}))
-        # Eine gesetzte Aktienzahl (etwa nach einem Split) muss auch die
-        # Marktkapitalisierung tragen; kurse.py rechnet sie sonst erst beim
-        # naechsten Kursabruf neu, und bis dahin widersprechen sich Kachel und KGV.
-        if "aktien_zahl" in h.get("setzen", {}) and e.get("kurs"):
-            e["marktkap"] = e["kurs"] * e["aktien_zahl"]
-            e["marktkap_usd"] = e["marktkap"] * (e.get("fx_usd") or 1.0)
+        # Einzelne Felder eines Quartals nach dem Bericht berichtigen, etwa wenn
+        # die Pipeline den Gewinn je Aktie auf der falschen Aktienbasis rechnete.
+        # Der Rest der Zeile bleibt, wie er ist.
+        for k in h.get("korrekturen", []):
+            for z in e.get("quartale", []):
+                if z["ende"] == k["ende"]:
+                    z.update({f: v for f, v in k.items() if f != "ende"})
+                    # Margen der Zeile mitziehen. Ohne das traegt eine Zeile, der
+                    # hier ein fehlendes Betriebsergebnis nachgereicht wird (KLA
+                    # weist keines aus), weiter eine leere operative Marge.
+                    if z.get("umsatz"):
+                        for feld, name in (("brutto", "bruttomarge"), ("operativ", "operativmarge"),
+                                           ("netto", "nettomarge")):
+                            if z.get(feld) is not None:
+                                z[name] = z[feld] / z["umsatz"] * 100
         alt = [] if h.get("ersetzen") else [z for z in e.get("quartale", []) if not z.get("hand")]
-        # Aktiensplit. Der Kurs kommt split-bereinigt von Yahoo, der Gewinn je
-        # Aktie aelterer Quartale aber unbereinigt aus dem XBRL - KLA stand
-        # nach dem 10:1-Split vom Juni 2026 so bei einem KGV von 4 statt 40.
-        # Geteilt wird nur, wo Nettogewinn durch Gewinn je Aktie eine viel zu
-        # kleine Aktienzahl ergibt. Ein Wert, den eine spaetere Einreichung
-        # schon bereinigt nachliefert, bleibt so unberuehrt, und ein zweiter
-        # Lauf teilt nicht noch einmal. "bis" ist das letzte Quartalsende, das
-        # in Frage kommt - nicht der Tag des Splits: Das Quartal, in dem er
-        # lag, steht aus der Rekonstruktion mit der alten Aktienzahl da.
-        sp = h.get("split")
-        n_akt = e.get("aktien_zahl")
-        if sp and n_akt:
-            for z in alt:
-                if (z["ende"] <= sp["bis"] and z.get("eps") and z.get("netto")
-                        and abs(z["netto"] / z["eps"]) < n_akt / sp["faktor"] ** 0.5):
-                    z["eps"] = z["eps"] / sp["faktor"]
-                    z["eps_split"] = sp["faktor"]
         neu = []
         for z in h.get("quartale", []):
             if any(abs(tag(a["ende"]) - tag(z["ende"])) <= 20 for a in alt):
@@ -412,12 +404,12 @@ def main():
         meldungen = hand(F)
         for z in meldungen:
             print(z)
-        # Das Datum "Zahlen" im Kopf der Seite. Ohne diesen Schritt stand dort
-        # nach dem Nachtrag des dritten Quartals 2026 weiter der 2. Oktober,
-        # obwohl Zahlen bis Ende Oktober auf der Seite waren. Angehoben wird nur,
-        # nie gesenkt: Ein spaeterer XBRL-Lauf setzt sein eigenes, juengeres
-        # Datum. Nebenwirkung, gewollt: taeglich_seite.py haelt den naechsten
-        # XBRL-Lauf dann eine Woche ab diesem Datum zurueck.
+        # Das Datum "Zahlen" im Kopf der Seite. Ein reiner Handlauf liess es
+        # bisher stehen: Nach dem Nachtrag des dritten Quartals 2026 zeigte die
+        # Seite weiter den 2. Oktober. Angehoben wird nur, nie gesenkt; ein
+        # XBRL-Lauf setzt sein eigenes, juengeres Datum. Gewollte Nebenwirkung:
+        # taeglich_seite.py haelt den naechsten XBRL-Lauf eine Woche ab diesem
+        # Datum zurueck.
         pfad_hand = os.path.join(b.WURZEL, "quartale_hand.json")
         hand_stand = json.load(open(pfad_hand, encoding="utf-8")).get("_stand") if os.path.exists(pfad_hand) else None
         if hand_stand and hand_stand > (D.get("stand") or ""):
