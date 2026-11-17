@@ -1,5 +1,5 @@
 {
- "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-11-01.",
+ "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-11-17.",
  "MU": {
   "quartale": [
    {
@@ -654,5 +654,22 @@
    "aktien_zahl": 824000000,
    "aktien_quelle": "SEC XBRL, gewichteter Durchschnitt beider Klassen"
   }
+ },
+ "NVDA": {
+  "anmerkung": "Q3 GJ2027 aus der Pressemitteilung vom 17.11.2026; das 10-Q folgt, dann hat das XBRL Vorrang.",
+  "quartale": [
+   {
+    "ende": "2026-10-25",
+    "quelle": "NVIDIA Pressemitteilung",
+    "link": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+    "umsatz": 115844000000.0,
+    "brutto": 86676000000.0,
+    "operativ": 77520000000.0,
+    "netto": 65287000000.0,
+    "eps": 2.7,
+    "aktien": 24186000000,
+    "anmerkung": "Rechenzentrum 107,6 Mrd (+110 % zum Vorjahr), Edge 8,2 Mrd. Ausblick Q4: 130 Mrd +-3 %, mit einer Zusatzwoche, ohne Rechenzentrumsumsatz in China; Bruttomarge 71-72 %."
+   }
+  ]
  }
 }
