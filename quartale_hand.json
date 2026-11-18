@@ -1,5 +1,5 @@
 {
- "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-11-17.",
+ "_hinweis": "Quartale, die weder im SEC-XBRL noch in der Pipeline stehen, von Hand aus Pressemitteilungen nachgetragen. quartale.py traegt sie bei jedem Lauf wieder auf. Ein Quartal aus dem XBRL mit demselben Ende (+-20 Tage) hat Vorrang; der Handeintrag ist dann ueberfluessig und kann geloescht werden. Betraege in ganzen Einheiten der Berichtswaehrung. Stand der Recherche: 2026-11-18.",
  "MU": {
   "quartale": [
    {
@@ -96,6 +96,17 @@
     "operativ": 180000000.0,
     "netto": 104000000.0,
     "eps": 0.18
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "GlobalFoundries Pressemitteilung (Form 6-K vom 04.11.2026)",
+    "link": "https://www.sec.gov/Archives/edgar/data/1709048/000170904826000259/globalfoundries3q2026earni.htm",
+    "umsatz": 1899000000.0,
+    "brutto": 571000000.0,
+    "operativ": 230000000.0,
+    "netto": -270000000.0,
+    "eps": -0.49,
+    "anmerkung": "IFRS. Nettoverlust durch eine nicht zahlungswirksame Belastung von 441 Mio $ aus der Ausgabe von Aktien an die US-Regierung (nicht-operativer Aufwand)."
    }
   ]
  },
@@ -124,6 +135,16 @@
     "operativ": -18421000.0,
     "netto": -18527000.0,
     "eps": -0.08
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "Innoviz Pressemitteilung (Form 6-K vom 12.11.2026)",
+    "link": "https://www.sec.gov/Archives/edgar/data/1835654/000117891326005172/exhibit_99-1.htm",
+    "umsatz": 12098000.0,
+    "brutto": -1241000.0,
+    "operativ": -20917000.0,
+    "netto": -19595000.0,
+    "eps": -0.07
    }
   ]
  },
@@ -197,6 +218,17 @@
     "operativ": -120300000.0,
     "netto": -104300000.0,
     "eps": -0.44
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "Nebius 6-K",
+    "link": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm",
+    "umsatz": 980800000.0,
+    "brutto": null,
+    "operativ": 50400000.0,
+    "netto": -37500000.0,
+    "eps": -0.13,
+    "anmerkung": "Erstmals operativer Gewinn. Nettoverlust u. a. durch 49,5 Mio $ Aufwand aus der vorzeitigen Wandlung von Wandelanleihen."
    }
   ]
  },
@@ -254,6 +286,17 @@
     "operativ": 94800000000.0,
     "netto": 59970000000.0,
     "eps": 4.27
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "Focus Taiwan (CNA) / Foxconn-Mitteilung (iConnect007)",
+    "link": "https://focustaiwan.tw/business/202611120018",
+    "umsatz": 3020000000000.0,
+    "brutto": 181500000000.0,
+    "operativ": 115400000000.0,
+    "netto": 77520000000.0,
+    "eps": 5.51,
+    "anmerkung": "Nur gerundet verfuegbar (Umsatz 3,02 Bio NT$). Bruttogewinn und Betriebsgewinn aus der Foxconn-Mitteilung auf iConnect007; Margen 6,02 / 3,83 / 2,57 % passen zu rund 3,016 Bio NT$ Umsatz."
    }
   ]
  },
@@ -268,6 +311,17 @@
     "operativ": -1000000.0,
     "netto": -122000000.0,
     "eps": -1.22
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "ams OSRAM Ad-hoc-Mitteilung Q3 2026 (EQS, 13.11.2026)",
+    "link": "https://www.finanzwire.com/press-release/eqs-adhoc-ams-osram-ag-ams-osram-delivers-continued-core-growth-despite-mixed-end-market-demand-led-by-strong-opto-semiconductors-bbe8guBLBVb",
+    "umsatz": 829000000.0,
+    "brutto": 220000000.0,
+    "operativ": 416000000.0,
+    "netto": 318000000.0,
+    "eps": 2.97,
+    "anmerkung": "IFRS, ungeprueft, Mio. EUR. Betriebsergebnis und Nettogewinn durch den Verkaufserloes des nicht-optischen Sensorgeschaefts an Infineon (372 Mio EUR) getrieben; bereinigt Nettoverlust -35 Mio EUR. Netto den Aktionaeren zurechenbar; Gewinn je Aktie verwaessert (Basis 3,21)."
    }
   ]
  },
@@ -508,6 +562,17 @@
     "operativ": -4929625,
     "netto": -2586403,
     "eps": -0.0192
+   },
+   {
+    "ende": "2026-09-30",
+    "quelle": "Hesai Pressemitteilung Q3 2026 (Form 6-K vom 10.11.2026), RMB in USD umgerechnet",
+    "link": "https://www.sec.gov/Archives/edgar/data/1861737/000110465926125142/tm2629463d1_ex99-1.htm",
+    "umsatz": 159339697,
+    "brutto": 65360280,
+    "operativ": 9334328,
+    "netto": 12050414,
+    "eps": 0.072,
+    "anmerkung": "Kurs der Meldung 6,7045 RMB je USD (30.09.2026). Gewinn je ADS aus 0,06 RMB je Stammaktie mal acht, also grob gerundet."
    }
   ]
  },
@@ -669,6 +734,50 @@
     "eps": 2.7,
     "aktien": 24186000000,
     "anmerkung": "Rechenzentrum 107,6 Mrd (+110 % zum Vorjahr), Edge 8,2 Mrd. Ausblick Q4: 130 Mrd +-3 %, mit einer Zusatzwoche, ohne Rechenzentrumsumsatz in China; Bruttomarge 71-72 %."
+   }
+  ]
+ },
+ "SONY": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Sony Q2-Ergebnis GJ2026 (Form 6-K vom 05.11.2026)",
+    "link": "https://www.sec.gov/Archives/edgar/data/313838/000110465926122935/tm2628525d4_6k.htm",
+    "umsatz": 3429446000000,
+    "brutto": 1267335000000,
+    "operativ": 622329000000,
+    "netto": 449603000000,
+    "eps": 76.49,
+    "anmerkung": "IFRS, Mio. Yen. Bruttogewinn aus Umsatz minus Herstellkosten (2.162.111 Mio) gerechnet, nicht als Zeile gemeldet. Netto den Aktionaeren der Sony Group zurechenbar, nur fortgefuehrte Geschaefte (Finanzsparte seit 01.10.2025 abgespalten). Gewinn je Aktie verwaessert (Basis 76,88)."
+   }
+  ]
+ },
+ "CERT": {
+  "quartale": [
+   {
+    "ende": "2026-09-30",
+    "quelle": "Certara Pressemitteilung (8-K vom 05.11.2026)",
+    "link": "https://www.sec.gov/Archives/edgar/data/1827090/000182709026000034/q32026earningsreleaseex99.htm",
+    "umsatz": 94901000.0,
+    "operativ": 2324000.0,
+    "netto": 5592000.0,
+    "eps": 0.04,
+    "anmerkung": "GAAP. Kein Bruttogewinn ausgewiesen (Abschreibungen separat). Netto inkl. 9,17 Mio $ aus aufgegebenem Geschaeft (Regulatory/Medical Writing, verkauft 08.05.2026); fortgefuehrt -3,58 Mio $, -0,02 $ je Aktie."
+   }
+  ]
+ },
+ "AMAT": {
+  "quartale": [
+   {
+    "ende": "2026-10-25",
+    "quelle": "Applied Materials Pressemitteilung (8-K vom 12.11.2026)",
+    "link": "https://www.sec.gov/Archives/edgar/data/6951/000162828026073360/exhibit991q42026earningsre.htm",
+    "umsatz": 10409000000.0,
+    "brutto": 5251000000.0,
+    "operativ": 3658000000.0,
+    "netto": 2718000000.0,
+    "eps": 3.4,
+    "anmerkung": "Fiskal-Q4 2026, GAAP, verwaessert (Basis 3,43). Nettogewinn durch 653 Mio $ unrealisierten Verlust auf strategische Beteiligungen gedrueckt."
    }
   ]
  }
