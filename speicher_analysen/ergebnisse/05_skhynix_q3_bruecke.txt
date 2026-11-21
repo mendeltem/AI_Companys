@@ -1,0 +1,30 @@
+1. Bruecke Q3 2026 (Mrd USD bei 1350 KRW/USD)
+   Umsatz 77.5, operativ 61.7 (Marge 79.7%)
+   nicht-operativ -24.2 = Waehrung -8.6 + Beteiligungen -17.0 + Rest +1.4
+   vor Steuern 37.6, Steuern 8.1 (Quote 21.6%), netto 29.46
+   gemeldet netto 29.46, Abweichung -1 Mio USD -> Zeile in sich stimmig
+   Der Rest von +1.92 Bio KRW (+1.4 Mrd USD) ist vermutlich Zinsertrag; im Chat nicht beruecksichtigt.
+
+2. Bereinigter Nettogewinn Q3 2026
+   operativ x (1 - 21,6 %), Chat-Rechnung      48.4 Mrd USD
+   (operativ + Rest) x (1 - 21,6 %)            49.5 Mrd USD
+   operativ x (1 - 23,5 %), Quote aus Q2       47.2 Mrd USD
+   (operativ + Rest) x (1 - 23,5 %)            48.3 Mrd USD
+   Band 47.2 bis 49.5. Die 48 aus dem Chat sind kein oberer Rand: mit dem Zinsrest liegt es bei bis zu 49.5.
+   Offen: ob die Bewertungsverluste steuerlich abziehbar sind. Wenn nicht, war die Quote auf das
+   Kerngeschaeft niedriger als 21,6 % und der bereinigte Gewinn hoeher.
+
+3. 60 Mrd USD netto = 81.0 Bio KRW. Noetige Steuerquote: 2.8% auf operativ allein, 5.0% mit Zinsrest. Geht nicht auf.
+
+4. Nettogewinn / EPS = 726 Mio Aktien (gewichteter Durchschnitt Q3).
+   Die Seite rechnet die Marktkap. mit 709,85 Mio (yfinance). Mit 726 Mio laege sie +2.3% hoeher.
+   Unterschied kann aus Rueckkaeufen nach dem Stichtag kommen; nicht geprueft.
+
+5. KGV bei Marktkap. 577 Mrd USD (Kurs 17.11.2026)
+   gemeldet, Q3 x 4:                 4.90
+   bereinigt, Q3 x 4:                2.98
+   gemeldet, 4 Quartale (2025-12 bis 2026-09):  4.12  (Summe netto 140.2)
+   operativ, 4 Quartale:             3.88  (Summe operativ 148.6)
+   operativ, Q3 x 4:                 2.34
+   Das gemeldete Vierquartals-KGV enthaelt den Kioxia-Ertrag aus Q2 und den Bewertungsverlust aus Q3;
+   beide laufen in entgegengesetzte Richtung und gehoeren nicht ins wiederkehrende Ergebnis.

@@ -1,0 +1,14 @@
+Wafer je HBM-Bit: 3.330 bei 33% HBM4, 3.600 bei 60% HBM4, Mix-Aufschlag +8.1%
+A  feste Wafer, feste HBM-Bits: HBM braucht 1.78 Punkte aller DRAM-Wafer mehr (Anteil 22% -> 23.8% der alten Zufuhr)
+B  TrendForce-implizit: r = 2.85 (2026), 2.87 (2027); mit Mix-Aufschlag waere r 2027 = 3.08
+   Waferanteil 2026 22.0%
+   nur Menge (Bitanteil 9% -> 13%, r fest): 29.9%
+   nur Mix (Bitanteil fest, r 2.85 -> 3.08):  23.4%
+   beides: 31.5%   (TrendForce nennt 30%)
+   Shapley: Menge +8.03 Punkte, Mix +1.51 Punkte, Summe +9.54
+
+Lesart:
+  TrendForce' eigene Zahlen ergeben r 2.85 -> 2.87, also keinen Mix-Effekt im Verhaeltnis.
+  Ihre 30% fuer 2027 sind damit reine Menge (7.9 Punkte).
+  Steigt das Verhaeltnis wie bei Micron, kaeme der Mix obendrauf: 31.5% statt 30%.
+  Die Treppe 2026 -> 2027 besteht zu rund 84% aus Menge.

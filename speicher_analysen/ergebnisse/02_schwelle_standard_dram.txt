@@ -1,0 +1,22 @@
+Waferschwelle: konventionelles DRAM behaelt seine Wafer nur, wenn die Waferzufuhr 2027 um mehr als 11.4% waechst (78% / 70% - 1).
+  mit Mix-Aufschlag (HBM 31.5%): Schwelle 13.9%
+Bitschwelle: konventionelle Bits wachsen nur, wenn alle DRAM-Bits um mehr als 4.6% wachsen.
+
+Waferzufuhr g | konv. Wafer 2027 gg. 2026 | mit Mix-Aufschlag
+    0.0%      |  -10.3%                  |  -12.2%
+    3.0%      |   -7.6%                  |   -9.6%
+    5.0%      |   -5.8%                  |   -7.8%
+    8.0%      |   -3.1%                  |   -5.2%
+   11.4%      |   +0.0%                  |   -2.2%
+   15.0%      |   +3.2%                  |   +0.9%
+
+Bitwachstum G | konv. Bits 2027 | HBM-Bits 2027
+      5%      |  +0.4%          | +51.7%
+     10%      |  +5.2%          | +58.9%
+     15%      |  +9.9%          | +66.1%
+     20%      | +14.7%          | +73.3%
+     25%      | +19.5%          | +80.6%
+
+Lesart: Fuer die Bits reicht schon eine kleine Zahl, die Wafer brauchen zweistellig.
+Die Waferzufuhr waechst nicht beliebig (ASML sieht 2027/28 eine Bestueckungsluecke);
+wo sie liegt, ist offen (Wiki dram-wafer-capacity-by-fab).

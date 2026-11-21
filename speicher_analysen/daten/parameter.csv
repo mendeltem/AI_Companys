@@ -1,0 +1,27 @@
+name,wert,einheit,stand,quelle,tier,link,anmerkung
+kurs_krw_usd,1350,KRW je USD,2026-11-21,Setzung Mendel fuer alle Umrechnungen,setzung,,Die Seite rechnet mit 1335 (fx_usd 0.000749); fester Kurs haelt Wachstumsraten waehrungsfrei
+tausch_hbm3e,3,Wafer je Bit relativ zu DDR5,2026,Micron ueber Fachpresse (TrendForce News; Hot Chips 2026),1b ueber 2,,Link im Chat nicht vermerkt; unklar ob gegen DDR5 im selben Knoten oder gegen den Durchschnitt
+tausch_hbm4,4,Wafer je Bit relativ zu DDR5,2026,Micron ueber Fachpresse,1b ueber 2,,"Micron: gegen 4:1 ueber HBM4 bis HBM4E, also obere Marke"
+hbm_waferanteil_2026,0.22,Anteil an DRAM-Waferzufuhr,Ende 2026,TrendForce,2,https://dramexchange.com/WeeklyResearch/PrinterFriendly/2/12718.html,Link aus Wiki-Eintrag cpu-attached-lpddr-adds-conventional-dram-demand
+hbm_waferanteil_2027,0.30,Anteil an DRAM-Waferzufuhr,Ende 2027,TrendForce,2,https://dramexchange.com/WeeklyResearch/PrinterFriendly/2/12718.html,Samsung EVP Kim Taewoo (Reuters 2026-09-29): nahe 30 % in 2027
+hbm_bitanteil_2026,0.09,Anteil an DRAM-Bits,2026,TrendForce,2,https://dramexchange.com/WeeklyResearch/PrinterFriendly/2/12718.html,auf ganze Prozent gerundet
+hbm_bitanteil_2027,0.13,Anteil an DRAM-Bits,2027,TrendForce,2,https://dramexchange.com/WeeklyResearch/PrinterFriendly/2/12718.html,auf ganze Prozent gerundet
+hbm4_mix_ende_2026,0.33,Anteil HBM4 an HBM-Bits,Ende 2026,Chat 2026-11-21,offen,,Herkunft im Chat nicht vermerkt; siehe pruefungen/p2
+hbm4_mix_2027,0.60,Anteil HBM4 an HBM-Bits,2027,Chat 2026-11-21,offen,,Herkunft im Chat nicht vermerkt; siehe pruefungen/p2
+samsung_hbm4_umsatzanteil_q3_2026,0.60,Anteil HBM4 am HBM-Umsatz,Q3 2026,Samsung Q3 2026 (Call),1a falls aus Call oder Praesentation,,"hier nicht gegen das Dokument geprueft; Umsatz, nicht Stueck"
+preis_hbm4_ask_2027,4.0,USD je Gb,2026-10,Fachpresse (Samsung-Forderung),2,,Forderung ist kein Vertragspreis; aus Wiki-Eintrag second-source-hbm4-arrives-presold
+preis_hbm3e_2027,1.5,USD je Gb,2026-10,Fachpresse,2,,aus Wiki-Eintrag second-source-hbm4-arrives-presold
+bandbreite_b300,8,TB/s je GPU,2025,Nvidia Datenblatt,1b,,
+bandbreite_rubin_alt,22,TB/s je GPU,2026,Nvidia (CES/GTC 2026),1b,,
+bandbreite_rubin_neu,19.2,TB/s je GPU,2026,Chat 2026-11-21 (spaeter gesenkt),offen,,Quelle der Senkung im Chat nicht vermerkt
+tdp_b300,1400,W je GPU,2025,Nvidia ueber Wiki hbm-gb-per-mw-three-generations,1b,,
+tdp_rubin,1800,W je GPU,2026,Wiki hbm-gb-per-mw-three-generations,2,,"als ~1.800 gefuehrt, nicht von Nvidia bestaetigt"
+leistung_je_mw_semianalysis,5.4,Faktor Rubin gegen Blackwell,2026,SemiAnalysis (ein Benchmark),2,,
+leistung_je_mw_nvidia,10,Faktor Rubin gegen Blackwell,2026,Nvidia,1b,,Herstellerangabe unter eigenen Bedingungen
+hbm_gb_b300,288,GB HBM3E je GPU,2025,Nvidia,1b,,
+hbm_gb_rubin,288,GB HBM4 je GPU,2026,Nvidia,1b,,
+lpddr_gb_grace,480,GB LPDDR5X je CPU,2025,Nvidia,1b,,
+lpddr_gb_vera,1500,GB LPDDR5X je CPU (bis zu),2026,Nvidia,1b,,TrendForce Juni 2026: SOCAMM halbiert gemeldet; ausgelieferte Konfiguration offen
+gpu_je_cpu_nvl72,2,GPU je CPU,2026,Nvidia NVL72,1b,,"GB300 und Vera Rubin NVL72 je 36 CPU zu 72 GPU"
+skhynix_marktkap_usd,577,Mrd USD,2026-11-17,"eigen: Kurs 1.098.000 KRW x 709,85 Mio Aktien / 1350",eigen aus yfinance,,EPS impliziert rund 726 Mio Aktien; siehe ergebnisse/05
+steuerquote_skhynix_q2_2026,0.235,effektiv,Q2 2026,Wiki sk-hynix-q2-2026-oneoff-and-tax (abgeleitet aus Pressemitteilung),eigen aus 1a,,

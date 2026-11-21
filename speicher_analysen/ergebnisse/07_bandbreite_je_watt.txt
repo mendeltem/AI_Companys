@@ -1,0 +1,22 @@
+B300: 8.0 TB/s bei 1400 W = 5.71 TB/s je kW
+Rubin 22.0 TB/s bei 1800 W = 12.22 TB/s je kW, Faktor 2.14
+   gegen 5.4x je MW (semianalysis): Bandbreite erklaert 45% (log), Rest Faktor 2.52 aus Rechenformat, NVLink, Batching, Software
+   gegen 10.0x je MW (nvidia): Bandbreite erklaert 33% (log), Rest Faktor 4.68 aus Rechenformat, NVLink, Batching, Software
+Rubin 19.2 TB/s bei 1800 W = 10.67 TB/s je kW, Faktor 1.87
+   gegen 5.4x je MW (semianalysis): Bandbreite erklaert 37% (log), Rest Faktor 2.89 aus Rechenformat, NVLink, Batching, Software
+   gegen 10.0x je MW (nvidia): Bandbreite erklaert 27% (log), Rest Faktor 5.36 aus Rechenformat, NVLink, Batching, Software
+
+HBM-Kapazitaet je MW: B300 205,714 GB, Rubin 160,000 GB (-22%)
+HBM-Waferaequivalent je MW (x Tauschverhaeltnis): B300 617,143, Rubin 640,000 (+3.7%)
+   -> Tausch bei festem Strom ist fuer HBM-Wafer nahezu neutral: weniger GB, aber teurere GB.
+
+Lesart: Die Bandbreite je Watt steigt um den Faktor 1,9 bis 2,1. Das erklaert 27 bis 45 % des
+Gewinns je MW (log), je nach Bandbreitenwert und Quelle des Gesamtfaktors. Die Richtung der These
+traegt, der groessere Teil des Gewinns kommt aber nicht aus dem Speicher. Fuer den Speichermarkt
+zaehlt zudem: je MW verbaut Rubin
+weniger HBM-Kapazitaet als B300. Aufruesten bei festem Strom kauft also mehr Bandbreite,
+nicht mehr Bits je MW. Mehr Bits kommen erst ueber mehr MW oder mehr GB je GPU (Rubin Ultra).
+
+Aufruestschwelle (nicht gerechnet, Eingaben fehlen mit Quelle):
+  Tausch lohnt, wenn (f - 1) x Erloes je MW-Jahr x Restjahre > Capex neu je MW - Restwert alt je MW.
+  Benoetigt: Rack-Preis Rubin je MW, Erloes je MW-Jahr (Tokenpreis), Restwert Blackwell (Gebrauchtmarkt).

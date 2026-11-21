@@ -1,0 +1,50 @@
+NVDA: Quartalsende | Umsatz Mrd USD | Zuwachs Mrd | Zuwachs % | Tage
+  2023-01-29 |     6.0 |   +0.1 |  +2.0% | 91
+  2023-04-30 |     7.2 |   +1.1 | +18.8% | 91
+  2023-07-30 |    13.5 |   +6.3 | +87.9% | 91
+  2023-10-29 |    18.1 |   +4.6 | +34.1% | 91
+  2024-01-28 |    22.1 |   +4.0 | +22.0% | 91
+  2024-04-28 |    26.0 |   +3.9 | +17.8% | 91
+  2024-07-28 |    30.0 |   +4.0 | +15.4% | 91
+  2024-10-27 |    35.1 |   +5.0 | +16.8% | 91
+  2025-01-26 |    39.3 |   +4.2 | +12.1% | 91
+  2025-04-27 |    44.1 |   +4.7 | +12.0% | 91
+  2025-07-27 |    46.7 |   +2.7 |  +6.1% | 91
+  2025-10-26 |    57.0 |  +10.3 | +22.0% | 91
+  2026-01-25 |    68.1 |  +11.1 | +19.5% | 91
+  2026-04-26 |    81.6 |  +13.5 | +19.8% | 91
+  2026-07-26 |    96.2 |  +14.6 | +17.9% | 91
+  2026-10-25 |   115.8 |  +19.6 | +20.4% | 91
+
+Stufe Hopper/fruehes Blackwell (Okt 2023 bis Apr 2025, 7 Quartale): 4.4 Mrd je Quartal
+Uebergang Jul 2025: +2.7
+Stufe GB300 (Okt 2025 bis Jul 2026, 4 Quartale): 12.4 Mrd je Quartal
+Okt 2026 (Rubin beginnt): +19.6
+Ausblick Jan 2027: 130 Mrd fuer 14 Wochen, auf 13 Wochen 120.7: Zuwachs +14.2 nominal, +4.9 auf 13 Wochen
+Bruchkante: Liegen die Zuwaechse in den Quartalen bis Apr und Jul 2027 unter der GB300-Stufe
+(12.4 Mrd), ist es bei Nvidia eine Welle, keine Treppe.
+
+SKHYNIX: Quartalsende | Umsatz Mrd USD | Zuwachs Mrd | Zuwachs % | Tage
+  2024-12-31 |    14.6 |   +1.6 | +12.4% | 92
+  2025-03-31 |    13.1 |   -1.6 | -10.7% | 90
+  2025-06-30 |    16.5 |   +3.4 | +26.0% | 91
+  2025-09-30 |    18.1 |   +1.6 | +10.0% | 92
+  2025-12-31 |    24.3 |   +6.2 | +34.3% | 92
+  2026-03-31 |    39.0 |  +14.6 | +60.2% | 90
+  2026-06-30 |    58.8 |  +19.8 | +50.8% | 91
+  2026-09-30 |    77.5 |  +18.7 | +31.9% | 92
+
+MU: Quartalsende | Umsatz Mrd USD | Zuwachs Mrd | Zuwachs % | Tage
+  2024-11-28 |     8.7 |   +1.0 | +12.4% | 91
+  2025-02-27 |     8.1 |   -0.7 |  -7.6% | 91
+  2025-05-29 |     9.3 |   +1.2 | +15.5% | 91
+  2025-08-28 |    11.3 |   +2.0 | +21.6% | 91
+  2025-11-27 |    13.6 |   +2.3 | +20.6% | 91
+  2026-02-26 |    23.9 |  +10.2 | +74.9% | 91
+  2026-05-28 |    41.5 |  +17.6 | +73.8% | 91
+  2026-09-03 |    54.2 |  +12.8 | +30.8% | 98  14 Wochen; auf 13 Wochen 50.4, Zuwachs +8.9 (+21.5%)
+
+Lesart SK hynix: Zuwaechse Q2 und Q3 2026 fast gleich, die Rate in Prozent faellt trotzdem von 51 auf 32 %.
+Das ist die Arithmetik einer flachen Stufe, kein Abschwung.
+Lesart Micron: Das Quartal bis 03.09.2026 hat 14 Wochen. Auf 13 Wochen sinkt der Zuwachs deutlich;
+die gemeldeten +31 % ueberzeichnen das Quartal um eine Woche.

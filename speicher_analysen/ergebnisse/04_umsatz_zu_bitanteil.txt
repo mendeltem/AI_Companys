@@ -1,0 +1,16 @@
+Samsung Q3 2026: HBM4 = 60% des HBM-Umsatzes
+Preisverhaeltnis p | HBM4-Bitanteil
+  1.00             | 60.0%
+  1.25             | 54.5%
+  1.50             | 50.0%
+  2.00             | 42.9%
+  2.50             | 37.5%
+  2.67             | 36.0%
+  3.00             | 33.3%
+Kipppunkt: mehr HBM4- als HBM3E-Bits nur, wenn p unter 1.50 liegt.
+Fachpresse-Forderung 2027: 4.0 gegen 1.5 USD/Gb, p = 2.67
+Damit Samsungs 60 % Umsatz zu einem Bitanteil von 33% passen (Mix-Annahme Ende 2026), muesste p = 3.05 sein.
+
+Lesart: 60 % Umsatz heissen nicht 60 % Stueck. Bei p zwischen 2 und 3 liegt Samsungs
+HBM4-Bitanteil bei 33 bis 43 %. Samsung ist zudem nicht die Branche: Samsung war bei HBM3E fuer
+Nvidia schwach, ein hoher HBM4-Anteil im eigenen Mix kann aus dem fehlenden HBM3E kommen.

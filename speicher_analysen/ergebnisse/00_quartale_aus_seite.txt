@@ -1,0 +1,7 @@
+Stand der Seite: 2026-11-18 | Kurse: 2026-11-17
+NVDA     20 Quartale, letztes 2026-10-25: Umsatz 115.84 Mrd USD, operativ 77.52, netto 65.29 (von Hand aus Bericht, nicht gegengeprueft)
+SKHYNIX  18 Quartale, letztes 2026-09-30: Umsatz 77.49 Mrd USD, operativ 61.73, netto 29.46 (von Hand aus Bericht, nicht gegengeprueft)
+SAMSUNG  18 Quartale, letztes 2026-09-30: Umsatz 144.67 Mrd USD, operativ 79.56, netto 55.7 (von Hand aus Bericht, nicht gegengeprueft)
+MU       19 Quartale, letztes 2026-09-03: Umsatz 54.23 Mrd USD, operativ 43.75, netto 37.7 (maschinell aus XBRL)
+geschrieben: /home/user/AI_Companys/speicher_analysen/daten/quartale.csv
+SK hynix Kurs 1098000 KRW am 2026-11-17, 709.85 Mio Aktien (yfinance Stammdaten): Marktkap. 779.4 Bio KRW = 577.3 Mrd USD bei 1350
