@@ -18,6 +18,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import berichte as b                                            # noqa: E402
 import wert as W                                                # noqa: E402
+import aktionaere as A                                          # noqa: E402
 
 MARKE = "/* wertung: eingetragen */"
 
@@ -860,6 +861,11 @@ def eintragen(pruefen=False):
     TX["t"].update(VB_TEXTE)
     s = s[:m.start(2)] + json.dumps(TX, ensure_ascii=False, separators=(",", ":")) + s[m.end(2):]
     schritte.append("Texte aktualisiert (%d Schluessel)" % len(TEXTE))
+
+    # Aktionaersstruktur (aktionaere.json): als letzter Schritt, damit ihre
+    # Texte nach dem Neuschreiben des Textblocks noch drinstehen.
+    s, schritte_a = A.eintragen_in(s)
+    schritte += schritte_a
 
     print("Innerer Wert fuer %d von %d Firmen, %d ohne Zahl."
           % (mit, len(daten), len(daten) - mit))

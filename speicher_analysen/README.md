@@ -20,6 +20,7 @@ Arbeitsordner zu Mendels fünf Thesen über HBM, DRAM und die Treppe der Waferka
 | [P3](pruefungen/p3_nvidia_treppe.md) | Nvidia-Treppe seit 2023 | beschreibend bestätigt; „angekündigt“ ungeprüft; Bruchkante 12,4 Mrd | teilweise |
 | [P4](pruefungen/p4_agenten_server_dram.md) | Agentenanteil Server-DRAM | Messgrößen und Kippwerte festgelegt | offen |
 | [P5](pruefungen/p5_skhynix_q3_gegen_bericht.md) | SK hynix Q3 gegen Bericht | in sich stimmig; Bericht hier nicht abrufbar | offen |
+| [A1](ergebnisse/10_aktionaere_seite.txt) | Wem gehört SK hynix, wer kam neu? | Kleinaktionäre 0,59 Mio (Dez 2023) → 3,46 Mio (Jun 2026); Privatanleger kauften Dez 2025 bis Jun 2026 netto 19,4 Mio Aktien zu Ø 1.410 USD, Ausländer verkauften netto 33,1 Mio; Kurs 20.11.: 815 USD. Als Barplot auf der [SK-hynix-Seite](https://mendeltem.github.io/AI_Companys/nvidia-oekosystem.html#/de/SKHYNIX) | Daten 1a (DART) und 2 (Naver/KRX) |
 
 ## Wo die Rechnung von der Übergabe abweicht
 
@@ -44,6 +45,8 @@ Kurz:
         parameter.csv           jede Annahme mit Wert, Stand, Quelle, Tier, Link
         quartale.csv            aus der Seite gezogen (Skript 00), mit Quelle und Prüfstatus je Zeile
         skhynix_q3_2026_bruecke.csv
+        skhynix_dart_aktionaere.csv   Aktienzahl, eigene Aktien, SK Square, NPS, Kleinaktionäre aus 13 DART-Berichten (1a)
+        skhynix_naver_handel.csv      täglicher Ausländeranteil und Nettokäufe je Gruppe, Sep 2023 bis Nov 2026 (Naver/KRX, 2)
       rechnungen/               00 bis 08, linear, ohne main(), jede Zeile druckbar
       ergebnisse/               Ausgabe jedes Skripts als .txt, mit eingecheckt
 
@@ -58,6 +61,8 @@ Kurz:
 | 06_treppe_in_quartalen | Zuwächse je Quartal, Stufen, 14-Wochen-Quartale |
 | 07_bandbreite_je_watt | Bandbreite je W gegen Leistung je MW, HBM-GB und Wafer je MW |
 | 08_cpu_dram_je_gpu | Waferäquivalent je GPU mit CPU-DRAM und Agenten-Servern |
+| 09_aktionaere_holen | holt den täglichen Handel nach Anlegergruppe für SK hynix von Naver (braucht Netz) nach `daten/skhynix_naver_handel.csv` |
+| 10_aktionaere_seite | Aktionärsgruppen alle zwei Monate, Nettokäufe, Einstand; schreibt `aktionaere.json` im Repository, das `werkzeuge/aktionaere.py` auf die Firmenseite setzt |
 
 ## Rechnen
 

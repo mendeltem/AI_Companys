@@ -1,0 +1,49 @@
+stichtag,posten,aktien,bericht,rcpno,tier,anmerkung
+2023-12-31,ausgegeben,728002365,Jahresbericht 2023,20240319000684,1a,
+2024-06-30,ausgegeben,728002365,Halbjahresbericht 2024,20240814001887,1a,
+2024-09-30,ausgegeben,728002365,Quartalsbericht Q3 2024,20241114001712,1a,
+2024-12-31,ausgegeben,728002365,Jahresbericht 2024,20250319000665,1a,
+2025-03-31,ausgegeben,728002365,Quartalsbericht Q1 2025,20250515002103,1a,
+2025-06-30,ausgegeben,728002365,Halbjahresbericht 2025,20250814003049,1a,
+2025-09-30,ausgegeben,728002365,Quartalsbericht Q3 2025,20251114001805,1a,
+2025-12-31,ausgegeben,728002365,Jahresbericht 2025,20260317000635,1a,
+2026-03-31,ausgegeben,712702365,Quartalsbericht Q1 2026,20260515002287,1a,am 09.02.2026 15.300.000 eigene Aktien eingezogen
+2026-06-30,ausgegeben,712702365,Halbjahresbericht 2026,20260814003509,1a,
+2026-09-30,ausgegeben,730492365,Quartalsbericht Q3 2026,20261116001715,1a,am 29.07.2026 17.790.000 neue Aktien fuer die ADR
+2026-11-05,ausgegeben,706799093,Quartalsbericht Q3 2026 (Fussnote),20261116001715,1a,am 05.11.2026 23.693.272 eigene Aktien eingezogen
+2023-12-31,eigene,39863716,Jahresbericht 2023,20240319000684,1a,
+2024-06-30,eigene,39384720,Halbjahresbericht 2024,20240814001887,1a,
+2024-09-30,eigene,38963634,Quartalsbericht Q3 2024,20241114001712,1a,
+2024-12-31,eigene,38963634,Jahresbericht 2024,20250319000665,1a,
+2025-03-31,eigene,37657835,Quartalsbericht Q1 2025,20250515002103,1a,
+2025-06-30,eigene,37590242,Halbjahresbericht 2025,20250814003049,1a,
+2025-09-30,eigene,37547097,Quartalsbericht Q3 2025,20251114001805,1a,
+2025-12-31,eigene,26310845,Jahresbericht 2025,20260317000635,1a,Rueckgang vor allem durch Tausch der Umtauschanleihe von 2023 in eigene Aktien
+2026-03-31,eigene,4405344,Quartalsbericht Q1 2026,20260515002287,1a,
+2026-06-30,eigene,1626865,Halbjahresbericht 2026,20260814003509,1a,
+2026-09-30,eigene,19375769,Quartalsbericht Q3 2026,20261116001715,1a,Rueckkauf ab 20.08.2026: 17.750.000 bis 30.09.
+2026-11-05,eigene,1625769,eigen aus Q3 2026,20261116001715,eigen,"19.375.769 + 5.943.272 (Rueckkauf Okt, Annahme: alle eingezogenen kamen aus dem Rueckkauf) - 23.693.272 eingezogen"
+2023-12-31,sk_square,146133332,Jahresbericht 2023,20240319000684,1a,SK Square 146.100.000 plus nahestehende Personen
+2024-12-31,sk_square,146113064,Jahresbericht 2024,20250319000665,1a,
+2025-12-31,sk_square,146115103,Jahresbericht 2025,20260317000635,1a,
+2026-06-30,sk_square,146124531,Halbjahresbericht 2026,20260814003509,1a,
+2026-09-30,sk_square,146128233,Quartalsbericht Q3 2026,20261116001715,1a,
+2023-08-02,nps,57523599,Jahresbericht 2023 (5-%-Meldung),20240319000684,1a,Stand der letzten Grossaktionaersmeldung; Aenderungen unter 1 Punkt werden nicht gemeldet
+2024-08-02,nps,53933998,Halbjahresbericht 2024 (5-%-Meldung),20240814001887,1a,Meldung 20240805000236
+2024-09-23,nps,53477083,Jahresbericht 2024 (5-%-Meldung),20250319000665,1a,Meldung 20240925000388
+2025-12-31,nps,57439774,Jahresbericht 2025 (Aktienbuch),20260317000635,1a,Halbjahresbericht 2026 nennt denselben Stand zum 31.12.2025
+2023-12-31,kleinaktionaere_anzahl,587776,Jahresbericht 2023,20240319000684,1a,Aktionaere unter 1 % laut Aktienbuch
+2024-06-30,kleinaktionaere_anzahl,561747,Halbjahresbericht 2024,20240814001887,1a,
+2024-12-31,kleinaktionaere_anzahl,780867,Jahresbericht 2024,20250319000665,1a,
+2025-06-30,kleinaktionaere_anzahl,681671,Halbjahresbericht 2025,20250814003049,1a,
+2025-12-31,kleinaktionaere_anzahl,1186328,Jahresbericht 2025,20260317000635,1a,
+2026-06-30,kleinaktionaere_anzahl,3461526,Halbjahresbericht 2026,20260814003509,1a,
+2023-12-31,kleinaktionaere_aktien,454398558,Jahresbericht 2023,20240319000684,1a,
+2024-06-30,kleinaktionaere_aktien,446580570,Halbjahresbericht 2024,20240814001887,1a,
+2024-12-31,kleinaktionaere_aktien,456814819,Jahresbericht 2024,20250319000665,1a,
+2025-06-30,kleinaktionaere_aktien,438708676,Halbjahresbericht 2025,20250814003049,1a,
+2025-12-31,kleinaktionaere_aktien,461120837,Jahresbericht 2025,20260317000635,1a,
+2026-06-30,kleinaktionaere_aktien,484497952,Halbjahresbericht 2026,20260814003509,1a,
+2024-12-09,capital_group,37029665,Jahresbericht 2024 (5-%-Meldung),20250319000665,1a,auslaendisch; steckt im Auslaenderanteil
+2025-12-31,capital_group,36730947,Jahresbericht 2025 (5-%-Meldung),20260317000635,1a,Capital Research and Management; auslaendisch
+2026-02-10,blackrock,36407157,Jahresbericht 2025 (5-%-Meldung),20260317000635,1a,BlackRock Fund Advisors; auslaendisch
