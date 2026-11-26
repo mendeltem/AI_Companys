@@ -25,3 +25,5 @@ lpddr_gb_vera,1500,GB LPDDR5X je CPU (bis zu),2026,Nvidia,1b,,TrendForce Juni 20
 gpu_je_cpu_nvl72,2,GPU je CPU,2026,Nvidia NVL72,1b,,"GB300 und Vera Rubin NVL72 je 36 CPU zu 72 GPU"
 skhynix_marktkap_usd,577,Mrd USD,2026-11-17,"eigen: Kurs 1.098.000 KRW x 709,85 Mio Aktien / 1350",eigen aus yfinance,,EPS impliziert rund 726 Mio Aktien; siehe ergebnisse/05
 steuerquote_skhynix_q2_2026,0.235,effektiv,Q2 2026,Wiki sk-hynix-q2-2026-oneoff-and-tax (abgeleitet aus Pressemitteilung),eigen aus 1a,,
+lagen_gleichstand_3d,75,Zelllagen fuer Dichte wie heutiges 10-nm-DRAM,2026-11-25,"SK hynix (DE Choi Kang-sik, SNU-Forum) ueber The Elec",1b ueber 2,https://www.thelec.net/news/articleView.html?idxno=15925,"Vortrag eines Ingenieurs, kein Firmenplan"
+lagen_erstes_3d_produkt,100,Zelllagen,2026-11-25,"SK hynix (DE Choi Kang-sik) ueber The Elec",1b ueber 2,https://www.thelec.net/news/articleView.html?idxno=15925,Massenfertigung in 4 bis 5 Jahren angestrebt (~2031)

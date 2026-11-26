@@ -10,7 +10,7 @@ Arbeitsordner zu Mendels fünf Thesen über HBM, DRAM und die Treppe der Waferka
 
 | | Frage | Ergebnis bisher | Status |
 |---|---|---|---|
-| [T1](thesen/t1_treppe_statt_welle.md) | Treppe statt Welle | Schritt 2026 → 2027: 84 % Menge, 16 % Mix. Nvidia-Zuwächse bilden eine Treppe (4,4 → 12,4 → 19,6 Mrd je Quartal) | vorschlag |
+| [T1](thesen/t1_treppe_statt_welle.md) | Treppe statt Welle | Schritt 2026 → 2027: 84 % Menge, 16 % Mix. Nvidia-Zuwächse bilden eine Treppe (4,4 → 12,4 → 19,6 Mrd je Quartal). Nach 2030 mit 3D-DRAM: Waferanteil kann steigen, während die Knappheit sinkt; zweiter Messwert nötig | vorschlag |
 | [T2](thesen/t2_engpass_beim_angebot.md) | Engpass beim Angebot | Konv. DRAM verliert Wafer, wenn die Zufuhr 2027 nicht um mehr als 11,4 % wächst; Lage geteilt: Server/HBM angebotsbegrenzt, Konsum preisbegrenzt | vorschlag |
 | [T3](thesen/t3_hbm4_vorrang.md) | 2027 mehr HBM4 als HBM3E | Samsungs 60 % Umsatz entsprechen 33 bis 50 % der Bits; Jahresmittel 2027 etwa 55 %, Q4 2027 etwa 80 % | vorschlag |
 | [T4](thesen/t4_bandbreite_tokens_je_watt.md) | Bandbreite → Tokens/W → Aufrüsten | Bandbreite je W erklärt 27 bis 45 % des Gewinns je MW; HBM-Wafer je MW bleiben beim Tausch fast gleich (+3,7 %) | vorschlag |
@@ -63,6 +63,7 @@ Kurz:
 | 08_cpu_dram_je_gpu | Waferäquivalent je GPU mit CPU-DRAM und Agenten-Servern |
 | 09_aktionaere_holen | holt den täglichen Handel nach Anlegergruppe für SK hynix von Naver (braucht Netz) nach `daten/skhynix_naver_handel.csv` |
 | 10_aktionaere_seite | Aktionärsgruppen alle zwei Monate, Nettokäufe, Einstand; schreibt `aktionaere.json` im Repository, das `werkzeuge/aktionaere.py` auf die Firmenseite setzt |
+| 11_3d_dram_wafer | 3D-DRAM nach 2030: HBM-Waferanteil gegen Wafer für dieselben Bits bei 100, 200, 300 Lagen |
 
 ## Rechnen
 

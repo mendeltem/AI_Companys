@@ -67,6 +67,40 @@ Die Treppe besteht zu 84 % aus Menge, und gerade die Menge kann zurückfallen. N
 2. Ausblick gegen Ist für jedes Nvidia-Quartal seit 2023 ablegen (Pressemitteilungen, Tier 1a). Damit lässt sich „angekündigt“ prüfen.
 3. Prüfung p1 klären: Danach steht fest, ob der HBM-Waferanteil 2027 bei 30 oder bei 31,5 bis 35 % liegt.
 
+## Nach 2030: 3D-DRAM (Stand 2026-11-26)
+
+Anlass: SK hynix strebt 3D-DRAM mit 100 Zelllagen in vier bis fünf Jahren an, also um 2031. Die Dichte des heutigen 10-nm-DRAM erreicht 3D bei etwa 75 Lagen (Vortrag eines SK-hynix-Ingenieurs, The Elec 2026-11-25, Tier 1b über 2). Für 200 bis 300 Lagen braucht es eigene Maschinen.
+
+Thesenzusatz Mendel: Die HBM-Kannibalisierung steigt auch mit 3D-DRAM weiter.
+
+Rechnung ([ergebnisse/11](../ergebnisse/11_3d_dram_wafer.txt)), Ausgang TrendForce 2027 (Bitanteil 13 %, Waferanteil 30 %, r = 2,87):
+
+| Lagen | Bits je Wafer | Fall | HBM-Waferanteil | Wafer für dieselben Bits | nötiges Bitwachstum für gleiche Knappheit |
+|---|---|---|---|---|---|
+| 100 | ×1,33 | nur Standard in 3D | 36 % | 82 % | ×1,21 |
+| 100 | ×1,33 | beide in 3D | 30 % | 75 % | ×1,33 |
+| 200 | ×2,67 | nur Standard in 3D | 53 % | 56 % | ×1,78 |
+| 200 | ×2,67 | beide in 3D | 30 % | 38 % | ×2,67 |
+| 300 | ×4,00 | nur Standard in 3D | 63 % | 48 % | ×2,11 |
+| 300 | ×4,00 | beide in 3D | 30 % | 25 % | ×4,00 |
+
+Trägt: Der Thesenzusatz in der Richtung. Steigt der HBM-Bitanteil weiter, steigt der Waferanteil. Wechselt Standard-DRAM früher auf 3D als HBM, steigt er sogar schneller. Eigene Einschätzung: etwa 60 %, weil gedünnte HBM-Dies mit TSVs und hohem Zellstapel schwerer zu fertigen sind.
+
+Trägt nicht: Knappheit aus dem Anteil allein. Mit 3D laufen beide auseinander. Der Anteil kann von 30 auf über 50 % steigen, während die Branche für dieselben Bits nur noch etwa die Hälfte der Wafer braucht. Für Preise zählt die Waferkapazität gegen die Wafernachfrage, nicht der Anteil.
+
+Deshalb nach 2030 ein zweiter Messwert neben dem Waferanteil:
+
+    Knappheitsgrad = Wafer-Äquivalente der Nachfrage / Waferkapazität
+    Wafer-Äquivalente = Bits_HBM · w_HBM + Bits_Standard · w_Standard   (je Bauart und Lagenzahl)
+
+Die Waferkapazität ist der offene Wiki-Prüfpunkt `dram-wafer-capacity-by-fab`.
+
+Zeitbezug: Für 2027 bis 2029 ändert 3D-DRAM nichts. Dass 3D-DRAM bis Ende 2031 in Serie geht, schätze ich auf etwa 50 %. Bei 3D-NAND lagen zwischen Ankündigung (2007) und Serie (2013) etwa sechs Jahre.
+
+Bruchindikator für den Zusatz: Ein Hersteller bringt HBM auf 3D-Kerndies vor oder gleichzeitig mit Standard-DRAM. Dann bleibt r gleich und der Anteil steigt nur noch über die Menge.
+
+Frühe Signale: Beschluss einer 3D-DRAM-Pilotlinie mit Budget (DART), Bestellungen eigener Stapel- und Ätzmaschinen, ein erstes Produkt mit Kunde.
+
 ## Quellen
 
 | Angabe | Quelle | Tier |
@@ -76,3 +110,4 @@ Die Treppe besteht zu 84 % aus Menge, und gerade die Menge kann zurückfallen. N
 | HBM nahe 30 % der Waferkapazität 2027 | Samsung EVP Kim Taewoo über Reuters, 2026-09-29 | 1b über 2 |
 | Nvidia-Quartale | SEC-XBRL, Q3 GJ2027 Pressemitteilung 2026-11-17 | 1a |
 | HBM4-Mix 33 / 60 % | Chat 2026-11-21, Herkunft nicht vermerkt | offen |
+| 3D-DRAM: 75 Lagen Gleichstand, 100 Lagen erstes Produkt, ~2031 | [The Elec, 2026-11-25](https://www.thelec.net/news/articleView.html?idxno=15925), Vortrag SK-hynix-Ingenieur | 1b über 2 |
