@@ -240,6 +240,12 @@ Keine Anlageberatung. Marktzahlen sind Schätzungen Dritter.
 
 ---
 
+## Dritter Teil: Speicher-Analysen
+
+`speicher_analysen/` ist der Arbeitsordner zu fünf Thesen über HBM und DRAM: Treppe statt Welle, Engpass beim Angebot, HBM4-Vorrang, Bandbreite je Watt, Server-DRAM durch Agenten. Er enthält je These und je offenem Punkt eine Datei, Eingabedaten mit Quelle und Tier, lauffähige Rechnungen und deren Ausgaben. Überblick und Stand: [speicher_analysen/README.md](speicher_analysen/README.md).
+
+---
+
 <a name="english"></a>
 
 ## English

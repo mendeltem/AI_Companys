@@ -1,0 +1,25 @@
+B300 (GB300 NVL72): 288 x 3 + 480 / 2 = 1,104 GB-Aequivalent je GPU
+
+Rubin: CPU-DRAM je GPU | X Agenten-Server je GPU | gesamt | gg. B300 | konventionell am Gesamt
+     375                |     0                   |  1,527 |  +38%   |   25%
+     375                |   250                   |  1,777 |  +61%   |   35%
+     375                |   500                   |  2,027 |  +84%   |   43%
+     375                |  1000                   |  2,527 | +129%   |   54%
+     750                |     0                   |  1,902 |  +72%   |   39%
+     750                |   250                   |  2,152 |  +95%   |   46%
+     750                |   500                   |  2,402 | +118%   |   52%
+     750                |  1000                   |  2,902 | +163%   |   60%
+    1500                |     0                   |  2,652 | +140%   |   57%
+    1500                |   250                   |  2,902 | +163%   |   60%
+    1500                |   500                   |  3,152 | +186%   |   63%
+    1500                |  1000                   |  3,652 | +231%   |   68%
+
+375 = Vera mit halbem SOCAMM bei 1:2, 750 = Vera 1,5 TB bei 1:2, 1500 = Vera 1,5 TB bei 1:1.
+X ist frei gesetzt, nicht gemessen: Spannweite, keine Schaetzung.
+
+Bei 375 GB CPU-DRAM je GPU zieht konventionelles DRAM mit HBM gleich ab X = 777 GB je GPU.
+Bei 750 GB CPU-DRAM je GPU zieht konventionelles DRAM mit HBM gleich ab X = 402 GB je GPU.
+Bei 1500 GB CPU-DRAM je GPU liegt konventionelles DRAM schon ohne Agenten-Server vor HBM.
+
+Lesart: Welche Zeile gilt, entscheiden zwei Zahlen: ausgelieferte Vera-Konfiguration und
+CPU-Server-Stueckzahlen fuer Agenten je installierter GPU.

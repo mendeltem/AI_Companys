@@ -1,0 +1,337 @@
+{
+ "_stand": "2026-11-27",
+ "SKHYNIX": {
+  "stichtage": [
+   "2023-11-30",
+   "2024-01-31",
+   "2024-03-29",
+   "2024-05-31",
+   "2024-07-31",
+   "2024-09-30",
+   "2024-11-29",
+   "2025-01-31",
+   "2025-03-31",
+   "2025-05-30",
+   "2025-07-31",
+   "2025-09-30",
+   "2025-11-28",
+   "2026-01-30",
+   "2026-03-31",
+   "2026-05-29",
+   "2026-07-31",
+   "2026-09-30",
+   "2026-11-27"
+  ],
+  "gesamt": [
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   728.0,
+   712.7,
+   712.7,
+   730.49,
+   730.49,
+   706.8
+  ],
+  "kurs_usd": [
+   99.2,
+   99.8,
+   135.6,
+   140.1,
+   144.1,
+   129.3,
+   118.4,
+   147.6,
+   141.3,
+   151.5,
+   202.6,
+   257.4,
+   392.6,
+   673.3,
+   597.8,
+   1728.1,
+   1272.6,
+   1320.7,
+   823.0
+  ],
+  "gruppen": [
+   {
+    "name": {
+     "de": "SK Square",
+     "en": "SK Square"
+    },
+    "farbe": "#2C6E9E",
+    "werte": [
+     146.13,
+     146.13,
+     146.13,
+     146.13,
+     146.13,
+     146.13,
+     146.13,
+     146.11,
+     146.11,
+     146.11,
+     146.11,
+     146.11,
+     146.11,
+     146.12,
+     146.12,
+     146.12,
+     146.12,
+     146.13,
+     146.13
+    ]
+   },
+   {
+    "name": {
+     "de": "NPS (Rentenkasse)",
+     "en": "NPS (pension fund)"
+    },
+    "farbe": "#4C8A8A",
+    "werte": [
+     57.52,
+     57.52,
+     57.52,
+     57.52,
+     57.52,
+     53.48,
+     53.48,
+     53.48,
+     53.48,
+     53.48,
+     53.48,
+     53.48,
+     53.48,
+     57.44,
+     57.44,
+     57.44,
+     57.44,
+     57.44,
+     57.44
+    ]
+   },
+   {
+    "name": {
+     "de": "Ausländer (inkl. ADR)",
+     "en": "Foreign (incl. ADR)"
+    },
+    "farbe": "var(--akzent)",
+    "werte": [
+     384.46,
+     386.64,
+     398.65,
+     403.97,
+     399.16,
+     393.19,
+     395.23,
+     404.91,
+     402.95,
+     394.87,
+     401.86,
+     403.68,
+     387.37,
+     389.26,
+     375.52,
+     366.61,
+     374.16,
+     363.64,
+     348.31
+    ]
+   },
+   {
+    "name": {
+     "de": "Übrige Inländer (Privat, Institutionen)",
+     "en": "Other domestic (retail, institutions)"
+    },
+    "farbe": "#B07414",
+    "werte": [
+     100.02,
+     97.84,
+     85.83,
+     80.51,
+     85.8,
+     96.23,
+     94.2,
+     84.53,
+     87.81,
+     95.89,
+     88.96,
+     87.19,
+     103.5,
+     108.87,
+     129.22,
+     138.13,
+     151.14,
+     143.91,
+     153.29
+    ]
+   },
+   {
+    "name": {
+     "de": "Eigene Aktien",
+     "en": "Treasury shares"
+    },
+    "farbe": "var(--neutral)",
+    "werte": [
+     39.86,
+     39.86,
+     39.86,
+     39.86,
+     39.38,
+     38.96,
+     38.96,
+     38.96,
+     37.66,
+     37.66,
+     37.59,
+     37.55,
+     37.55,
+     26.31,
+     4.41,
+     4.41,
+     1.63,
+     19.38,
+     1.63
+    ]
+   }
+  ],
+  "netto": [
+   {
+    "name": {
+     "de": "Ausländer",
+     "en": "Foreign"
+    },
+    "farbe": "var(--akzent)",
+    "werte": [
+     0.29,
+     12.05,
+     4.05,
+     -4.69,
+     -5.79,
+     1.01,
+     8.85,
+     0.25,
+     -7.18,
+     5.53,
+     4.99,
+     -24.25,
+     1.43,
+     -17.15,
+     -9.76,
+     -11.0,
+     -10.82,
+     -12.94
+    ]
+   },
+   {
+    "name": {
+     "de": "Institutionen (inkl. NPS)",
+     "en": "Institutions (incl. NPS)"
+    },
+    "farbe": "#5B3FA8",
+    "werte": [
+     -2.02,
+     -6.07,
+     -2.58,
+     -1.56,
+     -0.76,
+     -0.17,
+     -0.13,
+     2.84,
+     4.98,
+     -5.37,
+     1.47,
+     7.2,
+     3.3,
+     3.61,
+     4.54,
+     0.09,
+     -2.38,
+     0.53
+    ]
+   },
+   {
+    "name": {
+     "de": "Privatanleger",
+     "en": "Retail"
+    },
+    "farbe": "#B07414",
+    "werte": [
+     1.64,
+     -6.22,
+     -1.22,
+     5.84,
+     6.54,
+     -0.73,
+     -8.72,
+     -3.05,
+     2.16,
+     -0.18,
+     -6.26,
+     16.37,
+     -5.03,
+     12.96,
+     5.11,
+     10.5,
+     -4.27,
+     -0.61
+    ]
+   }
+  ],
+  "kleinaktionaere": [
+   {
+    "stichtag": "2023-12-31",
+    "anzahl": 587776,
+    "aktien_mio": 454.4
+   },
+   {
+    "stichtag": "2024-06-30",
+    "anzahl": 561747,
+    "aktien_mio": 446.6
+   },
+   {
+    "stichtag": "2024-12-31",
+    "anzahl": 780867,
+    "aktien_mio": 456.8
+   },
+   {
+    "stichtag": "2025-06-30",
+    "anzahl": 681671,
+    "aktien_mio": 438.7
+   },
+   {
+    "stichtag": "2025-12-31",
+    "anzahl": 1186328,
+    "aktien_mio": 461.1
+   },
+   {
+    "stichtag": "2026-06-30",
+    "anzahl": 3461526,
+    "aktien_mio": 484.5
+   }
+  ],
+  "kopf": {
+   "de": "706,8 Mio Aktien am 2026-11-27 · Kleinaktionäre 587.776 (Dez 2023) → 3.461.526 (Jun 2026) · Kurs 99 → 2.162 (Hoch 2026-06-22) → 823 USD",
+   "en": "706.8 m shares on 2026-11-27 · small shareholders 587,776 (Dec 2023) → 3,461,526 (Jun 2026) · price 99 → 2,162 (high 2026-06-22) → 823 USD"
+  },
+  "these": {
+   "de": "Die Zahl der Kleinaktionäre hat sich im ersten Halbjahr 2026 fast verdreifacht, auf 3,46 Mio. Gekauft haben vor allem Privatanleger: von Dez 2025 bis Jun 2026 netto 19,4 Mio Aktien zu durchschnittlich 1.410 USD. Ausländer haben im selben Zeitraum netto 33,1 Mio Aktien abgegeben. Ihr Anteil sank von 55,6 % (2025-01) auf 49,3 %, obwohl die ADR-Aktien hinzukamen. Der Kurs liegt mit 823 USD unter dem Einstand der Privatanleger seit Dez 2025 (1.449 USD für netto 18,7 Mio Aktien). Die Balken zeigen, wer hält, nicht, wie weit der Kurs fällt.",
+   "en": "The number of small shareholders almost tripled in the first half of 2026, to 3.46 m. Retail investors did most of the buying: Dec 2025 to Jun 2026 net 19.4 m shares at an average 1,410 USD, while foreigners sold net 33.1 m. Their share fell from 55.6 % to 49.3 %, despite the ADR shares. At 823 USD the price is below retail's net entry since Dec 2025 (1,449 USD). The bars show who holds, not how far the price can fall."
+  },
+  "hinweis": {
+   "de": "Balkenhöhe: ausgegebene Aktien (DART). SK Square, eigene Aktien: letzter Bericht vor dem Stichtag (DART, Tier 1a). NPS: letzte Großaktionärsmeldung, Änderungen unter 1 Punkt werden nicht gemeldet. Ausländer: KRX-Anteil über Naver (Tier 2) mal gelistete Aktien, mit den ADR-Aktien. Übrige Inländer: Rest. Nettokäufe: Börsenhandel je Gruppe, ohne Umtausch und Ausgabe. Kurs in USD zu festen 1.350 KRW. Einstand: Nettokauf mal Schlusskurs, grob.",
+   "en": "Bar height: shares issued (DART). SK Square, treasury: latest report before the date (DART, tier 1a). NPS: latest 5 % filing, changes below 1 point are not filed. Foreign: KRX share via Naver (tier 2) times listed shares, incl. ADR. Other domestic: remainder. Net purchases: exchange trading by group. Price in USD at a fixed 1,350 KRW."
+  }
+ }
+}

@@ -1,0 +1,17 @@
+Ausgang 2027 (TrendForce): Bitanteil 13%, Waferanteil 30%, r = 2.87
+Gleichstand 3D = 75 Lagen, erstes Produkt 100 Lagen
+
+Lagen | Bits/Wafer | Fall                 |   r   | HBM-Waferanteil | Wafer fuer dieselben Bits | noetiges Bitwachstum fuer gleiche Knappheit
+  100 | x1.33      | nur Standard in 3D   |  3.82 |          36.4%  |                      82%  | x1.21
+  100 | x1.33      | beide in 3D          |  2.87 |          30.0%  |                      75%  | x1.33
+  200 | x2.67      | nur Standard in 3D   |  7.65 |          53.3%  |                      56%  | x1.78
+  200 | x2.67      | beide in 3D          |  2.87 |          30.0%  |                      38%  | x2.67
+  300 | x4.00      | nur Standard in 3D   | 11.47 |          63.2%  |                      48%  | x2.11
+  300 | x4.00      | beide in 3D          |  2.87 |          30.0%  |                      25%  | x4.00
+
+Lesart: Der HBM-Waferanteil kann mit 3D steigen (nur Standard in 3D), waehrend die Branche fuer
+dieselben Bits deutlich weniger Wafer braucht. Ein steigender Anteil zeigt dann keine Knappheit mehr an.
+Zweiter Messwert fuer T1 nach 2030:
+  Knappheitsgrad = Wafer-Aequivalente der Nachfrage / Waferkapazitaet
+  Wafer-Aequivalente = Bits_HBM * w_HBM + Bits_Standard * w_Standard (je Bauart und Lagenzahl)
+  Waferkapazitaet: Wiki-Pruefpunkt dram-wafer-capacity-by-fab, noch offen.

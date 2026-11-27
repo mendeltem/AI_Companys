@@ -1,0 +1,15 @@
+1. TrendForce-implizit: 2026 r = 2.85, 2027 r = 2.87
+2. Rundungsband (Anteile +-0,5 Punkte): 2026 2.61 bis 3.13, 2027 2.68 bis 3.07
+   Micron im Mix: 2026 3.33, 2027 3.60
+   -> Rundung erklaert die Luecke nicht.
+3. Noetiger Dichteabstand k = r_Micron / r_TF: 2026 1.17, 2027 1.26
+   Der konventionelle Durchschnitt muesste 2026 17% weniger Bits je Wafer liefern als der HBM-Knoten,
+   2027 26%. Der Abstand muesste also wachsen: HBM zieht im Knoten davon (HBM4 auf 1c),
+   oder TrendForce rechnet den Mix-Aufschlag nicht ein.
+4. Selbst mit reinem HBM3E (3,0) braucht 2026 einen Abstand von 5%.
+5. Bei r = 3.33 und Bitanteil 13% waere der Waferanteil 2027 33.2% statt 30 %
+5. Bei r = 3.60 und Bitanteil 13% waere der Waferanteil 2027 35.0% statt 30 %
+5. Bei r = 4.00 und Bitanteil 13% waere der Waferanteil 2027 37.4% statt 30 %
+
+Pruefbare Folgerung: Nennt Micron die Bezugsbasis (gleicher Knoten oder Flottenschnitt),
+ist Hypothese 3 entschieden. Nennt TrendForce den HBM4-Anteil hinter den 30 %, ist Hypothese 5 entschieden.
