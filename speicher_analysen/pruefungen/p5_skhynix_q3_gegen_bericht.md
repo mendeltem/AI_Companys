@@ -1,6 +1,10 @@
 # P5 SK hynix Q3 2026 gegen den Originalbericht
 
-Stand 2026-11-21 · Status: **in sich stimmig, gegen den Bericht ungeprüft** · Rechnung: [ergebnisse/05](../ergebnisse/05_skhynix_q3_bruecke.txt)
+Stand 2026-11-27 · Status: **erledigt, gegen den Quartalsbericht bestätigt** · Rechnung: [ergebnisse/05](../ergebnisse/05_skhynix_q3_bruecke.txt)
+
+## Ergebnis 2026-11-27
+
+Gewinn- und Verlustrechnung im Quartalsbericht Q3 2026 bei DART (eingereicht 16.11.2026, rcpNo 20261116001715, Tier 1a), Mio KRW, Juli bis September: Umsatz 104.615.483, operatives Ergebnis 83.333.818, Finanzerträge −20.429.273, Finanzaufwand 12.170.116, Ergebnis vor Steuern 50.708.500, Steuern 10.932.907, Nettogewinn 39.775.593, Gewinn je Aktie 54.773 Won (verwässert 54.454). Die Handzeile stimmt auf die Million Won. Offen bleibt nur die Aktienzahl: Die Marktkapitalisierung der Seite rechnet mit 709,85 Mio (yfinance), umlaufend sind nach der Einziehung vom 05.11. rund 705,2 Mio.
 
 ## Ergebnis der inneren Prüfung
 

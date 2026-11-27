@@ -1,5 +1,5 @@
 {
- "_stand": "2026-11-20",
+ "_stand": "2026-11-27",
  "SKHYNIX": {
   "stichtage": [
    "2023-11-30",
@@ -20,7 +20,7 @@
    "2026-05-29",
    "2026-07-31",
    "2026-09-30",
-   "2026-11-20"
+   "2026-11-27"
   ],
   "gesamt": [
    728.0,
@@ -62,7 +62,7 @@
    1728.1,
    1272.6,
    1320.7,
-   814.8
+   823.0
   ],
   "gruppen": [
    {
@@ -146,7 +146,7 @@
      366.61,
      374.16,
      363.64,
-     349.09
+     348.31
     ]
    },
    {
@@ -174,7 +174,7 @@
      138.13,
      151.14,
      143.91,
-     152.52
+     153.29
     ]
    },
    {
@@ -231,7 +231,7 @@
      -9.76,
      -11.0,
      -10.82,
-     -12.82
+     -12.94
     ]
    },
    {
@@ -258,7 +258,7 @@
      4.54,
      0.09,
      -2.38,
-     0.88
+     0.53
     ]
    },
    {
@@ -285,7 +285,7 @@
      5.11,
      10.5,
      -4.27,
-     0.67
+     -0.61
     ]
    }
   ],
@@ -322,12 +322,12 @@
    }
   ],
   "kopf": {
-   "de": "706,8 Mio Aktien am 2026-11-20 · Kleinaktionäre 587.776 (Dez 2023) → 3.461.526 (Jun 2026) · Kurs 99 → 2.162 (Hoch 2026-06-22) → 815 USD",
-   "en": "706.8 m shares on 2026-11-20 · small shareholders 587,776 (Dec 2023) → 3,461,526 (Jun 2026) · price 99 → 2,162 (high 2026-06-22) → 815 USD"
+   "de": "706,8 Mio Aktien am 2026-11-27 · Kleinaktionäre 587.776 (Dez 2023) → 3.461.526 (Jun 2026) · Kurs 99 → 2.162 (Hoch 2026-06-22) → 823 USD",
+   "en": "706.8 m shares on 2026-11-27 · small shareholders 587,776 (Dec 2023) → 3,461,526 (Jun 2026) · price 99 → 2,162 (high 2026-06-22) → 823 USD"
   },
   "these": {
-   "de": "Die Zahl der Kleinaktionäre hat sich im ersten Halbjahr 2026 fast verdreifacht, auf 3,46 Mio. Gekauft haben vor allem Privatanleger: von Dez 2025 bis Jun 2026 netto 19,4 Mio Aktien zu durchschnittlich 1.410 USD. Ausländer haben im selben Zeitraum netto 33,1 Mio Aktien abgegeben. Ihr Anteil sank von 55,6 % (2025-01) auf 49,4 %, obwohl die ADR-Aktien hinzukamen. Der Kurs liegt mit 815 USD unter dem Einstand der Privatanleger seit Dez 2025 (1.408 USD für netto 19,9 Mio Aktien). Die Balken zeigen, wer hält, nicht, wie weit der Kurs fällt.",
-   "en": "The number of small shareholders almost tripled in the first half of 2026, to 3.46 m. Retail investors did most of the buying: Dec 2025 to Jun 2026 net 19.4 m shares at an average 1,410 USD, while foreigners sold net 33.1 m. Their share fell from 55.6 % to 49.4 %, despite the ADR shares. At 815 USD the price is below retail's net entry since Dec 2025 (1,408 USD). The bars show who holds, not how far the price can fall."
+   "de": "Die Zahl der Kleinaktionäre hat sich im ersten Halbjahr 2026 fast verdreifacht, auf 3,46 Mio. Gekauft haben vor allem Privatanleger: von Dez 2025 bis Jun 2026 netto 19,4 Mio Aktien zu durchschnittlich 1.410 USD. Ausländer haben im selben Zeitraum netto 33,1 Mio Aktien abgegeben. Ihr Anteil sank von 55,6 % (2025-01) auf 49,3 %, obwohl die ADR-Aktien hinzukamen. Der Kurs liegt mit 823 USD unter dem Einstand der Privatanleger seit Dez 2025 (1.449 USD für netto 18,7 Mio Aktien). Die Balken zeigen, wer hält, nicht, wie weit der Kurs fällt.",
+   "en": "The number of small shareholders almost tripled in the first half of 2026, to 3.46 m. Retail investors did most of the buying: Dec 2025 to Jun 2026 net 19.4 m shares at an average 1,410 USD, while foreigners sold net 33.1 m. Their share fell from 55.6 % to 49.3 %, despite the ADR shares. At 823 USD the price is below retail's net entry since Dec 2025 (1,449 USD). The bars show who holds, not how far the price can fall."
   },
   "hinweis": {
    "de": "Balkenhöhe: ausgegebene Aktien (DART). SK Square, eigene Aktien: letzter Bericht vor dem Stichtag (DART, Tier 1a). NPS: letzte Großaktionärsmeldung, Änderungen unter 1 Punkt werden nicht gemeldet. Ausländer: KRX-Anteil über Naver (Tier 2) mal gelistete Aktien, mit den ADR-Aktien. Übrige Inländer: Rest. Nettokäufe: Börsenhandel je Gruppe, ohne Umtausch und Ausgabe. Kurs in USD zu festen 1.350 KRW. Einstand: Nettokauf mal Schlusskurs, grob.",
